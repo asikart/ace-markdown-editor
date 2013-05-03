@@ -79,6 +79,8 @@ class plgEditorAkmarkdown extends JPlugin
         
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js' ) ;
         
+        $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/ace/ace.js' ) ;
+        
         
         // Include CSS
         // ===============================================================
@@ -91,11 +93,21 @@ class plgEditorAkmarkdown extends JPlugin
         
 		$script =
 <<<SC
+<style type="text/css">
+.akmarkdown-wrap { height: 450px; }
+</style>
+
             <script type="text/javascript">
+
+var AKMarkdown = {} ;
+            
+// Init MarkItUp Editor
 var mySettings = {
     nameSpace:          '{$namespace}',
+    targetArea:         '.ace_text-input',
     previewParserPath:  '~/sets/markdown/preview.php',
     onShiftEnter:       {keepDefault:false, openWith:'\\n\\n'},
+    targetArea : '.ace_text-input' ,
     markupSet: [
         {name:'First Level Heading', key:"1", placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '=') } },
         {name:'Second Level Heading', key:"2", placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '-') } },
@@ -115,8 +127,8 @@ var mySettings = {
         {name:'Picture', key:"P", replaceWith:'![[![Alternative text]!]]([![Url:!:http://]!] "[![Title]!]")'},
         {name:'Link', key:"L", openWith:'[', closeWith:']([![Url:!:http://]!] "[![Title]!]")', placeHolder:'Your text to link here...' },
         {separator:'---------------'},    
-        {name:'Quotes', openWith:'> '},
-        {name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)'},
+        {name:'Quotes', openWith:'> ', multiline: true},
+        {name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)', multiline: true},
         {separator:'---------------'},
         {name:'Preview', call:'preview', className:"preview"}
     ]
@@ -135,30 +147,20 @@ miu = {
 }
  
 jQuery(document).ready(function($){
-    $('.akmarkdown').markItUp(mySettings);
-});           
+    
+    
+    // Init ACE Editor
+    var editor = AKMarkdown.ace = ace.edit($('.akmarkdown-wrap')[0] );
+    var session = editor.getSession();
+    //AKMarkdown.ace = new Selection(session);
+    
+    editor.setTheme("ace/theme/twilight");
+    editor.getSession().setMode("ace/mode/markdown");
+    
+    $('.akmarkdown-wrap').markItUp(mySettings);
+    
+});
 
-// Insert Text
-function insertAtCursor(myField, myValue)
-{
-    if (document.selection)
-    {
-        // IE support
-        myField.focus();
-        sel = document.selection.createRange();
-        sel.text = myValue;
-    } else if (myField.selectionStart || myField.selectionStart == '0')
-    {
-        // MOZILLA/NETSCAPE support
-        var startPos = myField.selectionStart;
-        var endPos = myField.selectionEnd;
-        myField.value = myField.value.substring(0, startPos)
-            + myValue
-            + myField.value.substring(endPos, myField.value.length);
-    } else {
-        myField.value += myValue;
-    }
-}
             </script>
 SC;
 
@@ -215,10 +217,13 @@ SC;
 		if (!$done)
 		{
 			$doc = JFactory::getDocument();
-			$js = "\tfunction jInsertEditorText(text, editor)
+			$js =
+<<<JS
+            function jInsertEditorText(text, editor)
 			{
-				insertAtCursor(document.getElementById(editor), text);
-			}";
+				AKMarkdown.ace.insert() ;
+			}
+JS;
 			$doc->addScriptDeclaration($js);
 		}
 
@@ -261,7 +266,7 @@ SC;
 		}
 
 		$buttons = $this->_displayButtons($id, $buttons, $asset, $author);
-		$editor  = "<textarea class=\"akmarkdown\" name=\"$name\" id=\"$id\" cols=\"$col\" rows=\"$row\" style=\"width: $width; height: $height;\">$content</textarea>" . $buttons;
+		$editor  = "<div class=\"akmarkdown-wrap\"></div>" . $buttons;
 
 		return $editor;
 	}

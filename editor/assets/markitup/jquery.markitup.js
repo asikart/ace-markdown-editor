@@ -99,7 +99,7 @@
 			var $$, textarea, levels, scrollPosition, caretPosition, caretOffset,
 				clicked, hash, header, footer, previewWindow, template, iFrame, abort;
 			$$ = $(this);
-			textarea = this;
+			textarea = $('.ace_text-input')[0];
 			levels = [];
 			abort = false;
 			scrollPosition = caretPosition = 0;
@@ -293,7 +293,7 @@
 				var openBlockWith 		= prepare(clicked.openBlockWith);
 				var closeBlockWith 		= prepare(clicked.closeBlockWith);
 				var multiline 			= clicked.multiline;
-				
+				console.log(multiline);
 				if (replaceWith !== "") {
 					block = openWith + replaceWith + closeWith;
 				} else if (selection === '' && placeHolder !== '') {
@@ -305,6 +305,7 @@
 					
 					if (multiline === true) {
 						lines = string.split(/\r?\n/);
+                        console.log(lines);
 					}
 					
 					for (var l = 0; l < lines.length; l++) {
@@ -337,6 +338,7 @@
 				var len, j, n, i;
 				hash = clicked = button;
 				get();
+                selection = AKMarkdown.ace.getCopyText();
 				$.extend(hash, {	line:"", 
 						 			root:options.root,
 									textarea:textarea, 
@@ -439,12 +441,21 @@
 			}
 				
 			// add markup
-			function insert(block) {	
-				if (document.selection) {
-					var newSelection = document.selection.createRange();
-					newSelection.text = block;
+			function insert(block) {
+                var aceSlection = AKMarkdown.ace.getSelection() ;
+                
+				if (!aceSlection.isEmpty()) {
+					
+                    AKMarkdown.ace.insert(block);
+                    
+                    //newSelection.text = block;
 				} else {
-					textarea.value =  textarea.value.substring(0, caretPosition)  + block + textarea.value.substring(caretPosition + selection.length, textarea.value.length);
+                    AKMarkdown.ace.insert(block);
+                    
+                    var backOffset = string.closeWith.length;
+                    aceSlection.moveCursorBy(0, -backOffset);
+                    
+					//textarea.value =  textarea.value.substring(0, caretPosition)  + block + textarea.value.substring(caretPosition + selection.length, textarea.value.length);
 				}
 			}
 
@@ -472,8 +483,8 @@
 				textarea.focus();
 
 				scrollPosition = textarea.scrollTop;
-				if (document.selection) {
-					selection = document.selection.createRange().text;
+				if (!AKMarkdown.ace.getSelection().isEmpty()) {
+					selection = AKMarkdown.ace.getCopyText() ;
 					if (browser.msie) { // ie
 						var range = document.selection.createRange(), rangeCopy = range.duplicate();
 						rangeCopy.moveToElementText(textarea);
