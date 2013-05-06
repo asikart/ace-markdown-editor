@@ -72,9 +72,8 @@
                     type="acetheme"
                     label="PLG_EDITORS_AKMARKDOWN_EDITORS_THEME"
 					description="PLG_EDITORS_AKMARKDOWN_EDITORS_THEME_DESC"
-                    default="twlight"
+                    default="twilight"
 				>
-                    <option value="twilight">JDEFAULT</option>
                 </field>
                 
                 <field
