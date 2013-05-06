@@ -80,6 +80,7 @@ class plgEditorAkmarkdown extends JPlugin
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js' ) ;
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/sets/markdown/set.js' ) ;
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/ace/ace.js' ) ;
+        $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/akmarkdown.js' ) ;
         
         
         // Include CSS
@@ -95,9 +96,13 @@ class plgEditorAkmarkdown extends JPlugin
 </style>
 
 <script type="text/javascript">
-var MIUEditorSetting = [];
-var AKMarkdown = {} ;
-AKMarkdown.ace = [] ;
+
+var AKMarkdown          = new AKMarkdownClass ;
+
+// on Joomla! Save
+window.addEvent('domready', function(){
+    AKMarkdown.overrideSaveAction();
+});
 </script>
 RT;
         
@@ -107,13 +112,13 @@ RT;
 	/**
 	 * Copy editor content to form field.
 	 *
-	 * Not applicable in this editor.
-	 *
 	 * @return  void
 	 */
-	public function onSave()
+	public function onSave($id)
 	{
-		return;
+		return "
+        // onSave
+        document.getElementById('$id').value = AKMarkdown.ace['{$id}'].getValue();\n";
 	}
 
 	/**
@@ -125,7 +130,9 @@ RT;
 	 */
 	public function onGetContent($id)
 	{
-		return "document.getElementById('$id').value;\n";
+		return "
+        // onGetContent
+        AKMarkdown.ace['{$id}'].getValue();\n";
 	}
 
 	/**
@@ -138,7 +145,9 @@ RT;
 	 */
 	public function onSetContent($id, $html)
 	{
-		return "document.getElementById('$id').value = $html;\n";
+		return "
+        // onSetContent
+        document.getElementById('$id').value = $html;\n";
 	}
 
 	/**
@@ -158,7 +167,6 @@ RT;
 <<<JS
             function jInsertEditorText(text, editor)
 			{
-                console.log(editor);
 				AKMarkdown.ace.insert() ;
 			}
 JS;
@@ -199,22 +207,8 @@ JS;
 <<<SC
 
 // Init AKMarkdown Editor "{$id}"
-
 jQuery(document).ready(function($){
-    
-    MIUEditorSetting['{$id}'] = Object.clone(MIUEditorSettingBasic) ;
-    MIUEditorSetting['{$id}'].nameSpace = '{$id}' ;
-    
-    // Init ACE Editor
-    var editor = AKMarkdown.ace['{$id}'] = ace.edit($('#{$id}')[0]);
-    var session = editor.getSession();
-    
-    editor.setTheme("ace/theme/twilight");
-    editor.getSession().setMode("ace/mode/markdown");
-    
-    // Init MarkItUp Editor
-    $('#{$id}').markItUp(MIUEditorSetting['{$id}']);
-    
+    AKMarkdown.createEditor('{$id}', '{$name}') ;
 });
 
 SC;
@@ -234,7 +228,7 @@ SC;
 		}
         
 		$buttons = $this->_displayButtons($id, $buttons, $asset, $author);
-		$editor  = "<div id=\"{$id}\" class=\"akmarkdown-wrap {$id}\"></div>" . $buttons;
+		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\">".$content."</div>" . $buttons;
 
 		return $editor;
 	}

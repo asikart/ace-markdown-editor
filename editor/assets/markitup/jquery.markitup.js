@@ -100,7 +100,7 @@
 				clicked, hash, header, footer, previewWindow, template, iFrame, abort, namespcae, aceEditor;
 			$$          = $(this);
             namespace   = options.nameSpace;
-			textarea    = $('#' + namespace + ' .ace_text-input')[0]; // Hacked by Asikart
+			textarea    = $('#' + namespace + '-wrap .ace_text-input')[0]; // Hacked by Asikart
 			levels      = [];
 			abort       = false;
 			scrollPosition = caretPosition = 0;
@@ -150,7 +150,7 @@
                 
                 // Hacked by Asikart
                 aceEditor   = AKMarkdown.ace[options.nameSpace];
-                textarea    = $('#' + options.nameSpace + ' .ace_text-input')[0];
+                textarea    = $('#' + options.nameSpace + '-wrap .ace_text-input')[0];
 
 				// add the header before the textarea
 				header = $('<div class="markItUpHeader"></div>').insertBefore($$);
@@ -298,7 +298,7 @@
 				var openBlockWith 		= prepare(clicked.openBlockWith);
 				var closeBlockWith 		= prepare(clicked.closeBlockWith);
 				var multiline 			= clicked.multiline;
-				console.log(multiline);
+				
 				if (replaceWith !== "") {
 					block = openWith + replaceWith + closeWith;
 				} else if (selection === '' && placeHolder !== '') {
@@ -310,7 +310,6 @@
 					
 					if (multiline === true) {
 						lines = string.split(/\r?\n/);
-                        console.log(lines);
 					}
 					
 					for (var l = 0; l < lines.length; l++) {
@@ -341,10 +340,12 @@
 			// define markup to insert
 			function markup(button) {
 				var len, j, n, i;
+                var range = aceEditor.getSelection().getRange() ;
 				hash = clicked = button;
 				get();
                 selection = aceEditor.getCopyText();
-				$.extend(hash, {	line:"", 
+                
+				$.extend(hash, {	line: range.end.row - range.start.row + 1,
 						 			root:options.root,
 									textarea:textarea, 
 									selection:(selection||''), 

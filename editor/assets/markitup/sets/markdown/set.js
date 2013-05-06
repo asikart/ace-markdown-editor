@@ -14,7 +14,6 @@ var MIUEditorSettingBasic = {
     targetArea:         '.ace_text-input',
     previewParserPath:  '~/sets/markdown/preview.php',
     onShiftEnter:       {keepDefault:false, openWith:'\\n\\n'},
-    targetArea : '.ace_text-input' ,
     markupSet: [
         {name:'First Level Heading', key:"1", placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '=') } },
         {name:'Second Level Heading', key:"2", placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '-') } },
@@ -26,10 +25,11 @@ var MIUEditorSettingBasic = {
         {name:'Bold', key:"B", openWith:'**', closeWith:'**'},
         {name:'Italic', key:"I", openWith:'_', closeWith:'_'},
         {separator:'---------------' },
-        {name:'Bulleted List', openWith:'- ' },
-        {name:'Numeric List', openWith:function(markItUp) {
+        {name:'Bulleted List', openWith:'- ' , multiline: true},
+        {name:'Numeric List', openWith: function(markItUp) {
+            console.log(markItUp);
             return markItUp.line+'. ';
-        }},
+        }, multiline: true},
         {separator:'---------------' },
         {name:'Picture', key:"P", replaceWith:'![[![Alternative text]!]]([![Url:!:http://]!] "[![Title]!]")'},
         {name:'Link', key:"L", openWith:'[', closeWith:']([![Url:!:http://]!] "[![Title]!]")', placeHolder:'Your text to link here...' },
