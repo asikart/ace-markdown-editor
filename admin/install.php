@@ -89,7 +89,7 @@ CSS;
 		$basePath = JPATH_ADMINISTRATOR ;
         $extension = 'plg_system_akmarkdown' ;
         $lang = JFactory::getLanguage();
-        return $lang->load(strtolower($extension), $basePath, null, false, false)
+        $lang->load(strtolower($extension), $basePath, null, false, false)
             || $lang->load(strtolower($extension), JPATH_PLUGINS . '/' . $this->_type . '/' . $this->_name, null, false, false)
             || $lang->load(strtolower($extension), $basePath, $lang->getDefault(), false, false)
             || $lang->load(strtolower($extension), JPATH_PLUGINS . '/' . $this->_type . '/' . $this->_name, $lang->getDefault(), false, false);
