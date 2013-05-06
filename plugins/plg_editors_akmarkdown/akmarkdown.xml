@@ -76,14 +76,6 @@
                     <option value="twilight">JDEFAULT</option>
                 </field>
                 
-                <field
-                    name="MarkItUp_Theme"
-                    type="markituptheme"
-                    label="PLG_EDITORS_AKMARKDOWN_BUTTONS_THEME"
-					description="PLG_EDITORS_AKMARKDOWN_BUTTONS_THEME_DESC"
-                    default="simple"
-				>
-                </field>
 			</fieldset>
 
 			<fieldset name="advanced">
@@ -95,12 +87,5 @@
 
 		</fields>
 	</config>
-	
-	
-	<updateservers>
-		<!--<server type="collection">http://akmarkdown.com/list.xml</server>-->
-		<server type="extension" priority="1" name="Asikart Akmarkdown Plugin">http://update.asikart.com/plugins/plg_akmarkdown.xml</server>
-	</updateservers>
-	
-	
+		
 </extension>
