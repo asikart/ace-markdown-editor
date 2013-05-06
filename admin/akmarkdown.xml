@@ -8,7 +8,7 @@
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
 	<version>1.0</version>
-	<description>PLG_SYSTEM_AKMARKDOWN_XML_DESCRIPTION</description>
+	<description></description>
 	
 	
 	<scriptfile>install.php</scriptfile>
@@ -45,8 +45,8 @@
 				<field
                     name="Hightlight_Theme"
                     type="highlighttheme"
-                    label="PLG_SYSTEM_AKMARKDOWN_EDITORS_THEME"
-					description="PLG_SYSTEM_AKMARKDOWN_EDITORS_THEME_DESC"
+                    label="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_THEME"
+					description="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_THEME_DESC"
                     default="default"
 				>
                     <option value="default">JDEFAULT</option>
