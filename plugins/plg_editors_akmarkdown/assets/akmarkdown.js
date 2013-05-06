@@ -50,6 +50,8 @@ var AKMarkdownClass = new Class({
     }
     ,
     createEditor : function(id, name){
+        var self = this ;
+        
         this.MIUEditorSetting[id] = Object.clone(MIUEditorSettingBasic) ;
         this.MIUEditorSetting[id].nameSpace = id ;
         
@@ -67,6 +69,7 @@ var AKMarkdownClass = new Class({
         // Init MarkItUp Editor
         jQuery('#'+id+'-wrap').markItUp(this.MIUEditorSetting[id]);
         
+        
         this.i++ ;
     }
     ,
@@ -82,5 +85,5 @@ var AKMarkdownClass = new Class({
             return submitbuttonTmp(task, form);
         };
     }
-    
+
 }) ;

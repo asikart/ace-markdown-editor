@@ -171,6 +171,7 @@
 							};
 							mouseUp = function(e) {
 								$("html").unbind("mousemove.markItUp", mouseMove).unbind("mouseup.markItUp", mouseUp);
+                                aceEditor.resize(true); // Hack by Asikart
 								return false;
 							};
 							$("html").bind("mousemove.markItUp", mouseMove).bind("mouseup.markItUp", mouseUp);
