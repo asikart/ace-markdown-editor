@@ -77,13 +77,14 @@
                     <option value="twilight">JDEFAULT</option>
                 </field>
                 
-			</fieldset>
-
-			<fieldset name="advanced">
-				<field name="include_path" type="text"
-					label="PLG_EDITORS_AKMARKDOWN_INCLUDE_PATH"
-					default="easyset"
-				/>
+                <field
+                    name="MarkItUp_Theme"
+                    type="markituptheme"
+                    label="PLG_EDITORS_AKMARKDOWN_BUTTONS_THEME"
+					description="PLG_EDITORS_AKMARKDOWN_BUTTONS_THEME_DESC"
+                    default="simple"
+				>
+                </field>
 			</fieldset>
 
 		</fields>
