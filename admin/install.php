@@ -96,6 +96,7 @@ CSS;
         
         $img = JURI::root().'plugins/system/akmarkdown/images/akmarkdown-logo.png' ;
         echo JHtml::image($img, 'LOGO') ;
+        echo '<br /><br />' ;
         echo JText::_('PLG_SYSTEM_AKMARKDOWN_XML_DESCRIPTION') ;
         echo '<br /><br />' ;
 		include_once $path.'/windwalker/admin/installscript.php' ;
