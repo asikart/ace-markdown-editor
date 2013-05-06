@@ -54,6 +54,18 @@
                     <option value="1">JYES</option>
                 </field>
                 
+                <field
+                    name="EditorButton_ConvertLink"
+                    type="radio"
+                    label="PLG_EDITORS_AKMARKDOWN_CONVERT_LINK"
+					description="PLG_EDITORS_AKMARKDOWN_CONVERT_LINK_DESC"
+                    default="1"
+                    class="btn-group"
+				>
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
 				<field
                     name="AceEditor_Theme"
                     type="acetheme"
