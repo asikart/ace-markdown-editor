@@ -33,6 +33,7 @@
 		<filename plugin="akmarkdown">akmarkdown.php</filename>
 		<filename>index.html</filename>
 		<filename>install.php</filename>
+        <folder>fields</folder>
         <folder>assets</folder>
 		<folder>language</folder>
 		<folder>lib</folder>

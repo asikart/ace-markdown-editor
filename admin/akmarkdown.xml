@@ -33,6 +33,8 @@
 		<filename plugin="akmarkdown">akmarkdown.php</filename>
 		<filename>index.html</filename>
 		<filename>install.php</filename>
+        <folder>fields</folder>
+        <folder>images</folder>
 		<folder>language</folder>
 		<folder>lib</folder>
         <folder>windwalker</folder>
