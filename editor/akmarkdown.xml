@@ -41,11 +41,25 @@
 	<config>
 		<fields name="params">
 
-			<fieldset name="basic">
-				<field name="field1" type="text"
-					description="Akmarkdown field 1"
-					label="Akmarkdown field 1"
-				/>
+			<fieldset name="basic" addfieldpath="plugins/editors/akmarkdown/fields">
+				<field
+                    name="AceEditor_Theme"
+                    type="acetheme"
+                    label="PLG_EDITORS_AKMARKDOWN_EDITORS_THEME"
+					description="PLG_EDITORS_AKMARKDOWN_EDITORS_THEME_DESC"
+                    default="twlight"
+				>
+                    <option value="twilight">JDEFAULT</option>
+                </field>
+                
+                <field
+                    name="MarkItUp_Theme"
+                    type="markituptheme"
+                    label="PLG_EDITORS_AKMARKDOWN_BUTTONS_THEME"
+					description="PLG_EDITORS_AKMARKDOWN_BUTTONS_THEME_DESC"
+                    default="simple"
+				>
+                </field>
 			</fieldset>
 
 			<fieldset name="advanced">

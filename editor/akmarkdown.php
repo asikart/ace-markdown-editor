@@ -68,7 +68,7 @@ class plgEditorAkmarkdown extends JPlugin
         $app    = JFactory::getApplication() ;
         $doc    = JFactory::getDocument();
         $user   = JFactory::getUser() ;
-        $namespace = uniqid();
+        $params = $this->params ;
         
         // Include JS
         // ===============================================================
@@ -86,8 +86,10 @@ class plgEditorAkmarkdown extends JPlugin
         // Include CSS
         // ===============================================================
         //$doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/images/style.css' ) ;
-        $doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/skins/simple/style.css' ) ;
+        $doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/skins/'.$params->get('MarkItUp_Theme', 'simple').'/style.css' ) ;
         $doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/sets/markdown/style.css' ) ;
+        
+        
         
         $return =
 <<<RT
@@ -97,7 +99,11 @@ class plgEditorAkmarkdown extends JPlugin
 
 <script type="text/javascript">
 
-var AKMarkdown          = new AKMarkdownClass ;
+var AKMarkdownOption = {
+    aceTheme : '{$params->get('AceEditor_Theme', 'twilight')}'
+};
+
+var AKMarkdown  = new AKMarkdownClass(AKMarkdownOption) ;
 
 // on Joomla! Save
 window.addEvent('domready', function(){
