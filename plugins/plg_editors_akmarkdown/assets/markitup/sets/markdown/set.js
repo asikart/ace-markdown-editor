@@ -48,6 +48,6 @@ miu = {
         for(i = 0; i < n; i++) {
             heading += char;
         }
-        return '\\n'+heading+'\\n';
+        return '\n'+heading+'\n';
     }
 }
