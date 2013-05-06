@@ -93,6 +93,11 @@ class plgSystemAkmarkdownInstallerScript
 CSS;
         
 		echo $css ;
+        
+        $img = JURI::root(true).'plugins/system/images/akmarkdown-logo.png' ;
+        echo JHtml::_($img, 'LOGO') ;
+        echo JText::_('PLG_SYSTEM_AKMARKDOWN_XML_DESCRIPTION') ;
+        echo '<br /><br />' ;
 		include_once $path.'/windwalker/admin/installscript.php' ;
 	}
 	
