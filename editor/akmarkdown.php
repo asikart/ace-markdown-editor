@@ -116,9 +116,7 @@ RT;
 	 */
 	public function onSave($id)
 	{
-		return "
-        // onSave
-        document.getElementById('$id').value = AKMarkdown.ace['{$id}'].getValue();\n";
+		return "document.getElementById(editor).value = AKMarkdown.ace['{$id}'].getValue();\n";
 	}
 
 	/**
@@ -130,9 +128,7 @@ RT;
 	 */
 	public function onGetContent($id)
 	{
-		return "
-        // onGetContent
-        AKMarkdown.ace['{$id}'].getValue();\n";
+		return "AKMarkdown.ace[editor].getValue();\n";
 	}
 
 	/**
@@ -145,9 +141,7 @@ RT;
 	 */
 	public function onSetContent($id, $html)
 	{
-		return "
-        // onSetContent
-        document.getElementById('$id').value = $html;\n";
+		return "document.getElementById(editor).value = $html;\n";
 	}
 
 	/**
@@ -167,7 +161,8 @@ RT;
 <<<JS
             function jInsertEditorText(text, editor)
 			{
-				AKMarkdown.ace.insert() ;
+				AKMarkdown.ace[editor].insert(text) ;
+                AKMarkdown.ace[editor].focus();
 			}
 JS;
 			$doc->addScriptDeclaration($js);

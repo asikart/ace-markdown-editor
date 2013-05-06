@@ -19,7 +19,7 @@ var AKMarkdownClass = new Class({
         
         editor.setTheme("ace/theme/twilight");
         editor.getSession().setMode("ace/mode/markdown");
-        
+        editor.getSession().setUseWrapMode(true);
         
         textInput.set('id', id) ;
         textInput.set('name', name) ;

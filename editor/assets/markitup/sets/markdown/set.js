@@ -27,7 +27,6 @@ var MIUEditorSettingBasic = {
         {separator:'---------------' },
         {name:'Bulleted List', openWith:'- ' , multiline: true},
         {name:'Numeric List', openWith: function(markItUp) {
-            console.log(markItUp);
             return markItUp.line+'. ';
         }, multiline: true},
         {separator:'---------------' },
