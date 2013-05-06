@@ -122,7 +122,7 @@ RT;
 	 */
 	public function onSave($id)
 	{
-		return "document.getElementById(editor).value = AKMarkdown.ace['{$id}'].getValue();\n";
+		return "document.getElementById('{$id}').value = AKMarkdown.ace['{$id}'].getValue();\n";
 	}
 
 	/**
@@ -134,7 +134,7 @@ RT;
 	 */
 	public function onGetContent($id)
 	{
-		return "AKMarkdown.ace[editor].getValue();\n";
+		return "AKMarkdown.ace['{$id}'].getValue();\n";
 	}
 
 	/**
@@ -147,7 +147,7 @@ RT;
 	 */
 	public function onSetContent($id, $html)
 	{
-		return "document.getElementById(editor).value = $html;\n";
+		return "document.getElementById('{$id}').value = $html;\n";
 	}
 
 	/**

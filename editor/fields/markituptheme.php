@@ -59,4 +59,17 @@ class JFormFieldMarkituptheme extends JFormFieldList
  
         return $options;
     }
+    
+    /**
+     * Method to get the field input markup.
+     *
+     * @return  string  The field input markup.
+     *
+     * @since   11.1
+     */
+    public function getInput()
+    {
+        $a = '  <a href="http://markitup.jaysalvat.com/examples/" target="_blank">'.JText::_('JHELP').'</a>' ;
+        return parent::getInput(). $a ;
+    }
 }

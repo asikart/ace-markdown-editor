@@ -19,7 +19,7 @@ JFormHelper::loadFieldClass('list');
  * @subpackage  Form
  * @since       11.1
  */
-class JFormFieldAcetheme extends JFormFieldList
+class JFormFieldHighlighttheme extends JFormFieldList
 {
     /**
      * The form field type.
@@ -27,7 +27,7 @@ class JFormFieldAcetheme extends JFormFieldList
      * @var    string 
      * @since  11.1
      */
-    public $type = 'Acetheme';
+    public $type = 'Highlighttheme';
  
     /**
      * Method to get the field options for category
@@ -45,11 +45,11 @@ class JFormFieldAcetheme extends JFormFieldList
         $options = array();
         $name = (string) $this->element['name'];
  
-        $files = JFolder::files(dirname(__FILE__).'/../assets/ace');
+        $files = JFolder::files(AKPATH_ROOT.'/assets/js/highlight/styles');
         
         foreach( $files as $file ):
-            if( strpos($file, 'theme') === 0 ) {
-                $file = str_replace( array('theme-', '.js'), '', $file ) ;
+            if( strpos($file, '.css') !== false ) {
+                $file = str_replace( '.css', '', $file ) ;
                 $options[] = JHtml::_(
                     'select.option', $file,
                     $file, 'value', 'text'
@@ -72,7 +72,8 @@ class JFormFieldAcetheme extends JFormFieldList
      */
     public function getInput()
     {
-        $a = '  <a href="https://github.com/ajaxorg/ace/tree/master/lib/ace/theme" target="_blank">'.JText::_('JHELP').'</a>' ;
+        $a = '  <a href="http://softwaremaniacs.org/media/soft/highlight/test.html" target="_blank">'.JText::_('JHELP').'</a>' ;
         return parent::getInput(). $a ;
     }
+    
 }
