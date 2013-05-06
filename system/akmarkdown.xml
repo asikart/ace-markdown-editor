@@ -56,6 +56,9 @@
 		</fields>
 	</config>
 	
+    <plugins>
+        <plugin>plg_editor_akmarkdown</plugin>
+    </plugins>
 	
 	<updateservers>
 		<!--<server type="collection">http://akmarkdown.com/list.xml</server>-->
