@@ -512,6 +512,8 @@
 
 			// open preview window
 			function preview() {
+                $$.val( aceEditor.getValue() );
+                
 				if (typeof options.previewHandler === 'function') {
 					previewWindow = true;
 				} else if (options.previewInElement) {

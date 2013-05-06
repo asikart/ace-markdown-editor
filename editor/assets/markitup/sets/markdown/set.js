@@ -12,7 +12,7 @@
 // -------------------------------------------------------------------
 var MIUEditorSettingBasic = {
     targetArea:         '.ace_text-input',
-    previewParserPath:  '~/sets/markdown/preview.php',
+    previewParserPath:  'index.php?akmarkdown=preview&sets=markdown',
     onShiftEnter:       {keepDefault:false, openWith:'\\n\\n'},
     markupSet: [
         {name:'First Level Heading', key:"1", placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '=') } },

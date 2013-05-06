@@ -64,7 +64,15 @@ class plgSystemAkmarkdown extends JPlugin
 	
 	public function onAfterInitialise()
 	{
-		
+		$akmarkdown = JRequest::getVar('akmarkdown') ;
+        
+        if( $akmarkdown ) {
+            
+            $post = JRequest::get('post') ;
+            echo $this->render($post['data']);
+            
+            jexit();
+        }
 	}
     
 	
@@ -88,19 +96,27 @@ class plgSystemAkmarkdown extends JPlugin
 	{
 		$app = JFactory::getApplication();
 		
-		// Code here
-        if( AKMARKDOWN_ENABLED ){
-            $article->text = AKHelper::_('html.markdown', $article->text);
-            AKHelper::_('html.highlight', $this->params->get('Hightlight_Theme', 'default'));
-        }else{
-            $article->text = nl2br($article->text);
-        }
-		
+		$article->text = $this->render( $article->text );
+        
 		if( $path = $this->includeEvent(__FUNCTION__) ) @include $this->includeEvent(__FUNCTION__);
 	}
 	
     
-	
+	/**
+     * function render
+     * @param $text
+     */
+    public function render($text)
+    {
+        if( AKMARKDOWN_ENABLED ){
+            $text = AKHelper::_('html.markdown', $text);
+            AKHelper::_('html.highlight', $this->params->get('Hightlight_Theme', 'default'));
+        }else{
+            $text = nl2br($text);
+        }
+        
+        return $text ;
+    }
 	
 	
 	// AKFramework Functions
