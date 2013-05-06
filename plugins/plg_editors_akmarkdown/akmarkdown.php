@@ -301,15 +301,24 @@ SC;
 				// Results should be an object
 				if ($button->get('name'))
 				{
-					$modal		= ($button->get('modal')) ? 'class="modal-button btn"' : null;
+					$modal		= ($button->get('modal')) ? ' class="modal-button btn"' : null;
 					$href		= ($button->get('link')) ? 'class="btn" href="'.JURI::base().$button->get('link').'"' : null;
 					$onclick	= ($button->get('onclick')) ? 'onclick="'.$button->get('onclick').'"' : null;
 					$title      = ($button->get('title')) ? $button->get('title') : $button->get('text');
-					$return .= "<a ".$modal." title=\"".$title."\" ".$href." ".$onclick." rel=\"".$button->get('options')."\"><i class=\"icon-".$button->get('name')."\"></i> ".$button->get('text')."</a>\n";
+                    
+                    if(JVERSION >= 3) {
+                        $return .= "<a ".$modal." title=\"".$title."\" ".$href." ".$onclick." rel=\"".$button->get('options')."\"><i class=\"icon-".$button->get('name')."\"></i> ".$button->get('text')."</a>\n";
+                    }else{
+                        $return .= '<div class="button2-left"><div class="' . $button->get('name')
+						. '"><a' . $modal . ' title="' . $title . '"' . $href . $onclick . ' rel="' . $button->get('options')
+						. '">' . $button->get('text') . "</a></div></div>\n";
+                    }
 				}
 			}
-
-			$return .= "</div>\n";
+            
+            if(JVERSION >= 3) {
+                $return .= "</div>\n";
+            }
 			$return .= "</div>\n";
 			$return .= "<div class=\"clearfix\"></div>\n";
 		}
