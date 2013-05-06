@@ -97,11 +97,12 @@
 
 		return this.each(function() {
 			var $$, textarea, levels, scrollPosition, caretPosition, caretOffset,
-				clicked, hash, header, footer, previewWindow, template, iFrame, abort;
-			$$ = $(this);
-			textarea = $('.ace_text-input')[0];
-			levels = [];
-			abort = false;
+				clicked, hash, header, footer, previewWindow, template, iFrame, abort, namespcae, aceEditor;
+			$$          = $(this);
+            namespace   = options.nameSpace;
+			textarea    = $('#' + namespace + ' .ace_text-input')[0]; // Hacked by Asikart
+			levels      = [];
+			abort       = false;
 			scrollPosition = caretPosition = 0;
 			caretOffset = -1;
 
@@ -146,6 +147,10 @@
 				$$.wrap('<div '+id+' class="markItUp"></div>');
 				$$.wrap('<div class="markItUpContainer"></div>');
 				$$.addClass("markItUpEditor");
+                
+                // Hacked by Asikart
+                aceEditor   = AKMarkdown.ace[options.nameSpace];
+                textarea    = $('#' + options.nameSpace + ' .ace_text-input')[0];
 
 				// add the header before the textarea
 				header = $('<div class="markItUpHeader"></div>').insertBefore($$);
@@ -338,7 +343,7 @@
 				var len, j, n, i;
 				hash = clicked = button;
 				get();
-                selection = AKMarkdown.ace.getCopyText();
+                selection = aceEditor.getCopyText();
 				$.extend(hash, {	line:"", 
 						 			root:options.root,
 									textarea:textarea, 
@@ -442,15 +447,15 @@
 				
 			// add markup
 			function insert(block) {
-                var aceSlection = AKMarkdown.ace.getSelection() ;
+                var aceSlection = aceEditor.getSelection() ;
                 
 				if (!aceSlection.isEmpty()) {
 					
-                    AKMarkdown.ace.insert(block);
+                    aceEditor.insert(block);
                     
                     //newSelection.text = block;
 				} else {
-                    AKMarkdown.ace.insert(block);
+                    aceEditor.insert(block);
                     
                     var backOffset = string.closeWith.length;
                     aceSlection.moveCursorBy(0, -backOffset);
@@ -483,8 +488,8 @@
 				textarea.focus();
 
 				scrollPosition = textarea.scrollTop;
-				if (!AKMarkdown.ace.getSelection().isEmpty()) {
-					selection = AKMarkdown.ace.getCopyText() ;
+				if (!aceEditor.getSelection().isEmpty()) {
+					selection = aceEditor.getCopyText() ;
 					if (browser.msie) { // ie
 						var range = document.selection.createRange(), rangeCopy = range.duplicate();
 						rangeCopy.moveToElementText(textarea);

@@ -78,7 +78,7 @@ class plgEditorAkmarkdown extends JPlugin
         }
         
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js' ) ;
-        
+        $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/sets/markdown/set.js' ) ;
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/ace/ace.js' ) ;
         
         
@@ -88,83 +88,20 @@ class plgEditorAkmarkdown extends JPlugin
         $doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/skins/simple/style.css' ) ;
         $doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/sets/markdown/style.css' ) ;
         
-        
-        
-        
-		$script =
-<<<SC
+        $return =
+<<<RT
 <style type="text/css">
 .akmarkdown-wrap { height: 450px; }
 </style>
 
-            <script type="text/javascript">
-
+<script type="text/javascript">
+var MIUEditorSetting = [];
 var AKMarkdown = {} ;
-            
-// Init MarkItUp Editor
-var mySettings = {
-    nameSpace:          '{$namespace}',
-    targetArea:         '.ace_text-input',
-    previewParserPath:  '~/sets/markdown/preview.php',
-    onShiftEnter:       {keepDefault:false, openWith:'\\n\\n'},
-    targetArea : '.ace_text-input' ,
-    markupSet: [
-        {name:'First Level Heading', key:"1", placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '=') } },
-        {name:'Second Level Heading', key:"2", placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '-') } },
-        {name:'Heading 3', key:"3", openWith:'### ', placeHolder:'Your title here...' },
-        {name:'Heading 4', key:"4", openWith:'#### ', placeHolder:'Your title here...' },
-        {name:'Heading 5', key:"5", openWith:'##### ', placeHolder:'Your title here...' },
-        {name:'Heading 6', key:"6", openWith:'###### ', placeHolder:'Your title here...' },
-        {separator:'---------------' },        
-        {name:'Bold', key:"B", openWith:'**', closeWith:'**'},
-        {name:'Italic', key:"I", openWith:'_', closeWith:'_'},
-        {separator:'---------------' },
-        {name:'Bulleted List', openWith:'- ' },
-        {name:'Numeric List', openWith:function(markItUp) {
-            return markItUp.line+'. ';
-        }},
-        {separator:'---------------' },
-        {name:'Picture', key:"P", replaceWith:'![[![Alternative text]!]]([![Url:!:http://]!] "[![Title]!]")'},
-        {name:'Link', key:"L", openWith:'[', closeWith:']([![Url:!:http://]!] "[![Title]!]")', placeHolder:'Your text to link here...' },
-        {separator:'---------------'},    
-        {name:'Quotes', openWith:'> ', multiline: true},
-        {name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)', multiline: true},
-        {separator:'---------------'},
-        {name:'Preview', call:'preview', className:"preview"}
-    ]
-}
-
-// mIu nameSpace to avoid conflict.
-miu = {
-    markdownTitle: function(markItUp, char) {
-        heading = '';
-        n = jQuery.trim(markItUp.selection||markItUp.placeHolder).length;
-        for(i = 0; i < n; i++) {
-            heading += char;
-        }
-        return '\\n'+heading+'\\n';
-    }
-}
- 
-jQuery(document).ready(function($){
-    
-    
-    // Init ACE Editor
-    var editor = AKMarkdown.ace = ace.edit($('.akmarkdown-wrap')[0] );
-    var session = editor.getSession();
-    //AKMarkdown.ace = new Selection(session);
-    
-    editor.setTheme("ace/theme/twilight");
-    editor.getSession().setMode("ace/mode/markdown");
-    
-    $('.akmarkdown-wrap').markItUp(mySettings);
-    
-});
-
-            </script>
-SC;
-
-		return $script;
+AKMarkdown.ace = [] ;
+</script>
+RT;
+        
+        return $return ;
 	}
 
 	/**
@@ -221,6 +158,7 @@ SC;
 <<<JS
             function jInsertEditorText(text, editor)
 			{
+                console.log(editor);
 				AKMarkdown.ace.insert() ;
 			}
 JS;
@@ -249,11 +187,41 @@ JS;
 	 */
 	public function onDisplay($name, $content, $width, $height, $col, $row, $buttons = true, $id = null, $asset = null, $author = null, $params = array())
 	{
+        $doc = JFactory::getDocument();
+        
 		if (empty($id))
 		{
 			$id = $name;
 		}
+        
+        
+        $script =
+<<<SC
 
+// Init AKMarkdown Editor "{$id}"
+
+jQuery(document).ready(function($){
+    
+    MIUEditorSetting['{$id}'] = Object.clone(MIUEditorSettingBasic) ;
+    MIUEditorSetting['{$id}'].nameSpace = '{$id}' ;
+    
+    // Init ACE Editor
+    var editor = AKMarkdown.ace['{$id}'] = ace.edit($('#{$id}')[0]);
+    var session = editor.getSession();
+    
+    editor.setTheme("ace/theme/twilight");
+    editor.getSession().setMode("ace/mode/markdown");
+    
+    // Init MarkItUp Editor
+    $('#{$id}').markItUp(MIUEditorSetting['{$id}']);
+    
+});
+
+SC;
+        
+        $doc->addScriptDeclaration($script);
+        
+        
 		// Only add "px" to width and height if they are not given as a percentage
 		if (is_numeric($width))
 		{
@@ -264,9 +232,9 @@ JS;
 		{
 			$height .= 'px';
 		}
-
+        
 		$buttons = $this->_displayButtons($id, $buttons, $asset, $author);
-		$editor  = "<div class=\"akmarkdown-wrap\"></div>" . $buttons;
+		$editor  = "<div id=\"{$id}\" class=\"akmarkdown-wrap {$id}\"></div>" . $buttons;
 
 		return $editor;
 	}
