@@ -93,9 +93,6 @@ class plgEditorAkmarkdown extends JPlugin
         
         $return =
 <<<RT
-<style type="text/css">
-.akmarkdown-wrap { height: 450px; }
-</style>
 
 <script type="text/javascript">
 

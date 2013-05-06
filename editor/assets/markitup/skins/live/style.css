@@ -2,6 +2,11 @@
 // markItUp! Universal MarkUp Engine, JQuery plugin
 // By Jay Salvat - http://markitup.jaysalvat.com/
 // ------------------------------------------------------------------*/
+.markItUp  {
+	background-color:#FFF;
+	border:1px solid #3C769D;
+	padding:5px;
+}
 .markItUp * {
 	margin:0px; padding:0px;
 	outline:none;
@@ -12,44 +17,51 @@
 	text-decoration:none;
 }
 .markItUp  {
-
+	width:690px;
 	margin:5px 0 5px 0;
-	border:5px solid #F5F5F5;	
 }
 .markItUpContainer  {
-	border:1px solid #3C769D;	
-	background:#FFF url(images/bg-container.png) repeat-x top left;
-	padding:5px 5px 2px 5px;
+	width:690px;
 	font:11px Verdana, Arial, Helvetica, sans-serif;
+	background-image:url(images/bg-container.png);
 }
 .markItUpEditor {
-	font:12px 'Courier New', Courier, monospace;
-	padding:5px 5px 5px 35px;
-	border:3px solid #3C769D;
-
-	height:320px;
-	background:#FFF url(images/bg-editor.png) no-repeat;
-	clear:both;
+	font:11px 'Courier New', Courier, monospace;
+	padding:5px;
+	margin:0px 25px 0px 25px;
+	border-top:1px dotted black;
+	width:636px;
+	padding:5px;
+	height:360px;
+	clear:both; display:block;
 	line-height:18px;
 	overflow:auto;
+	border:0px solid white;
+	background:transparent;
+	color:#163774;
 }
 .markItUpPreviewFrame	{
 	overflow:auto;
 	background-color:#FFFFFF;
-	border:1px solid #3C769D;
 	width:99.9%;
-	height:300px;
+	height:350px;
 	margin:5px 0;
 }
+.markItUpHeader {
+	width:670px;
+	padding:45px 0px 0px 25px;
+	height:25px;
+	background:url(images/bg-header.png);
+}
 .markItUpFooter {
-	width:100%;
-	cursor:n-resize;
+	width:690px; height:20px;
+	padding-top:10px;
+	background-image:url(images/bg-footer.png);
 }
 .markItUpResizeHandle {
 	overflow:hidden;
-	width:22px; height:5px;
-	margin-left:auto;
-	margin-right:auto;
+	margin:0 auto 0 auto;
+	width:22px; height:6px;
 	background-image:url(images/handle.png);
 	cursor:n-resize;
 }
@@ -59,9 +71,6 @@
 	list-style:none;
 	float:left;
 	position:relative;
-}
-.markItUpHeader ul li ul{
-	display:none;
 }
 .markItUpHeader ul li:hover > ul{
 	display:block;
@@ -73,37 +82,36 @@
 .markItUpHeader ul .markItUpDropMenu li {
 	margin-right:0px;
 }
+/* next rows of buttons */
+.markItUpHeader ul ul {
+	display:none;
+	position:absolute;
+	top:18px; left:0px;	
+	background:#FFF;
+	border:1px solid #000;
+}
+.markItUpHeader ul ul li {
+	float:none;
+	border-bottom:1px solid #000;
+}
+.markItUpHeader ul ul .markItUpDropMenu {
+	background:#FFF url(images/submenu.png) no-repeat 100% 50%;
+}
 .markItUpHeader ul .markItUpSeparator {
 	margin:0 10px;
 	width:1px;
 	height:16px;
 	overflow:hidden;
-	background-color:#CCC;
+
 }
 .markItUpHeader ul ul .markItUpSeparator {
 	width:auto; height:1px;
 	margin:0px;
 }
 /* next rows of buttons */
-.markItUpHeader ul ul {
-	display:none;
-	position:absolute;
-	top:18px; left:0px;	
-	background:#F5F5F5;
-	border:1px solid #3C769D;
-	height:inherit;
-}
-.markItUpHeader ul ul li {
-	float:none;
-	border-bottom:1px solid #3C769D;
-}
-.markItUpHeader ul ul .markItUpDropMenu {
-	background:#F5F5F5 url(images/submenu.png) no-repeat 100% 50%;
-}
-/* next rows of buttons */
 .markItUpHeader ul ul ul {
 	position:absolute;
-	top:-1px; left:150px;
+	top:-1px; left:150px; 
 }
 .markItUpHeader ul ul ul li {
 	float:none;
@@ -126,25 +134,5 @@
 }
 .markItUpHeader ul ul a:hover  {
 	color:#FFF;
-	background-color:#3C769D;
-}
-/***************************************************************************************/
-.html .markItUpEditor {
-	background-image:url(images/bg-editor-html.png);
-}
-.markdown .markItUpEditor {
-	background-image:url(images/bg-editor-markdown.png);
-}
-.textile .markItUpEditor {
-	background-image:url(images/bg-editor-textile.png);
-}
-.bbcode .markItUpEditor {
-	background-image:url(images/bg-editor-bbcode.png);
-}
-.wiki .markItUpEditor,
-.dotclear .markItUpEditor {
-	background-image:url(images/bg-editor-wiki.png);
-}
-.akmarkdown-wrap {
-    height: 430px;
+	background-color:#3875D7;
 }
