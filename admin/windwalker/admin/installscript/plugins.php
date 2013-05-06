@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 // Install plugins
 // ========================================================================
 $plugins     = $manifest->plugins ;
-AK::show($plugins);jexit('Something Error~~~!');
+
 if(!empty($plugins)){
     foreach( (array)$plugins as $plugin ):
         
