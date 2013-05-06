@@ -160,11 +160,49 @@ RT;
 		if (!$done)
 		{
 			$doc = JFactory::getDocument();
+            $params = $this->params ;
 			$js =
 <<<JS
             function jInsertEditorText(text, editor)
 			{
-				AKMarkdown.ace[editor].insert(text) ;
+                var text = jQuery('<root>'+text+'</root>') ;
+                var convertImg = {$params->get('EditorButton_ConvertImg', 1)} ;
+                var convertLink = {$params->get('EditorButton_ConvertLink', 1)} ;
+                
+                if( convertImg ) {
+                    var imgs = text.find('img');
+                    imgs.each(function(i, e){
+                        
+                        e = jQuery(e);
+                        var m = '!['+e.attr('alt')+']('+e.attr('src') ;
+                        
+                        if( e.attr('title') ){
+                            m = m + ' "'+e.attr('title')+'"' ;
+                        }
+                        
+                        m = m + ')\\n\\n' ;
+                        
+                        e.replaceWith(m) ;
+                    }); 
+                }
+                
+                if( convertLink ) {
+                    var a = text.find('a');
+                    a.each(function(i, e){
+                        
+                        e = jQuery(e);
+                        var m = '['+e.text()+']('+e.attr('href') ;
+                        
+                        m = m + ')\\n\\n' ;
+                        
+                        e.replaceWith(m) ;
+                    }); 
+                }
+                
+                text.find('p').contents().unwrap();
+                AKMarkdown.text = text;
+            
+				AKMarkdown.ace[editor].insert(text.html()) ;
                 AKMarkdown.ace[editor].focus();
 			}
 JS;
