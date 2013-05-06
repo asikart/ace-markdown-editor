@@ -90,9 +90,9 @@ CSS;
         $extension = 'plg_system_akmarkdown' ;
         $lang = JFactory::getLanguage();
         $lang->load(strtolower($extension), $basePath, null, false, false)
-            || $lang->load(strtolower($extension), JPATH_PLUGINS . '/' . $this->_type . '/' . $this->_name, null, false, false)
+            || $lang->load(strtolower($extension), JPATH_PLUGINS . '/system/akmarkdown', null, false, false)
             || $lang->load(strtolower($extension), $basePath, $lang->getDefault(), false, false)
-            || $lang->load(strtolower($extension), JPATH_PLUGINS . '/' . $this->_type . '/' . $this->_name, $lang->getDefault(), false, false);
+            || $lang->load(strtolower($extension), JPATH_PLUGINS . '/system/akmarkdown', $lang->getDefault(), false, false);
         
         
 		echo $css ;
