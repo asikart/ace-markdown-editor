@@ -94,7 +94,7 @@ CSS;
         
 		echo $css ;
         
-        $img = JURI::root(true).'plugins/system/images/akmarkdown-logo.png' ;
+        $img = JURI::base().'plugins/system/images/akmarkdown-logo.png' ;
         echo JHtml::image($img, 'LOGO') ;
         echo JText::_('PLG_SYSTEM_AKMARKDOWN_XML_DESCRIPTION') ;
         echo '<br /><br />' ;
