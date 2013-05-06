@@ -57,7 +57,7 @@
 	</config>
 	
     <plugins>
-        <plugin>plg_editor_akmarkdown</plugin>
+        <plugin>plg_editors_akmarkdown</plugin>
     </plugins>
 	
 	<updateservers>
