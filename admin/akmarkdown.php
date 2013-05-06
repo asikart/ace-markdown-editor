@@ -69,10 +69,40 @@ class plgSystemAkmarkdown extends JPlugin
         if( $akmarkdown ) {
             
             $post = JRequest::get('post') ;
-            echo $this->render($post['data']);
+            $text = $this->render($post['data']);
+            
+            //SEF
+            $base	= JURI::base(true).'/';
+    
+            $regex  = '#href="index.php\?([^"]*)#m';
+            $text   = preg_replace_callback($regex, array('plgSystemAkmarkdown', 'route'), $text);
+    
+            $protocols	= '[a-zA-Z0-9]+:'; //To check for all unknown protocals (a protocol must contain at least one alpahnumeric fillowed by :
+            $regex		= '#(src|href|poster)="(?!/|'.$protocols.'|\#|\')([^"]*)"#m';
+            $text		= preg_replace($regex, "$1=\"$base\$2\"", $text);
+            
+            $text       = str_replace('<a', '<a target="_blank"', $text) ;
+            
+            echo $text ;
             
             jexit();
         }
+	}
+    
+    /**
+	 * Replaces the matched tags
+	 *
+	 * @param	array	An array of matches (see preg_match_all)
+	 * @return	string
+	 */
+	protected static function route(&$matches)
+	{
+		$original	= $matches[0];
+		$url		= $matches[1];
+		$url		= str_replace('&amp;', '&', $url);
+		$route		= JRoute::_('index.php?'.$url);
+
+		return 'href="'.$route;
 	}
     
 	

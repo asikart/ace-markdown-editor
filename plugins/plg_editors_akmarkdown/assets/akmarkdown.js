@@ -54,6 +54,7 @@ var AKMarkdownClass = new Class({
         
         this.MIUEditorSetting[id] = Object.clone(MIUEditorSettingBasic) ;
         this.MIUEditorSetting[id].nameSpace = id ;
+        this.MIUEditorSetting[id].previewParserPath = this.options.root + 'index.php?akmarkdown=preview&sets=markdown' ;
         
         // Init ACE Editor
         var editor = this.ace[id] = ace.edit($$('#'+id+'-wrap')[0]);
@@ -65,7 +66,7 @@ var AKMarkdownClass = new Class({
         
         textInput.set('id', id) ;
         textInput.set('name', name) ;
-        
+        console.log(this.MIUEditorSetting[id]);
         // Init MarkItUp Editor
         jQuery('#'+id+'-wrap').markItUp(this.MIUEditorSetting[id]);
         

@@ -69,6 +69,7 @@ class plgEditorAkmarkdown extends JPlugin
         $doc    = JFactory::getDocument();
         $user   = JFactory::getUser() ;
         $params = $this->params ;
+        $root   = JURI::root();
         
         // Include JS
         // ===============================================================
@@ -97,7 +98,8 @@ class plgEditorAkmarkdown extends JPlugin
 <script type="text/javascript">
 
 var AKMarkdownOption = {
-    aceTheme : '{$params->get('AceEditor_Theme', 'twilight')}'
+    aceTheme : '{$params->get('AceEditor_Theme', 'twilight')}' ,
+    root : '{$root}'
 };
 
 var AKMarkdown  = new AKMarkdownClass(AKMarkdownOption) ;
@@ -161,6 +163,7 @@ RT;
 		{
 			$doc = JFactory::getDocument();
             $params = $this->params ;
+            $root = JURI::root();
 			$js =
 <<<JS
             function jInsertEditorText(text, editor)
@@ -168,13 +171,14 @@ RT;
                 var text = jQuery('<root>'+text+'</root>') ;
                 var convertImg = {$params->get('EditorButton_ConvertImg', 1)} ;
                 var convertLink = {$params->get('EditorButton_ConvertLink', 1)} ;
+                var root = '{$root}' ;
                 
                 if( convertImg ) {
                     var imgs = text.find('img');
                     imgs.each(function(i, e){
                         
                         e = jQuery(e);
-                        var m = '!['+e.attr('alt')+']('+e.attr('src') ;
+                        var m = '!['+e.attr('alt')+'](' + e.attr('src').replace(root, '') ;
                         
                         if( e.attr('title') ){
                             m = m + ' "'+e.attr('title')+'"' ;
