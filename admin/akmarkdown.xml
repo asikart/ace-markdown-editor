@@ -58,9 +58,5 @@
 		</fields>
 	</config>
 	
-    <plugins>
-        <plugin>plg_editors_akmarkdown</plugin>
-    </plugins>
-	
 	
 </extension>
