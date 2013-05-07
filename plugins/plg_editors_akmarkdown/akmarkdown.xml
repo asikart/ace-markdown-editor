@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="editors" method="upgrade">
+<extension version="3.1" type="plugin" group="editors" method="upgrade">
 	<name>plg_editors_akmarkdown</name>
 	<author>Asika</author>
-	<creationDate>2012-11-12</creationDate>
+	<creationDate>2013-05-07</creationDate>
 	<copyright>Copyright (C) 2012 Asikart.com</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<description>PLG_EDITORS_AKMARKDOWN_XML_DESCRIPTION</description>
 	
 	

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="system" method="upgrade">
+<extension version="3.1" type="plugin" group="system" method="upgrade">
 	<name>plg_system_akmarkdown</name>
 	<author>Asika</author>
-	<creationDate>2012-11-12</creationDate>
+	<creationDate>2013-05-07</creationDate>
 	<copyright>Copyright (C) 2012 Asikart.com</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<description></description>
 	
 	
@@ -61,11 +61,6 @@
     <plugins>
         <plugin>plg_editors_akmarkdown</plugin>
     </plugins>
-	
-	<updateservers>
-		<!--<server type="collection">http://akmarkdown.com/list.xml</server>-->
-		<server type="extension" priority="1" name="Asikart Akmarkdown Plugin">http://update.asikart.com/plugins/plg_akmarkdown.xml</server>
-	</updateservers>
 	
 	
 </extension>

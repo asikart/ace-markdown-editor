@@ -22,7 +22,6 @@ class plgSystemAkmarkdownInstallerScript
 	function install($parent) 
 	{
 		
-		
 	}
  
 	/**
@@ -70,7 +69,17 @@ class plgSystemAkmarkdownInstallerScript
 	{
 		$db = JFactory::getDbo();
 		
+        
+        // Load Lnguage
+        $basePath = JPATH_ADMINISTRATOR ;
+        $extension = 'plg_system_akmarkdown' ;
+        $lang = JFactory::getLanguage();
+        $lang->load(strtolower($extension), $basePath, null, false, false)
+            || $lang->load(strtolower($extension), JPATH_PLUGINS . '/system/akmarkdown', null, false, false)
+            || $lang->load(strtolower($extension), $basePath, $lang->getDefault(), false, false)
+            || $lang->load(strtolower($extension), JPATH_PLUGINS . '/system/akmarkdown', $lang->getDefault(), false, false);
 		
+        
 		// Get install manifest
 		// ========================================================================
 		$p_installer 	= $parent->getParent() ;
@@ -95,7 +104,8 @@ CSS;
 		echo $css ;
         
         $img = JURI::root().'plugins/system/akmarkdown/images/akmarkdown-logo.png' ;
-        echo JHtml::image($img, 'LOGO') ;
+        $a   = 'index.php?option=com_plugins&view=plugins&filter_search=asikart%20markdown' ;
+        echo JHtml::link($a, $img) ;
         echo '<br /><br />' ;
         echo JText::_('PLG_SYSTEM_AKMARKDOWN_XML_DESCRIPTION') ;
         echo '<br /><br />' ;
