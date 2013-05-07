@@ -72,7 +72,7 @@ class plgSystemAkmarkdownInstallerScript
         
         // Load Lnguage
         $basePath = JPATH_ADMINISTRATOR ;
-        $extension = 'plg_system_akmarkdown' ;
+        $extension = 'plg_system_akmarkdown.sys' ;
         $lang = JFactory::getLanguage();
         $lang->load(strtolower($extension), $basePath, null, false, false)
             || $lang->load(strtolower($extension), JPATH_PLUGINS . '/system/akmarkdown', null, false, false)
