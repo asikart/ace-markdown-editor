@@ -106,6 +106,17 @@
                     default="simple"
 				>
                 </field>
+                
+                <field
+                    name="MarkItUp_ButtonSet"
+                    type="list"
+                    label="PLG_EDITORS_AKMARKDOWN_BUTTON_SET"
+					description="PLG_EDITORS_AKMARKDOWN_BUTTON_SET_DESC"
+                    default="markdown"
+				>
+                    <option value="html">HTML</option>
+                    <option value="markdown">Markdown</option>
+                </field>
 			</fieldset>
 
 		</fields>

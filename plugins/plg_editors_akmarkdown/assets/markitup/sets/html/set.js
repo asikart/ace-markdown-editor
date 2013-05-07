@@ -9,7 +9,7 @@
 // ----------------------------------------------------------------------------
 // Basic set. Feel free to add more tags
 // ----------------------------------------------------------------------------
-var mySettings = {
+var MIUEditorSettingBasic = {
 	onShiftEnter:  	{keepDefault:false, replaceWith:'<br />\n'},
 	onCtrlEnter:  	{keepDefault:false, openWith:'\n<p>', closeWith:'</p>'},
 	onTab:    		{keepDefault:false, replaceWith:'    '},

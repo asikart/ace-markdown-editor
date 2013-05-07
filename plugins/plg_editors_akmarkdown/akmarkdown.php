@@ -79,7 +79,7 @@ class plgEditorAkmarkdown extends JPlugin
         }
         
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js' ) ;
-        $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/sets/markdown/set.js' ) ;
+        $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/sets/'.$params->get('MarkItUp_ButtonSet', 'markdown').'/set.js' ) ;
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/ace/ace.js' ) ;
         $doc->addScript( JURI::root(true).'/plugins/editors/akmarkdown/assets/akmarkdown.js' ) ;
         
@@ -88,7 +88,7 @@ class plgEditorAkmarkdown extends JPlugin
         // ===============================================================
         //$doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/images/style.css' ) ;
         $doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/skins/'.$params->get('MarkItUp_Theme', 'simple').'/style.css' ) ;
-        $doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/sets/markdown/style.css' ) ;
+        $doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/markitup/sets/'.$params->get('MarkItUp_ButtonSet', 'markdown').'/style.css' ) ;
         
         
         
