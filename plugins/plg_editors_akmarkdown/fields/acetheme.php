@@ -72,7 +72,7 @@ class JFormFieldAcetheme extends JFormFieldList
      */
     public function getInput()
     {
-        $a = '  <a href="https://github.com/ajaxorg/ace/tree/master/lib/ace/theme" target="_blank">'.JText::_('JHELP').'</a>' ;
+        $a = '  <a style="float: left;" href="https://github.com/ajaxorg/ace/tree/master/lib/ace/theme" target="_blank">'.JText::_('JHELP').'</a>' ;
         return parent::getInput(). $a ;
     }
 }

@@ -72,7 +72,7 @@ class JFormFieldHighlighttheme extends JFormFieldList
      */
     public function getInput()
     {
-        $a = '  <a href="http://softwaremaniacs.org/media/soft/highlight/test.html" target="_blank">'.JText::_('JHELP').'</a>' ;
+        $a = '  <a style="float: left;" href="http://softwaremaniacs.org/media/soft/highlight/test.html" target="_blank">'.JText::_('JHELP').'</a>' ;
         return parent::getInput(). $a ;
     }
     
