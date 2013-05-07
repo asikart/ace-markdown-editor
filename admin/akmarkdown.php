@@ -68,8 +68,12 @@ class plgSystemAkmarkdown extends JPlugin
         
         if( $akmarkdown ) {
             
-            $post = JRequest::get('post') ;
-            $text = $this->render($post['data']);
+            $post   = JRequest::get('post') ;
+            $text   = $_POST['data'] ;
+            
+            //$text   = str_replace('<?', '#?', $text) ;
+            
+            $text   = $this->render($text);
             
             //SEF
             $base	= JURI::base(true).'/';
@@ -81,6 +85,7 @@ class plgSystemAkmarkdown extends JPlugin
             $regex		= '#(src|href|poster)="(?!/|'.$protocols.'|\#|\')([^"]*)"#m';
             $text		= preg_replace($regex, "$1=\"$base\$2\"", $text);
             
+            // Replace some text
             $text       = str_replace('<a', '<a target="_blank"', $text) ;
             
             echo $text ;
