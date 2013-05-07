@@ -67,6 +67,28 @@
                     <option value="1">JYES</option>
                 </field>
                 
+                <field
+                    name="Editor_WordWrap"
+                    type="radio"
+                    label="PLG_EDITORS_AKMARKDOWN_EDITOR_WORD_WRAP"
+					description="PLG_EDITORS_AKMARKDOWN_EDITOR_WORD_WRAP_DESC"
+                    default="1"
+                    class="btn-group"
+				>
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                
+                <field
+                    name="Editor_SoftWrapNum"
+                    type="text"
+                    label="PLG_EDITORS_AKMARKDOWN_EDITOR_SOFT_WRAP_NUM"
+					description="PLG_EDITORS_AKMARKDOWN_EDITOR_SOFT_WRAP_NUM_DESC"
+                    default="0"
+                    class="input-small inputbox"
+                    size="5"
+				/>
+                
 				<field
                     name="AceEditor_Theme"
                     type="acetheme"

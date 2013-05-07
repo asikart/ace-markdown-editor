@@ -62,7 +62,14 @@ var AKMarkdownClass = new Class({
         
         editor.setTheme("ace/theme/" + this.options.aceTheme);
         editor.getSession().setMode("ace/mode/markdown");
-        editor.getSession().setUseWrapMode(true);
+        editor.setShowPrintMargin(false) ;
+        editor.getSession().setUseWrapMode(this.options.wrap);
+        
+        if( this.options.wrapLimit ) {
+            editor.getSession().setWrapLimitRange(this.options.wrapLimit, this.options.wrapLimit) ;
+            editor.setPrintMarginColumn(this.options.wrapLimit) ;
+            editor.setShowPrintMargin(true) ;
+        }
         
         textInput.set('id', id) ;
         textInput.set('name', name) ;

@@ -13,6 +13,7 @@
 }
 .markItUp  {
 	margin:5px 0 5px 0;
+    clear: both;
 }
 .markItUpContainer  {
 	font:11px Verdana, Arial, Helvetica, sans-serif;

@@ -99,7 +99,9 @@ class plgEditorAkmarkdown extends JPlugin
 
 var AKMarkdownOption = {
     aceTheme : '{$params->get('AceEditor_Theme', 'twilight')}' ,
-    root : '{$root}'
+    root : '{$root}' ,
+    wrap : {$params->get('Editor_WordWrap', 1)} ,
+    wrapLimit : {$params->get('Editor_SoftWrapNum', 'null')}
 };
 
 var AKMarkdown  = new AKMarkdownClass(AKMarkdownOption) ;
@@ -268,7 +270,7 @@ SC;
 		}
         
 		$buttons = $this->_displayButtons($id, $buttons, $asset, $author);
-		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\">".$content."</div>" . $buttons;
+		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\" style=\"clear:both;\">".$content."</div>" . $buttons;
 
 		return $editor;
 	}
@@ -321,10 +323,11 @@ SC;
 			}
             
             if(JVERSION >= 3) {
-                $return .= "</div>\n";
+                //$return .= "</div>\n";
             }
 			$return .= "</div>\n";
-			$return .= "<div class=\"clearfix\"></div>\n";
+            $return .= "</div>\n";
+			$return .= "<div class=\"clearfix clr\"></div>\n";
 		}
 
 		return $return;
