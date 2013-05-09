@@ -31,7 +31,7 @@ var MIUEditorSettingBasic = {
         }, multiline: true},
         {separator:'---------------' },
         {name:'Picture', key:"P", replaceWith:'![[![Alternative text]!]]([![Url:!:http://]!] "[![Title]!]")'},
-        {name:'Link', key:"L", openWith:'[', closeWith:']([![Url:!:http://]!] "[![Title]!]")', placeHolder:'Your text to link here...' },
+        {name:'Link', key:"L", openWith:'[', closeWith:'[![Title]!]]([![Url:!:http://]!])', placeHolder:'Your text to link here...' },
         {separator:'---------------'},    
         {name:'Quotes', openWith:'> ', multiline: true},
         {name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)', multiline: true},
