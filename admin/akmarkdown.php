@@ -152,7 +152,7 @@ class plgSystemAkmarkdown extends JPlugin
 	 */
 	public function onContentAfterDisplay($context, &$article, &$params, $page=0)
     {
-        $prettify = $this->params->get('Article_Prettify', 1) ;
+        $prettify = $this->params->get('Article_Prettify', 2) ;
         if(!$prettify) return;
         
         $return = true;

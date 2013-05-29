@@ -66,7 +66,7 @@
                     type="list"
                     label="PLG_SYSTEM_AKMARKDOWN_ARTICLE_PRETTIFY"
                     description="PLG_SYSTEM_AKMARKDOWN_ARTICLE_PRETTIFY_DESC"
-                    default="1"
+                    default="2"
                     class="btn-group"
                     labelclass="control-label"
                 >
