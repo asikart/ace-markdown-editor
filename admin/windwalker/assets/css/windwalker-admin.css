@@ -40,6 +40,10 @@
     overflow: visible;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 
 /* TABLE LIST */
 .quick-edit-hover:hover {
@@ -61,7 +65,6 @@
     margin-top: 1px;
     display: inline-block;
 }
-
 
 
 /* BATCH */

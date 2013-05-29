@@ -1,0 +1,30 @@
+#!/bin/sh
+
+SITE="joomla311"
+PLG="akmarkdown"
+
+
+rm ../pkg_akmarkdown.zip
+
+
+# System
+rm -rf admin
+mkdir admin
+cp -rf /var/www/$SITE/plugins/system/$PLG/ admin
+echo "System copied" ;
+
+# Editor
+rm -rf plugins/plg_editors_akmarkdown
+mkdir -p plugins/plg_editors_akmarkdown
+cp -rf /var/www/$SITE/plugins/editors/$PLG/ plugins/plg_editors_akmarkdown
+echo "Editor copied" ;
+
+
+git add .
+echo "Execute git add" ;
+
+zip -rq ../plg_$PLG.zip *
+echo "Ziped files" ;
+
+
+exit 0
