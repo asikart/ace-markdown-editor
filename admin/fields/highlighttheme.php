@@ -41,6 +41,9 @@ class JFormFieldHighlighttheme extends JFormFieldList
      */
     protected function getOptions()
     {
+        // INCLUDE WINDWALKER FRAMEWORK
+        include_once dirname(__FILE__).'/../lib/init.php' ;
+        
         jimport('joomla.filesystem.folder');
         
         // Initialise variables.
