@@ -25,7 +25,7 @@ var MIUEditorSettingBasic = {
         {name:'Bold', key:"B", openWith:'**', closeWith:'**'},
         {name:'Italic', key:"I", openWith:'_', closeWith:'_'},
         {separator:'---------------' },
-        {name:'Bulleted List', openWith:'- ' , multiline: true},
+        {name:'Bulleted List', openWith:'* ' , multiline: true},
         {name:'Numeric List', openWith: function(markItUp) {
             return markItUp.line+'. ';
         }, multiline: true},
@@ -34,7 +34,7 @@ var MIUEditorSettingBasic = {
         {name:'Link', key:"L", openWith:'[', closeWith:']([![Url:!:http://]!])', placeHolder:'Click here to link...' },
         {separator:'---------------'},    
         {name:'Quotes', openWith:'> ', multiline: true},
-        {name:'Code Block / Code', openWith:'(!(\t|!|`)!)', closeWith:'(!(`)!)', multiline: true},
+        {name:'Code Block / Code', openWith:'~~~~~ [![Language]!]\n', closeWith:'\n~~~~~', afterInsert: function(markItUp) { return miu.markdownAfterCodeblock(markItUp) } },
         {separator:'---------------'},
         {name:'Preview', call:'preview', className:"preview"}
     ]
@@ -49,5 +49,11 @@ miu = {
             heading += char;
         }
         return '\n'+heading+'\n';
+    }
+    ,
+    markdownAfterCodeblock: function(markItUp){
+        console.log(markItUp);
+        var aceEditor = AKMarkdown.ace[markItUp.namespace];
+        aceEditor.getSelection().moveCursorBy(-1, 0);
     }
 }

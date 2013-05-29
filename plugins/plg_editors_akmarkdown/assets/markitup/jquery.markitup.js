@@ -353,7 +353,8 @@
 									caretPosition:caretPosition,
 									ctrlKey:ctrlKey, 
 									shiftKey:shiftKey, 
-									altKey:altKey
+									altKey:altKey,
+                                    namespace:options.nameSpace
 								}
 							);
 				// callbacks before insertion
