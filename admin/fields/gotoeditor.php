@@ -34,7 +34,7 @@ class JFormFieldGotoEditor extends JFormField
      *
      * @since   11.1
      */
-    protected function getInput()
+    protected function getLabel()
     {
         $db = JFactory::getDbo();
         $q = $db->getQuery(true) ;
@@ -55,5 +55,9 @@ class JFormFieldGotoEditor extends JFormField
         }
         
         return $html;
+    }
+    
+    protected function getInput() {
+        return '';
     }
 }
