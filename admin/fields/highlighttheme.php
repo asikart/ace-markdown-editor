@@ -41,6 +41,8 @@ class JFormFieldHighlighttheme extends JFormFieldList
      */
     protected function getOptions()
     {
+        jimport('joomla.filesystem.folder');
+        
         // Initialise variables.
         $options = array();
         $name = (string) $this->element['name'];

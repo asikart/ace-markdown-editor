@@ -9,7 +9,6 @@
 // no direct access
 defined('_JEXEC') or die;
 
-include_once dirname(__FILE__).'/lib/init.php' ;
 
 jimport('joomla.plugin.plugin');
 
@@ -35,6 +34,9 @@ class plgSystemAkmarkdown extends JPlugin
 	 */
     public function __construct(&$subject, $config)
     {
+        // INCLUDE WINDWALKER FRAMEWORK
+        include_once dirname(__FILE__).'/lib/init.php' ;
+        
 		parent::__construct( $subject, $config );
 		$this->loadLanguage();
 		$this->app = JFactory::getApplication();
@@ -144,8 +146,9 @@ class plgSystemAkmarkdown extends JPlugin
     public function render($text)
     {
         if( AKMARKDOWN_ENABLED ){
-            $text = AKHelper::_('html.markdown', $text);
-            AKHelper::_('html.highlight', $this->params->get('Hightlight_Theme', 'default'));
+            $extra  = $this->params->get('Markdown_Extra', 1);
+            $theme  = $this->params->get('Highlight_Theme', 'default');
+            $text   = AKHelper::_('html.markdown', $text, $extra, array('highlight' => $theme));
         }else{
             $text = nl2br($text);
         }

@@ -44,8 +44,20 @@
 		<fields name="params">
 
 			<fieldset name="basic" addfieldpath="plugins/system/akmarkdown/fields">
+                <field name="Markdown_Extra"
+                    type="radio"
+                    label="PLG_SYSTEM_AKMARKDOWN_MARKDOWN_EXTRA"
+                    description="PLG_SYSTEM_AKMARKDOWN_MARKDOWN_EXTRA_DESC"
+                    default="1"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                
 				<field
-                    name="Hightlight_Theme"
+                    name="Highlight_Theme"
                     type="highlighttheme"
                     label="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_THEME"
 					description="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_THEME_DESC"
