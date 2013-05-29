@@ -119,7 +119,7 @@
                     class="input-xxlarge"
                     size="45"
                     labelclass="control-label"
-                    defult="akmarkdown-img img-polaroid"
+                    default="akmarkdown-img img-polaroid"
                 />
                 
                 <field name="Article_TableClass"

@@ -52,6 +52,7 @@ class JFormFieldGotoEditor extends JFormField
         if($id) {
             $link = "index.php?option=com_plugins&task=plugin.edit&extension_id=".$id ;
             $html = JHtml::link($link, JText::_('PLG_SYSTEM_AKMARKDOWN_GOTO_EDITOR'), array('target'=> '_blank')) ;
+            $html = "<label>{$html}</label>";
         }
         
         return $html;
