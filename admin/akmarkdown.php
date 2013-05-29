@@ -132,17 +132,73 @@ class plgSystemAkmarkdown extends JPlugin
 	public function onContentPrepare($context, &$article, &$params, $page=0)
 	{
 		$app = JFactory::getApplication();
-		
-		$article->text = $this->render( $article->text );
+        
+		$article->text = $this->render( $article->text ) . '<div class="akmarkdown-content-placeholder" ></div>';
         
 		if( $path = $this->includeEvent(__FUNCTION__) ) @include $this->includeEvent(__FUNCTION__);
 	}
+    
+    /**
+	 * Akmarkdown after display content method
+	 *
+	 * Method is called by the view and the results are imploded and displayed in a placeholder
+	 *
+	 * @param	string		The context for the content passed to the plugin.
+	 * @param	object		The content object.  Note $article->text is also available
+	 * @param	object		The content params
+	 * @param	int			The 'page' number
+	 * @return	string
+	 * @since	1.6
+	 */
+	public function onContentAfterDisplay($context, &$article, &$params, $page=0)
+    {
+        $prettify = $this->params->get('Article_Prettify', 1) ;
+        if(!$prettify) return;
+        
+        $return = true;
+        
+        if( $prettify == 1 && $context == 'com_content.article') {
+            $return = false ;
+        }
+        
+        if($prettify == 2 && ($context == 'com_content.category' || $context == 'com_content.article')) {
+            $return = false ;
+        }
+        
+        if($prettify >= 3) {
+            $return = false ;
+        }
+        
+        if($return) return ;
+        
+        // set JS
+        static $loaded ;
+        
+        if(!$loaded){
+            $doc = JFactory::getDocument();
+            
+            $option['Article_ForceNewWindow']   = $this->params->get('Article_ForceNewWindow', false);
+            $option['Article_ForceImageAlign']  = $this->params->get('Article_ForceImageAlign', 'center');
+            $option['Article_ForceImageMaxWidth'] = $this->params->get('Article_ForceImageMaxWidth', 0);
+            $option['Article_ImageClass'] = $this->params->get('Article_ImageClass', 'akmarkdown-img img-polaroid');
+            $option['Article_TableClass'] = $this->params->get('Article_TableClass', 'akmarkdown-table table-bordered table-striped table-hover center');
+            
+            $option = $this->getJSObject($option);
+            
+            JHtml::_('behavior.framework', true);
+            $doc->addStylesheet( JURI::root(true).'/plugins/system/akmarkdown/assets/css/content.css' );
+            $doc->addScript( JURI::root(true).'/plugins/system/akmarkdown/assets/js/content.js' );
+            $doc->addScriptDeclaration('var AKMarkdownOption = '. $option. '; AKMarkdownPretiffy( AKMarkdownOption ); ');
+            
+            $loaded = true ;
+        }
+    }
 	
     
-	/**
-     * function render
-     * @param $text
-     */
+    
+    // Other Functions
+	// ====================================================================================
+    
     public function render($text)
     {
         if( AKMARKDOWN_ENABLED ){
@@ -154,6 +210,53 @@ class plgSystemAkmarkdown extends JPlugin
         }
         
         return $text ;
+    }
+    
+    /**
+     * getJSObject
+     */
+    public function getJSObject($array = array())
+    {
+        // Initialise variables.
+        $object = "{";
+        $comma = "," ;
+ 
+        // Iterate over array to build objects
+        foreach ((array) $array as $k => $v)
+        {
+            if (is_null($v))
+            {
+                continue;
+            }
+ 
+            if (is_bool($v))
+            {
+                {
+                    $object .= ' ' . $k . ': ';
+                    $object .= ($v) ? 'true' : 'false';
+                    $object .= $comma;
+                }
+            }
+            elseif (!is_array($v) && !is_object($v))
+            {
+                $object .= ' ' . $k . ': ';
+                $object .= (is_numeric($v) || strpos($v, '\\') === 0) ? (is_numeric($v)) ? $v : substr($v, 1) : "'" . $v . "'";
+                $object .= $comma;
+            }
+            else
+            {
+                $object .= ' ' . $k . ': ' . $this->getJSObject($v) . $comma;
+            }
+        }
+ 
+        if (substr($object, -1) == ',')
+        {
+            $object = substr($object, 0, -1);
+        }
+ 
+        $object .= '}';
+ 
+        return $object;
     }
 	
 	
