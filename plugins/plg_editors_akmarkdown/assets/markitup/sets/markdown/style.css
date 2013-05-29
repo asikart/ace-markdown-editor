@@ -49,6 +49,10 @@
 	background-image:url(images/code.png);
 }
 
+.markItUp .code-inline a	{
+	background-image:url(images/code-inline.png);
+}
+
 .markItUp .preview a {
 	background-image:url(images/preview.png);
 }
