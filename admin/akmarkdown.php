@@ -161,7 +161,10 @@ class plgSystemAkmarkdown extends JPlugin
             $return = false ;
         }
         
-        if($prettify == 2 && ($context == 'com_content.category' || $context == 'com_content.article')) {
+        if($prettify == 2 && ($context == 'com_content.category'
+                              || $context == 'com_content.article'
+                              || $context == 'com_content.featured'
+                              )) {
             $return = false ;
         }
         
