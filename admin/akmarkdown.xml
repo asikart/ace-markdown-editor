@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<description></description>
 	
 	
@@ -33,6 +33,7 @@
 		<filename plugin="akmarkdown">akmarkdown.php</filename>
 		<filename>index.html</filename>
 		<filename>install.php</filename>
+        <folder>assets</folder>
         <folder>fields</folder>
         <folder>images</folder>
 		<folder>language</folder>
