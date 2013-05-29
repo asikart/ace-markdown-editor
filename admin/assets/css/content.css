@@ -11,8 +11,18 @@ table.center th{
 }
 
 .akmarkdown-table {
-  width: 100%;
-  margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.akmarkdown-table tr,
+.akmarkdown-table th,
+.akmarkdown-table td {
+    border: none;
 }
 
 .akmarkdown-table th,
@@ -49,12 +59,12 @@ table.center th{
   background-color: #ffffff;
 }
 
-.akmarkdown-table .table-condensed th,
-.akmarkdown-table .table-condensed td {
+.akmarkdown-table.table-condensed th,
+.akmarkdown-table.table-condensed td {
   padding: 4px 5px;
 }
 
-.akmarkdown-table .table-bordered {
+.akmarkdown-table.table-bordered {
   border: 1px solid #dddddd;
   border-collapse: separate;
   *border-collapse: collapse;
@@ -64,95 +74,95 @@ table.center th{
           border-radius: 4px;
 }
 
-.akmarkdown-table .table-bordered th,
-.akmarkdown-table .table-bordered td {
+.akmarkdown-table.table-bordered th,
+.akmarkdown-table.table-bordered td {
   border-left: 1px solid #dddddd;
 }
 
-.akmarkdown-table .table-bordered caption + thead tr:first-child th,
-.akmarkdown-table .table-bordered caption + tbody tr:first-child th,
-.akmarkdown-table .table-bordered caption + tbody tr:first-child td,
-.akmarkdown-table .table-bordered colgroup + thead tr:first-child th,
-.akmarkdown-table .table-bordered colgroup + tbody tr:first-child th,
-.akmarkdown-table .table-bordered colgroup + tbody tr:first-child td,
-.akmarkdown-table .table-bordered thead:first-child tr:first-child th,
-.akmarkdown-table .table-bordered tbody:first-child tr:first-child th,
-.akmarkdown-table .table-bordered tbody:first-child tr:first-child td {
+.akmarkdown-table.table-bordered caption + thead tr:first-child th,
+.akmarkdown-table.table-bordered caption + tbody tr:first-child th,
+.akmarkdown-table.table-bordered caption + tbody tr:first-child td,
+.akmarkdown-table.table-bordered colgroup + thead tr:first-child th,
+.akmarkdown-table.table-bordered colgroup + tbody tr:first-child th,
+.akmarkdown-table.table-bordered colgroup + tbody tr:first-child td,
+.akmarkdown-table.table-bordered thead:first-child tr:first-child th,
+.akmarkdown-table.table-bordered tbody:first-child tr:first-child th,
+.akmarkdown-table.table-bordered tbody:first-child tr:first-child td {
   border-top: 0;
 }
 
-.akmarkdown-table .table-bordered thead:first-child tr:first-child > th:first-child,
-.akmarkdown-table .table-bordered tbody:first-child tr:first-child > td:first-child,
-.akmarkdown-table .table-bordered tbody:first-child tr:first-child > th:first-child {
+.akmarkdown-table.table-bordered thead:first-child tr:first-child > th:first-child,
+.akmarkdown-table.table-bordered tbody:first-child tr:first-child > td:first-child,
+.akmarkdown-table.table-bordered tbody:first-child tr:first-child > th:first-child {
   -webkit-border-top-left-radius: 4px;
           border-top-left-radius: 4px;
   -moz-border-radius-topleft: 4px;
 }
 
-.akmarkdown-table .table-bordered thead:first-child tr:first-child > th:last-child,
-.akmarkdown-table .table-bordered tbody:first-child tr:first-child > td:last-child,
-.akmarkdown-table .table-bordered tbody:first-child tr:first-child > th:last-child {
+.akmarkdown-table.table-bordered thead:first-child tr:first-child > th:last-child,
+.akmarkdown-table.table-bordered tbody:first-child tr:first-child > td:last-child,
+.akmarkdown-table.table-bordered tbody:first-child tr:first-child > th:last-child {
   -webkit-border-top-right-radius: 4px;
           border-top-right-radius: 4px;
   -moz-border-radius-topright: 4px;
 }
 
-.akmarkdown-table .table-bordered thead:last-child tr:last-child > th:first-child,
-.akmarkdown-table .table-bordered tbody:last-child tr:last-child > td:first-child,
-.akmarkdown-table .table-bordered tbody:last-child tr:last-child > th:first-child,
-.akmarkdown-table .table-bordered tfoot:last-child tr:last-child > td:first-child,
-.akmarkdown-table .table-bordered tfoot:last-child tr:last-child > th:first-child {
+.akmarkdown-table.table-bordered thead:last-child tr:last-child > th:first-child,
+.akmarkdown-table.table-bordered tbody:last-child tr:last-child > td:first-child,
+.akmarkdown-table.table-bordered tbody:last-child tr:last-child > th:first-child,
+.akmarkdown-table.table-bordered tfoot:last-child tr:last-child > td:first-child,
+.akmarkdown-table.table-bordered tfoot:last-child tr:last-child > th:first-child {
   -webkit-border-bottom-left-radius: 4px;
           border-bottom-left-radius: 4px;
   -moz-border-radius-bottomleft: 4px;
 }
 
-.akmarkdown-table .table-bordered thead:last-child tr:last-child > th:last-child,
-.akmarkdown-table .table-bordered tbody:last-child tr:last-child > td:last-child,
-.akmarkdown-table .table-bordered tbody:last-child tr:last-child > th:last-child,
-.akmarkdown-table .table-bordered tfoot:last-child tr:last-child > td:last-child,
-.akmarkdown-table .table-bordered tfoot:last-child tr:last-child > th:last-child {
+.akmarkdown-table.table-bordered thead:last-child tr:last-child > th:last-child,
+.akmarkdown-table.table-bordered tbody:last-child tr:last-child > td:last-child,
+.akmarkdown-table.table-bordered tbody:last-child tr:last-child > th:last-child,
+.akmarkdown-table.table-bordered tfoot:last-child tr:last-child > td:last-child,
+.akmarkdown-table.table-bordered tfoot:last-child tr:last-child > th:last-child {
   -webkit-border-bottom-right-radius: 4px;
           border-bottom-right-radius: 4px;
   -moz-border-radius-bottomright: 4px;
 }
 
-.akmarkdown-table .table-bordered tfoot + tbody:last-child tr:last-child td:first-child {
+.akmarkdown-table.table-bordered tfoot + tbody:last-child tr:last-child td:first-child {
   -webkit-border-bottom-left-radius: 0;
           border-bottom-left-radius: 0;
   -moz-border-radius-bottomleft: 0;
 }
 
-.akmarkdown-table .table-bordered tfoot + tbody:last-child tr:last-child td:last-child {
+.akmarkdown-table.table-bordered tfoot + tbody:last-child tr:last-child td:last-child {
   -webkit-border-bottom-right-radius: 0;
           border-bottom-right-radius: 0;
   -moz-border-radius-bottomright: 0;
 }
 
-.akmarkdown-table .table-bordered caption + thead tr:first-child th:first-child,
-.akmarkdown-table .table-bordered caption + tbody tr:first-child td:first-child,
-.akmarkdown-table .table-bordered colgroup + thead tr:first-child th:first-child,
-.akmarkdown-table .table-bordered colgroup + tbody tr:first-child td:first-child {
+.akmarkdown-table.table-bordered caption + thead tr:first-child th:first-child,
+.akmarkdown-table.table-bordered caption + tbody tr:first-child td:first-child,
+.akmarkdown-table.table-bordered colgroup + thead tr:first-child th:first-child,
+.akmarkdown-table.table-bordered colgroup + tbody tr:first-child td:first-child {
   -webkit-border-top-left-radius: 4px;
           border-top-left-radius: 4px;
   -moz-border-radius-topleft: 4px;
 }
 
-.akmarkdown-table .table-bordered caption + thead tr:first-child th:last-child,
-.akmarkdown-table .table-bordered caption + tbody tr:first-child td:last-child,
-.akmarkdown-table .table-bordered colgroup + thead tr:first-child th:last-child,
-.akmarkdown-table .table-bordered colgroup + tbody tr:first-child td:last-child {
+.akmarkdown-table.table-bordered caption + thead tr:first-child th:last-child,
+.akmarkdown-table.table-bordered caption + tbody tr:first-child td:last-child,
+.akmarkdown-table.table-bordered colgroup + thead tr:first-child th:last-child,
+.akmarkdown-table.table-bordered colgroup + tbody tr:first-child td:last-child {
   -webkit-border-top-right-radius: 4px;
           border-top-right-radius: 4px;
   -moz-border-radius-topright: 4px;
 }
 
-.akmarkdown-table .table-striped tbody > tr:nth-child(odd) > td,
-.akmarkdown-table .table-striped tbody > tr:nth-child(odd) > th {
+.akmarkdown-table.table-striped tbody > tr:nth-child(odd) > td,
+.akmarkdown-table.table-striped tbody > tr:nth-child(odd) > th {
   background-color: #f9f9f9;
 }
 
-.akmarkdown-table .table-hover tbody tr:hover > td,
-.akmarkdown-table .table-hover tbody tr:hover > th {
+.akmarkdown-table.table-hover tbody tr:hover > td,
+.akmarkdown-table.table-hover tbody tr:hover > th {
   background-color: #f5f5f5;
 }
