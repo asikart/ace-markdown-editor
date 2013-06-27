@@ -71,7 +71,7 @@ class JFormFieldMarkituptheme extends JFormFieldList
      */
     public function getInput()
     {
-        $a = '  <a style="float: left;" href="http://markitup.jaysalvat.com/examples/" target="_blank">'.JText::_('JHELP').'</a>' ;
-        return parent::getInput(). $a ;
+        $a = '  <a style="float: left; margin-left: 10px;" class="akmarkdown-help-button btn btn-small" href="http://markitup.jaysalvat.com/examples/" target="_blank">'.JText::_('JHELP').'</a>' ;
+        return '<div class="akmarkdown-help-wrap pull-left fltlft">'.parent::getInput(). '</div>'. $a ;
     }
 }

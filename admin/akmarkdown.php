@@ -133,7 +133,7 @@ class plgSystemAkmarkdown extends JPlugin
 	{
 		$app = JFactory::getApplication();
         
-		$article->text = $this->render( $article->text ) . '<div class="akmarkdown-content-placeholder" ></div>';
+		$article->text = '<div class="akmarkdown-content" >' . $this->render( $article->text ) . '</div>';
         
 		if( $path = $this->includeEvent(__FUNCTION__) ) @include $this->includeEvent(__FUNCTION__);
 	}
@@ -155,10 +155,11 @@ class plgSystemAkmarkdown extends JPlugin
         $prettify = $this->params->get('Article_Prettify', 2) ;
         if(!$prettify) return;
         
-        $return = true;
+        $return     = true;
+        $nav_list   = ($context == 'com_content.article') ? true : false ;
         
         if( $prettify == 1 && $context == 'com_content.article') {
-            $return = false ;
+            $return     = false ;
         }
         
         if($prettify == 2 && ($context == 'com_content.category'
@@ -174,17 +175,24 @@ class plgSystemAkmarkdown extends JPlugin
         
         if($return) return ;
         
+        
         // set JS
         static $loaded ;
         
         if(!$loaded){
             $doc = JFactory::getDocument();
             
+            // Set Params
             $option['Article_ForceNewWindow']   = $this->params->get('Article_ForceNewWindow', false);
+            $option['Article_NavList']          = $nav_list ? $this->params->get('Article_NavList', false) : false ;
+            $option['Article_NavList_Class']    = $this->params->get('Article_NavList_Class', 'akmarkdown-nav-box well well-small');
             $option['Article_ForceImageAlign']  = $this->params->get('Article_ForceImageAlign', 'center');
             $option['Article_ForceImageMaxWidth'] = $this->params->get('Article_ForceImageMaxWidth', 0);
             $option['Article_ImageClass'] = $this->params->get('Article_ImageClass', 'akmarkdown-img img-polaroid');
             $option['Article_TableClass'] = $this->params->get('Article_TableClass', 'akmarkdown-table table-bordered table-striped table-hover center');
+            
+            // Set Language
+            JText::script('PLG_SYSTEM_AKMARKDOWN_NAV_LIST_BACK_TO_TOP');
             
             $option = $this->getJSObject($option);
             
@@ -206,8 +214,11 @@ class plgSystemAkmarkdown extends JPlugin
     {
         if( AKMARKDOWN_ENABLED ){
             $extra  = $this->params->get('Markdown_Extra', 1);
-            $theme  = $this->params->get('Highlight_Theme', 'default');
-            $text   = AKHelper::_('html.markdown', $text, $extra, array('highlight' => $theme));
+            
+            $option['highlight']        = $this->params->get('Highlight_Theme', 'default');
+            $option['highlight_enable'] = $this->params->get('Highlight_Enabled', 1);
+            
+            $text   = AKHelper::_('html.markdown', $text, $extra, $option);
         }else{
             $text = nl2br($text);
         }

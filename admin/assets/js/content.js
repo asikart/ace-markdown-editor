@@ -5,10 +5,10 @@ var AKMarkdownPretiffy = function(option){
         
         // Handle Images
         var placeholder = $$('.akmarkdown-content-placeholder') ;
-        var articles    = placeholder.getParent();
+        var articles    = $$('.akmarkdown-content') ;
         var ps          = articles.getElements('p') ;
         
-        if(!placeholder) return;
+        if(!articles) return;
         
         ps.each( function(p1){
             
@@ -59,7 +59,103 @@ var AKMarkdownPretiffy = function(option){
             });
         }
         
-        
+        // Nav List
+        if(option.Article_NavList){
+            
+            articles.each( function(article){
+                var heading = article.getElements('h2, h3') ;
+                var ul      = new Element('ul.page-nav.level-1') ;
+                var li      = Array();
+                var subul   = Array();
+                var subli   = Array();
+                var i       = 0 ;
+                var k       = 0 ;
+                
+                heading.each( function(e){
+                    
+                    // Set h2
+                    if (e.tagName == 'H2') {
+                        
+                        if (subul[i] && li[i]) {
+                            subul[i].inject(li[i], 'bottom') ;
+                            subul[i] = null ;
+                        }
+                        
+                        i++ ;
+                        li[i] = new Element('li') ;
+                        
+                        // Set Link
+                        var a = new Element('a', {href: '#'+e.get('text').trim(), text: e.get('text')}) ;
+                        a.inject(li[i], 'bottom');
+                        
+                        li[i].inject(ul, 'bottom') ;
+                    }
+                    
+                    // Set h3
+                    if (e.tagName == 'H3') {
+                        if (!subul[i]) {
+                            subul[i] = new Element('ul.level-2') ;
+                        }
+                        
+                        var subli = new Element('li') ;
+                        
+                        // Set Link
+                        var a = new Element('a', {href: '#'+e.get('text').trim(), text: e.get('text')}) ;
+                        a.inject(subli, 'bottom');
+                        
+                        subli.inject(subul[i], 'bottom') ;
+                    }
+                    
+                    
+                    k++;
+                    
+                    // Set Back Top
+                    if (k == 1) {
+                        return ;
+                    }
+                    
+                    var a = new Element('a', {href: '#page-top', text: Joomla.JText._('PLG_SYSTEM_AKMARKDOWN_NAV_LIST_BACK_TO_TOP')}) ;
+                    var hr = new Element('hr') ;
+                    var div = new Element('p', {align: 'right'}) ;
+                    
+                    a.inject(div, 'bottom');
+                    hr.inject(div, 'bottom');
+                    
+                    var p = e.getPrevious();
+                    if (p.tagName == 'H2') {
+                        return ;
+                    }
+                    
+                    div.inject(e, 'before');
+                    
+                    // Set Heading anchor
+                    var an = new Element( 'div#'+e.get('text').trim()+'.akmarkdown-page-anchor' );
+                    an.inject(e, 'before');
+                });
+                
+                // Last inject
+                if (subul[i] && li[i]) {
+                    subul[i].inject(li[i], 'bottom') ;
+                    subul[i] = null ;
+                }
+                
+                
+                if (li.length == 0) {
+                    return ;
+                }
+                
+                var wrap = new Element('div#page-top');
+                wrap.addClass(option.Article_NavList_Class);
+                
+                ul.inject(wrap, 'top');
+                
+                wrap.inject(article, 'top');
+                
+                new Fx.SmoothScroll({ duration: 300},window);   
+            });
+            
+            
+        }
         
         /*
         // Handle Define list

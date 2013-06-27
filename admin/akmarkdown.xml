@@ -89,6 +89,18 @@
                     <option value="0">JNO</option>
                 </field>
                 
+                <field name="Article_NavList"
+                    type="radio"
+                    label="PLG_SYSTEM_AKMARKDOWN_NAV_LIST"
+                    description="PLG_SYSTEM_AKMARKDOWN_NAV_LIST_DESC"
+                    default="0"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                
                 <field name="Article_ForceImageAlign"
                     type="radio"
                     label="PLG_SYSTEM_AKMARKDOWN_FORCE_IMAGE_ALIGN"
@@ -123,6 +135,16 @@
                     default="akmarkdown-img img-polaroid"
                 />
                 
+                <field name="Article_NavList_Class"
+                    type="text"
+                    label="PLG_SYSTEM_AKMARKDOWN_NAV_LIST_CLASS"
+                    description="PLG_SYSTEM_AKMARKDOWN_NAV_LIST_CLASS_DESC"
+                    class="input-xxlarge"
+                    size="45"
+                    labelclass="control-label"
+                    default="akmarkdown-nav-box well well-small"
+                />
+                
                 <field name="Article_TableClass"
                     type="text"
                     label="PLG_SYSTEM_AKMARKDOWN_TABLE_CLASS"
@@ -137,6 +159,18 @@
                     type="spacer"
                     hr="true"
                 />
+                
+                <field name="Highlight_Enabled"
+                    type="radio"
+                    label="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_ENABLED"
+                    description="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_ENABLED_DESC"
+                    default="1"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option value="1">JENABLED</option>
+                    <option value="0">JDISABLED</option>
+                </field>
                     
 				<field
                     name="Highlight_Theme"
