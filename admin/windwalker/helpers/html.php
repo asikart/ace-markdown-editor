@@ -79,27 +79,6 @@ class AKHelperHtml {
     }
     
     /**
-     * Parse BBCode and convert to HTML.
-     *
-     * Use jBBCode library: http://jbbcode.com/
-     * 
-     * @param   string  $text   Text to parse BBCode.
-     *
-     * @return  string  Parsed text.
-     */
-    public static function bbcode($text)
-    {
-        require_once( "phar://".AKPATH_HTML."/jbbcode/jbbcode.phar/Parser.php" );
-
-        $parser = new JBBCode\Parser();
-        $parser->loadDefaultCodes();
-         
-        $parser->parse($text);
-         
-        print $parser->getAsHtml();    
-    }
-    
-    /**
      * Parse Markdown and convert to HTML.
      *
      * Use PHP Markdown & Markdown Extra: http://michelf.ca/projects/php-markdown/
@@ -111,18 +90,20 @@ class AKHelperHtml {
      */
     public static function markdown($text, $extra = true, $option = array())
     {
-        require_once( "phar://".AKPATH_HTML."/php-markdown/php-markdown.phar/Markdown.php" );
+        require_once AKPATH_HTML."/php-markdown/Markdown.php" ;
         
         $text = str_replace( "\t", '    ', $text );
         
         if($extra){
-            require_once( "phar://".AKPATH_HTML."/php-markdown/php-markdown.phar/MarkdownExtra.php" );
+            require_once AKPATH_HTML."/php-markdown/MarkdownExtra.php" ;
             $result =  Michelf\MarkdownExtra::defaultTransform($text);
         }else{
             $result =  Michelf\Markdown::defaultTransform($text);
         }
         
-        self::highlight( JArrayHelper::getValue($option, 'highlight', 'default') );
+        if( JArrayHelper::getValue($option, 'highlight_enable', 1) ){
+            self::highlight( JArrayHelper::getValue($option, 'highlight', 'default') );
+        }
         
         return $result ;
     }
@@ -152,6 +133,53 @@ class AKHelperHtml {
             $doc->addScriptDeclaration("\n    hljs.initHighlightingOnLoad();");
             $loaded = true;
         }
+    }
+    
+    /**
+     * Internal method to get a JavaScript object notation string from an array
+     *
+     * @param   array  $array  The array to convert to JavaScript object notation
+     *
+     * @return  string  JavaScript object notation representation of the array
+     */
+    public static function getJSObject(array $array = array())
+    {
+        $object = '{';
+ 
+        // Iterate over array to build objects
+        foreach ((array) $array as $k => $v)
+        {
+            if (is_null($v))
+            {
+                continue;
+            }
+ 
+            if (is_bool($v))
+            {
+                $object .= ' ' . $k . ': ';
+                $object .= ($v) ? 'true' : 'false';
+                $object .= ',';
+            }
+            elseif (!is_array($v) && !is_object($v))
+            {
+                $object .= ' ' . $k . ': ';
+                $object .= (is_numeric($v) || strpos($v, '\\') === 0) ? (is_numeric($v)) ? $v : substr($v, 1) : "'" . str_replace("'", "\\'", trim($v, "'")) . "'";
+                $object .= ',';
+            }
+            else
+            {
+                $object .= ' ' . $k . ': ' . self::getJSObject($v) . ',';
+            }
+        }
+ 
+        if (substr($object, -1) == ',')
+        {
+            $object = substr($object, 0, -1);
+        }
+ 
+        $object .= '}';
+ 
+        return $object;
     }
 }
 

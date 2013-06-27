@@ -80,7 +80,7 @@ SCRIPT;
         {
             $rel    = JArrayHelper::getValue($option, 'rel');
             $rel    = $rel ? " rel=\"{$rel}\"" : '';
-            $button = "<a href=\"#{$selector}\"{$id}{$class}{$onclick}{$rel}>{$title}</a>" ;
+            $button = "<{$tag} href=\"#{$selector}\"{$id}{$class}{$onclick}{$rel}>{$title}</{$tag}>" ;
         }
         
         return $button;
@@ -125,7 +125,7 @@ FOOTER;
         
         // Box
         $html = <<<MODAL
-<div class="modal hide fade" id="{$selector}">
+<div class="modal hide fade {$selector}" id="{$selector}">
 {$header}
 
 <div id="{$selector}-container" class="modal-body">
@@ -138,6 +138,54 @@ MODAL;
         
         
         return $html ;
+    }
+    
+    /**
+     * getQuickaddForm
+     */
+    static public function getQuickaddForm($id, $path, $extension = null)
+    {
+        $content = '';
+        
+        //JForm::addFormPath(AKHelper::_('path.get', null, $extension).'/models/forms');
+        //JForm::addFieldPath(AKHelper::_('path.get', null, $extension).'/models/fields');
+        
+        try
+        {
+            $form = new JForm($id.'.quickaddform', array('control' => $id));
+            $form->loadFile(JPATH_ROOT.'/'.$path) ;
+        }
+        catch (Exception $e)
+        {
+            Jerror::raiseWarning(404, $e->getMessage());
+            return false;
+        }
+        
+        // Set Category Extension
+        if( $extension ) {
+            $form->setValue('extension', null, $extension) ;
+        }
+        
+        
+        $fieldset = $form->getFieldset('quickadd') ;
+        
+        foreach( $fieldset as $field ):
+            
+            $content .= "<div class=\"control-group\" id=\"jform_basic_alias-wrap\">
+                            <div class=\"control-label\">
+                                {$field->label}
+                            </div>
+                            <div class=\"controls\">
+                                {$field->input}
+                            </div>
+                        </div>" ;
+        endforeach;
+        
+        if(JVERSION < 3) {
+            $content = "<fieldset class=\"adminform form-horizontal\">{$content}</fieldset>" ;
+        }
+        
+        return $content ;
     }
 }
 

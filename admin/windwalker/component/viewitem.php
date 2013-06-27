@@ -47,21 +47,21 @@ class AKViewItem extends AKView
      *
      * @var string 
      */
-    public  $option = '';
+    protected  $option = '';
     
     /**
      * List name.
      *
      * @var string 
      */
-    public  $list_name = '';
+    protected  $list_name = '';
     
     /**
      * Item name.
      *
      * @var string 
      */
-    public  $item_name = '';
+    protected  $item_name = '';
     
     
     /**
@@ -93,9 +93,6 @@ class AKViewItem extends AKView
     protected function addToolbar()
     {
         JRequest::setVar('hidemainmenu', true);
-
-        $user   = JFactory::getUser();
-        $isNew  = ($this->item->id == 0);
 
         JToolBarHelper::apply($this->item_name.'.apply');
         JToolBarHelper::save($this->item_name.'.save');

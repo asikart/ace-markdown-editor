@@ -269,6 +269,16 @@ SC;
 			$height .= 'px';
 		}
         
+        
+        // Handle readmore
+        $pattern = '#<hr\s+id=("|\')system-readmore("|\')\s*\/*>#i';
+        $tagPos = preg_match($pattern, $content);
+        if( $tagPos ) {
+            $content = preg_split($pattern, $content, 2);
+            $content = implode( htmlentities('<hr id="system-readmore" />') , $content);
+        }
+        
+        // Set Content
 		$buttons = $this->_displayButtons($id, $buttons, $asset, $author);
 		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\" style=\"clear:both;\">".$content."</div>" . $buttons;
 

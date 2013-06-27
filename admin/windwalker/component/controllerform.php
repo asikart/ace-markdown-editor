@@ -26,21 +26,21 @@ class AKControllerForm extends JControllerForm
      *
      * @var    string 
      */
-    public $view_list = '';
+    protected $view_list = '';
     
     /**
      * The URL view item variable.
      *
      * @var    string 
      */
-    public $view_item = '';
+    protected $view_item = '';
     
     /**
      * Component name.
      *
      * @var string 
      */
-    public $component = '';
+    protected $component = '';
     
     
     /**
@@ -108,7 +108,6 @@ class AKControllerForm extends JControllerForm
         return parent::batch($model);
     }
     
-    
     /**
      * Gets the URL arguments to append to an item redirect.
      *
@@ -117,7 +116,6 @@ class AKControllerForm extends JControllerForm
      *
      * @return  string  The arguments to append to the redirect URL.
      */
-    
     protected function getRedirectToItemAppend($recordId = null, $urlVar = 'id')
     {
         $append = parent::getRedirectToItemAppend($recordId , $urlVar );
@@ -131,13 +129,11 @@ class AKControllerForm extends JControllerForm
         return $append ;
     }
     
-    
     /**
      * Gets the URL arguments to append to a list redirect.
      *
      * @return  string  The arguments to append to the redirect URL.
      */
-    
     protected function getRedirectToListAppend()
     {
         $append = parent::getRedirectToListAppend();
@@ -151,8 +147,6 @@ class AKControllerForm extends JControllerForm
         return $append ;
     }
     
-    
-    
     /**
      * Set a URL for browser redirection.
      *
@@ -162,7 +156,6 @@ class AKControllerForm extends JControllerForm
      *
      * @return  JController  This object to support chaining.
      */
-    
     public function setRedirect($url, $msg = null, $type = null)
     {
         $task  = $this->getTask() ;
@@ -178,7 +171,6 @@ class AKControllerForm extends JControllerForm
             return parent::setRedirect($url, $msg, $type) ;
         }
     }
-    
     
     /**
      * Method to check if you can add a new record.
