@@ -197,7 +197,7 @@
     </plugins>
 	
     <updateservers>
-        <server type="extension" priority="1" name="Asikart Markdown Plugin">http://update.asikart.com/plugin/plg_akmarkdown.xml</server>
+        <server type="extension" priority="1" name="Asikart Markdown Plugins">http://update.asikart.com/plugin/plg_akmarkdown.xml</server>
     </updateservers>
 	
 </extension>
