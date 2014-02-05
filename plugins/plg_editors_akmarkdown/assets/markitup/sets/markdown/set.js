@@ -34,7 +34,7 @@ var MIUEditorSettingBasic = {
         {name:'Link', key:"L", openWith:'[', closeWith:']([![Url:!:http://]!])', placeHolder:'Click here to link...' },
         {separator:'---------------'},    
         {name:'Quotes', openWith:'> ', multiline: true},
-        {name:'Code Block / Code', openWith:'~~~~~ [![Language]!]\n', closeWith:'\n~~~~~', afterInsert: function(markItUp) { return miu.markdownAfterCodeblock(markItUp) } },
+        {name:'Code Block / Code', openWith:'``` [![Language]!]\n', closeWith:'\n```', afterInsert: function(markItUp) { return miu.markdownAfterCodeblock(markItUp) } },
         {name:'Code Inline', openWith:'`', closeWith:'`', multiline: true, className: "code-inline"},
         {separator:'---------------'},
         {name:'Preview', call:'preview', className:"preview"}

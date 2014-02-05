@@ -129,7 +129,7 @@ var AKMarkdownPretiffy = function(option){
                     div.inject(e, 'before');
                     
                     // Set Heading anchor
-                    var an = new Element( 'div#'+e.get('text').trim()+'.akmarkdown-page-anchor' );
+                    var an = new Element('div', {'id': e.get('text').trim()+'.akmarkdown-page-anchor'});
                     an.inject(e, 'before');
                 });
                 
