@@ -33,6 +33,8 @@
 		<filename plugin="akmarkdown">akmarkdown.php</filename>
 		<filename>index.html</filename>
 		<filename>install.php</filename>
+		<filename>composer.json</filename>
+		<filename>composer.lock</filename>
         <folder>assets</folder>
         <folder>fields</folder>
         <folder>images</folder>
