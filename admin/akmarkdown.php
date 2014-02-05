@@ -21,11 +21,11 @@ jimport('joomla.plugin.plugin');
 class plgSystemAkmarkdown extends JPlugin
 {
 	/**
-	 * Property _self.
+	 * Property self.
 	 *
 	 * @var  plgSystemAkmarkdown
 	 */
-	public static $_self;
+	public static $self;
 
 	/**
 	 * Constructor
@@ -44,7 +44,7 @@ class plgSystemAkmarkdown extends JPlugin
 		$this->loadLanguage();
 		$this->app = JFactory::getApplication();
 
-		self::$_self = $this;
+		self::$self = $this;
 	}
 
 	/**
@@ -54,7 +54,7 @@ class plgSystemAkmarkdown extends JPlugin
 	 */
 	public static function getInstance()
 	{
-		return self::$_self;
+		return self::$self;
 	}
 
 	// System Events
@@ -161,6 +161,7 @@ class plgSystemAkmarkdown extends JPlugin
 	public function onContentAfterDisplay($context, &$article, &$params, $page = 0)
 	{
 		$prettify = $this->params->get('Article_Prettify', 2);
+
 		if (!$prettify)
 		{
 			return;
@@ -239,12 +240,29 @@ class plgSystemAkmarkdown extends JPlugin
 	{
 		if (AKMARKDOWN_ENABLED)
 		{
+			include_once __DIR__ . "/lib/autoload.php";
+
 			$extra = $this->params->get('Markdown_Extra', 1);
 
 			$option['highlight']        = $this->params->get('Highlight_Theme', 'default');
 			$option['highlight_enable'] = $this->params->get('Highlight_Enabled', 1);
 
-			$text = AKHelper::_('html.markdown', $text, $extra, $option);
+			// Render markdown
+			$text = str_replace("\t", '    ', $text);
+
+			if ($extra)
+			{
+				$text = \Michelf\MarkdownExtra::defaultTransform($text);
+			}
+			else
+			{
+				$text = \Michelf\Markdown::defaultTransform($text);
+			}
+
+			if (JArrayHelper::getValue($option, 'highlight_enable', 1))
+			{
+				AKHelper::_('html.highlight', JArrayHelper::getValue($option, 'highlight', 'default'));
+			}
 		}
 		else
 		{
