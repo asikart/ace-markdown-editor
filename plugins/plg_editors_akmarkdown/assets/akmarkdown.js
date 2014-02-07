@@ -155,7 +155,7 @@ var AKMarkdownClass = new Class({
 			var date = new Date();
 			var ext = ['png', 'gif', 'jpg', 'jpeg'];
 
-			if($.inArray(file.name.split('.').slice(-1)[0], ext) <= 0) {
+			if($.inArray(file.name.split('.').slice(-1)[0].toLowerCase(), ext) < 0) {
 				bar.hide();
 				button.show();
 				alert('Unallowed extension');
