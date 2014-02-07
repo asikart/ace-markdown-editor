@@ -126,7 +126,7 @@
                 <field
                         name="s3_enable"
                         type="radio"
-                        label="PLG_EDITORS_AKMARKDOWN_S3_enable"
+                        label="PLG_EDITORS_AKMARKDOWN_S3_ENABLE"
                         default="0"
                         class="btn-group"
                         >
