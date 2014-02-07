@@ -122,7 +122,42 @@
                     type="gotosystem"
                 />
 			</fieldset>
-
+            <fieldset name="amazon" description="ssss">
+                <field
+                        name="s3_enable"
+                        type="radio"
+                        label="PLG_EDITORS_AKMARKDOWN_S3_enable"
+                        default="0"
+                        class="btn-group"
+                        >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                    name="s3_key"
+                    type="text"
+                    label="PLG_EDITORS_AKMARKDOWN_S3KEY"
+                    default=""
+                    />
+                <field
+                    name="s3_secret_key"
+                    type="text"
+                    label="PLG_EDITORS_AKMARKDOWN_S3SERETKEY"
+                    default=""
+                    />
+                <field
+                    name="s3_bucket"
+                    type="text"
+                    label="PLG_EDITORS_AKMARKDOWN_S3BUCKET"
+                    default=""
+                    />
+                <field
+                    name="s3_subfolder"
+                    type="text"
+                    label="PLG_EDITORS_AKMARKDOWN_S3SUBFOLDER"
+                    default=""
+                    />
+            </fieldset>
 		</fields>
 	</config>
 		

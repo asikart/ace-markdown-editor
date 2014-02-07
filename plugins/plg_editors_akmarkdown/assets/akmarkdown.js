@@ -135,3 +135,92 @@ var AKMarkdownClass = new Class({
 		};
 	}
 });
+
+(function($) {
+	function upload(options, context) {
+
+		$('#s3-file').on('change', function() {
+			start();
+		});
+
+		var key = '';
+		var bar = $('#s3-upload-bar');
+		var button = $('#editor-upload');
+
+		function start() {
+			bar.show();
+			button.hide();
+			var file = document.getElementById('s3-file').files[0];
+			var fd = new FormData();
+			var date = new Date();
+			var ext = ['png', 'gif', 'jpg', 'jpeg'];
+
+			if($.inArray(file.name.split('.').slice(-1)[0], ext) <= 0) {
+				bar.hide();
+				button.show();
+				alert('Unallowed extension');
+				return;
+			}
+
+			key = options.key + '/' + Math.round(date.getTime() / 1000) + '_' + file.name
+
+			fd.append('key', key);
+			fd.append('AWSAccessKeyId', options.apikey);
+			fd.append('acl', 'public-read');
+			fd.append('policy', options.policy);
+			fd.append('signature', options.signature);
+			fd.append('Content-type', file.type);
+			fd.append('file', file);
+
+			var xhr = GetXmlHttpObject();
+
+			//xhr.upload.addEventListener("progress", uploadProgress, false);
+			xhr.addEventListener("load", uploadComplete, false);
+			xhr.addEventListener("error", uploadFailed, false);
+			xhr.addEventListener("abort", uploadCanceled, false);
+
+			xhr.open('POST', 'https://' + options.bucket + '.s3.amazonaws.com/', true); //MUST BE LAST LINE BEFORE YOU SEND
+
+			xhr.send(fd);
+		}
+
+		function uploadComplete(evt) {
+			bar.hide();
+			button.show();
+
+			jInsertEditorText('\n<img src="https://' + options.bucket + '.s3.amazonaws.com/' + key + '" class="img-polaroid" />', options.id);
+		}
+
+		function uploadFailed(evt) {
+			bar.hide();
+			button.show();
+			alert("There was an error attempting to upload the file." + evt);
+		}
+
+		function uploadCanceled(evt) {
+			bar.hide();
+			button.show();
+			alert("The upload has been canceled by the user or the browser dropped the connection.");
+		}
+
+		function GetXmlHttpObject() {
+			var xmlHttp = null;
+			try {
+				xmlHttp = new XMLHttpRequest();
+			}
+			catch(e) {
+				try {
+					xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e) {
+					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+			}
+			return xmlHttp;
+		}
+	}
+
+	$.fn.S3 = function(params) {
+		return new upload(params, this);
+	}
+}(jQuery));

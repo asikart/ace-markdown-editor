@@ -274,7 +274,35 @@ SC;
 
 		// Set Content
 		$buttons = $this->_displayButtons($id, $buttons, $asset, $author);
-		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\" style=\"clear:both;\">" . $content . "</div>" . $buttons;
+		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\" style=\"clear:both;\">".$content."</div>";
+
+		if($this->params->get('s3_enable'))
+		{
+			$editor .= sprintf('<div class="progress progress-info progress-striped active hide" id="s3-upload-bar">
+				    <div class="bar" style="width: 100%%;">%s</div>
+				</div>
+				<div id="editor-upload" class="btn btn-mini pull-right btn-inverse">
+				<input type="file" name="s3-file" id="s3-file" />%s</div>
+				<div class="clearfix"></div>',
+				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'), JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'));
+			$key = ltrim(rtrim($this->params->get('s3_subfolder'), '/'), '/')."/".date('Y-m');
+			$policy = '{"expiration":"2020-12-01T12:00:00.000Z","conditions":[';
+			$policy .= '{"bucket":"'.$this->params->get('s3_bucket').'"},';
+			$policy .= '["starts-with","$key",""],';
+			$policy .= '{"acl":"public-read"},';
+			$policy .= '["starts-with","$Content-Type",""],';
+			$policy .= '["content-length-range",0,524288000]';
+			$policy .= ']}';
+
+			$policy = base64_encode($policy);
+			$signature = base64_encode(hash_hmac('sha1', $policy, $this->params->get('s3_secret_key'), true));
+			$apikey = $this->params->get('s3_key');
+			$bucket = $this->params->get('s3_bucket');
+
+			$editor .= "<script>jQuery('#editor-upload').S3({bucket: '{$bucket}', key: '{$key}', id: '{$id}', policy: '{$policy}', signature: '{$signature}', apikey: '{$apikey}'})</script>";
+		}
+
+		$editor	.= $buttons;
 
 		return $editor;
 	}
