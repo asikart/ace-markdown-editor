@@ -135,7 +135,7 @@ class plgSystemAkmarkdown extends JPlugin
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
 		$app = JFactory::getApplication();
-
+		
 		$article->text = '<div class="akmarkdown-content" >' . $this->render($article->text) . '</div>';
 
 		if ($path = $this->includeEvent(__FUNCTION__))

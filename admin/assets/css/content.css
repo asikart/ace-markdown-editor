@@ -1,59 +1,56 @@
 
-
 .akmarkdown-img {
-    max-width: 100%;
-    height: auto;
+	max-width : 100%;
+	height    : auto;
 }
-
 
 /* NAV BOX */
 .akmarkdown-nav-box {
-    width: 30%;
-    float: right;
-    background: #f8f8f8 ;
-    border-radius: 3px ;
-    border: 1px solid #e9e9e9;
-    padding: 5px;
-    margin: 0 0 10px 10px;
+	width         : 30%;
+	float         : right;
+	background    : #f8f8f8;
+	border-radius : 3px;
+	border        : 1px solid #e9e9e9;
+	padding       : 5px;
+	margin        : 0 0 10px 10px;
 }
-
 
 /* TABLE */
 table.center td,
-table.center th{
-    text-align: center;
+table.center th {
+	text-align : center;
 }
 
 .akmarkdown-table {
-    width: 100%;
-    margin-bottom: 20px;
-    max-width: 100%;
-    background-color: transparent;
-    border-collapse: collapse;
-    border-spacing: 0;
+	width            : 100%;
+	margin-bottom    : 20px;
+	max-width        : 100%;
+	background-color : transparent;
+	border-collapse  : collapse;
+	border-spacing   : 0;
 }
 
 .akmarkdown-table tr,
 .akmarkdown-table th,
 .akmarkdown-table td {
-    border: none;
+	border : none;
 }
 
 .akmarkdown-table th,
 .akmarkdown-table td {
-  padding: 8px;
-  line-height: 20px;
-  text-align: left;
-  vertical-align: top;
-  border-top: 1px solid #dddddd;
+	padding        : 8px;
+	line-height    : 20px;
+	text-align     : left;
+	vertical-align : top;
+	border-top     : 1px solid #dddddd;
 }
 
 .akmarkdown-table th {
-  font-weight: bold;
+	font-weight : bold;
 }
 
 .akmarkdown-table thead th {
-  vertical-align: bottom;
+	vertical-align : bottom;
 }
 
 .akmarkdown-table caption + thead tr:first-child th,
@@ -62,35 +59,35 @@ table.center th{
 .akmarkdown-table colgroup + thead tr:first-child td,
 .akmarkdown-table thead:first-child tr:first-child th,
 .akmarkdown-table thead:first-child tr:first-child td {
-  border-top: 0;
+	border-top : 0;
 }
 
 .akmarkdown-table tbody + tbody {
-  border-top: 2px solid #dddddd;
+	border-top : 2px solid #dddddd;
 }
 
 .akmarkdown-table .akmarkdown-table {
-  background-color: #ffffff;
+	background-color : #ffffff;
 }
 
 .akmarkdown-table.table-condensed th,
 .akmarkdown-table.table-condensed td {
-  padding: 4px 5px;
+	padding : 4px 5px;
 }
 
 .akmarkdown-table.table-bordered {
-  border: 1px solid #dddddd;
-  border-collapse: separate;
-  *border-collapse: collapse;
-  border-left: 0;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
+	border                : 1px solid #dddddd;
+	border-collapse       : separate;
+	*border-collapse      : collapse;
+	border-left           : 0;
+	-webkit-border-radius : 4px;
+	-moz-border-radius    : 4px;
+	border-radius         : 4px;
 }
 
 .akmarkdown-table.table-bordered th,
 .akmarkdown-table.table-bordered td {
-  border-left: 1px solid #dddddd;
+	border-left : 1px solid #dddddd;
 }
 
 .akmarkdown-table.table-bordered caption + thead tr:first-child th,
@@ -102,23 +99,23 @@ table.center th{
 .akmarkdown-table.table-bordered thead:first-child tr:first-child th,
 .akmarkdown-table.table-bordered tbody:first-child tr:first-child th,
 .akmarkdown-table.table-bordered tbody:first-child tr:first-child td {
-  border-top: 0;
+	border-top : 0;
 }
 
 .akmarkdown-table.table-bordered thead:first-child tr:first-child > th:first-child,
 .akmarkdown-table.table-bordered tbody:first-child tr:first-child > td:first-child,
 .akmarkdown-table.table-bordered tbody:first-child tr:first-child > th:first-child {
-  -webkit-border-top-left-radius: 4px;
-          border-top-left-radius: 4px;
-  -moz-border-radius-topleft: 4px;
+	-webkit-border-top-left-radius : 4px;
+	border-top-left-radius         : 4px;
+	-moz-border-radius-topleft     : 4px;
 }
 
 .akmarkdown-table.table-bordered thead:first-child tr:first-child > th:last-child,
 .akmarkdown-table.table-bordered tbody:first-child tr:first-child > td:last-child,
 .akmarkdown-table.table-bordered tbody:first-child tr:first-child > th:last-child {
-  -webkit-border-top-right-radius: 4px;
-          border-top-right-radius: 4px;
-  -moz-border-radius-topright: 4px;
+	-webkit-border-top-right-radius : 4px;
+	border-top-right-radius         : 4px;
+	-moz-border-radius-topright     : 4px;
 }
 
 .akmarkdown-table.table-bordered thead:last-child tr:last-child > th:first-child,
@@ -126,9 +123,9 @@ table.center th{
 .akmarkdown-table.table-bordered tbody:last-child tr:last-child > th:first-child,
 .akmarkdown-table.table-bordered tfoot:last-child tr:last-child > td:first-child,
 .akmarkdown-table.table-bordered tfoot:last-child tr:last-child > th:first-child {
-  -webkit-border-bottom-left-radius: 4px;
-          border-bottom-left-radius: 4px;
-  -moz-border-radius-bottomleft: 4px;
+	-webkit-border-bottom-left-radius : 4px;
+	border-bottom-left-radius         : 4px;
+	-moz-border-radius-bottomleft     : 4px;
 }
 
 .akmarkdown-table.table-bordered thead:last-child tr:last-child > th:last-child,
@@ -136,48 +133,48 @@ table.center th{
 .akmarkdown-table.table-bordered tbody:last-child tr:last-child > th:last-child,
 .akmarkdown-table.table-bordered tfoot:last-child tr:last-child > td:last-child,
 .akmarkdown-table.table-bordered tfoot:last-child tr:last-child > th:last-child {
-  -webkit-border-bottom-right-radius: 4px;
-          border-bottom-right-radius: 4px;
-  -moz-border-radius-bottomright: 4px;
+	-webkit-border-bottom-right-radius : 4px;
+	border-bottom-right-radius         : 4px;
+	-moz-border-radius-bottomright     : 4px;
 }
 
 .akmarkdown-table.table-bordered tfoot + tbody:last-child tr:last-child td:first-child {
-  -webkit-border-bottom-left-radius: 0;
-          border-bottom-left-radius: 0;
-  -moz-border-radius-bottomleft: 0;
+	-webkit-border-bottom-left-radius : 0;
+	border-bottom-left-radius         : 0;
+	-moz-border-radius-bottomleft     : 0;
 }
 
 .akmarkdown-table.table-bordered tfoot + tbody:last-child tr:last-child td:last-child {
-  -webkit-border-bottom-right-radius: 0;
-          border-bottom-right-radius: 0;
-  -moz-border-radius-bottomright: 0;
+	-webkit-border-bottom-right-radius : 0;
+	border-bottom-right-radius         : 0;
+	-moz-border-radius-bottomright     : 0;
 }
 
 .akmarkdown-table.table-bordered caption + thead tr:first-child th:first-child,
 .akmarkdown-table.table-bordered caption + tbody tr:first-child td:first-child,
 .akmarkdown-table.table-bordered colgroup + thead tr:first-child th:first-child,
 .akmarkdown-table.table-bordered colgroup + tbody tr:first-child td:first-child {
-  -webkit-border-top-left-radius: 4px;
-          border-top-left-radius: 4px;
-  -moz-border-radius-topleft: 4px;
+	-webkit-border-top-left-radius : 4px;
+	border-top-left-radius         : 4px;
+	-moz-border-radius-topleft     : 4px;
 }
 
 .akmarkdown-table.table-bordered caption + thead tr:first-child th:last-child,
 .akmarkdown-table.table-bordered caption + tbody tr:first-child td:last-child,
 .akmarkdown-table.table-bordered colgroup + thead tr:first-child th:last-child,
 .akmarkdown-table.table-bordered colgroup + tbody tr:first-child td:last-child {
-  -webkit-border-top-right-radius: 4px;
-          border-top-right-radius: 4px;
-  -moz-border-radius-topright: 4px;
+	-webkit-border-top-right-radius : 4px;
+	border-top-right-radius         : 4px;
+	-moz-border-radius-topright     : 4px;
 }
 
 .akmarkdown-table.table-striped tbody > tr:nth-child(odd) > td,
 .akmarkdown-table.table-striped tbody > tr:nth-child(odd) > th {
-  background-color: #f9f9f9;
+	background-color : #f9f9f9;
 }
 
 .akmarkdown-table.table-hover tbody tr:hover > td,
 .akmarkdown-table.table-hover tbody tr:hover > th {
-  background-color: #f5f5f5;
+	background-color : #f5f5f5;
 }
 
