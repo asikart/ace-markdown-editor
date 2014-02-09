@@ -139,19 +139,19 @@ var AKMarkdownClass = new Class({
 (function($) {
 	function upload(options, context) {
 
-		$('#s3-file').on('change', function() {
+		$('#s3-file-' + options.id).on('change', function() {
 			start();
 		});
 
 		var key = '';
-		var bar = $('#s3-upload-bar');
-		var button = $('#editor-upload');
+		var bar = $('#s3-upload-bar-' + options.id);
+		var button = $('#editor-upload-' + options.id);
 		var file = {};
 
 		function start() {
 			bar.show();
 			button.hide();
-			file = document.getElementById('s3-file').files[0];
+			file = document.getElementById('s3-file-' + options.id).files[0];
 			var fd = new FormData();
 			var date = new Date();
 			var exts = options.ext.replace(/\s/g, '').split(',');

@@ -280,11 +280,11 @@ SC;
 
 		if($this->params->get('s3_enable'))
 		{
-			$editor .= sprintf('<div class="progress progress-info progress-striped active hide" id="s3-upload-bar">
+			$editor .= sprintf('<div class="progress progress-info progress-striped active hide" id="s3-upload-bar-'.$id.'">
 				    <div class="bar" style="width: 100%%;">%s</div>
 				</div>
-				<div id="editor-upload" class="btn btn-mini pull-right btn-inverse">
-				<input type="file" name="s3-file" id="s3-file" />%s (%s)</div>
+				<div id="editor-upload-'.$id.'" class="btn btn-mini pull-right btn-inverse btn-upload">
+				<input type="file" name="s3-file" id="s3-file-'.$id.'" />%s (%s)</div>
 				<div class="clearfix"></div>',
 				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'), JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'), str_replace(',', ', ', $this->params->get('s3_ext')));
 			$key = ltrim(rtrim($this->params->get('s3_subfolder'), '/'), '/')."/".date('Y-m');
@@ -302,7 +302,7 @@ SC;
 			$bucket = $this->params->get('s3_bucket');
 			$ext = $this->params->get('s3_ext');
 
-			$editor .= "<script>jQuery('#editor-upload').S3({bucket: '{$bucket}', ext: '{$ext}', key: '{$key}', id: '{$id}', policy: '{$policy}', signature: '{$signature}', apikey: '{$apikey}'})</script>";
+			$editor .= "<script>jQuery('#editor-upload-{$id}').S3({bucket: '{$bucket}', ext: '{$ext}', key: '{$key}', id: '{$id}', policy: '{$policy}', signature: '{$signature}', apikey: '{$apikey}'})</script>";
 		}
 
 		$editor	.= $buttons;
