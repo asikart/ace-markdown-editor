@@ -164,12 +164,14 @@ RT;
 			$doc    = JFactory::getDocument();
 			$params = $this->params;
 			$root   = JURI::root();
+			$conimg = (int)($params->get('EditorButton_ConvertImg', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
+			$conlink = (int)($params->get('EditorButton_ConvertLink', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
 			$js     = <<<JS
 function jInsertEditorText(text, editor)
 {
 	var text = jQuery('<root>'+text+'</root>') ;
-	var convertImg = {$params->get('EditorButton_ConvertImg', 1)} ;
-	var convertLink = {$params->get('EditorButton_ConvertLink', 1)} ;
+	var convertImg = {$conimg} ;
+	var convertLink = {$conimg} ;
 	var root = '{$root}' ;
 
 	if( convertImg ) {
