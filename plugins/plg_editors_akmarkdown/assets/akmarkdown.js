@@ -146,16 +146,18 @@ var AKMarkdownClass = new Class({
 		var key = '';
 		var bar = $('#s3-upload-bar');
 		var button = $('#editor-upload');
+		var file = {};
 
 		function start() {
 			bar.show();
 			button.hide();
-			var file = document.getElementById('s3-file').files[0];
+			file = document.getElementById('s3-file').files[0];
 			var fd = new FormData();
 			var date = new Date();
-			var ext = ['png', 'gif', 'jpg', 'jpeg'];
+			var exts = options.ext.replace(/\s/g, '').split(',');
+			var ext = file.name.split('.').slice(-1)[0].toLowerCase();
 
-			if($.inArray(file.name.split('.').slice(-1)[0].toLowerCase(), ext) < 0) {
+			if($.inArray(ext, exts) < 0) {
 				bar.hide();
 				button.show();
 				alert('Unallowed extension');
@@ -188,7 +190,14 @@ var AKMarkdownClass = new Class({
 			bar.hide();
 			button.show();
 
-			jInsertEditorText('\n<img src="https://' + options.bucket + '.s3.amazonaws.com/' + key + '" class="img-polaroid" />', options.id);
+			var name = file.name.split('.').slice(-2)[0];
+			var ext = file.name.split('.').slice(-1)[0].toLowerCase();
+
+			if($.inArray(ext, ['png', 'jpg', 'gif', 'jpeg']) >= 0) {
+				jInsertEditorText('\n<img alt="' + name + '" src="https://' + options.bucket + '.s3.amazonaws.com/' + key + '" class="img-polaroid" />', options.id);
+			} else {
+				jInsertEditorText('<a href="https://' + options.bucket + '.s3.amazonaws.com/' + key + '">' + name + '</a>', options.id);
+			}
 		}
 
 		function uploadFailed(evt) {

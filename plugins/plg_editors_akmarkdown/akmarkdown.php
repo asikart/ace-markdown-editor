@@ -284,9 +284,9 @@ SC;
 				    <div class="bar" style="width: 100%%;">%s</div>
 				</div>
 				<div id="editor-upload" class="btn btn-mini pull-right btn-inverse">
-				<input type="file" name="s3-file" id="s3-file" />%s</div>
+				<input type="file" name="s3-file" id="s3-file" />%s (%s)</div>
 				<div class="clearfix"></div>',
-				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'), JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'));
+				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'), JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'), str_replace(',', ', ', $this->params->get('s3_ext')));
 			$key = ltrim(rtrim($this->params->get('s3_subfolder'), '/'), '/')."/".date('Y-m');
 			$policy = '{"expiration":"2020-12-01T12:00:00.000Z","conditions":[';
 			$policy .= '{"bucket":"'.$this->params->get('s3_bucket').'"},';
@@ -300,8 +300,9 @@ SC;
 			$signature = base64_encode(hash_hmac('sha1', $policy, $this->params->get('s3_secret_key'), true));
 			$apikey = $this->params->get('s3_key');
 			$bucket = $this->params->get('s3_bucket');
+			$ext = $this->params->get('s3_ext');
 
-			$editor .= "<script>jQuery('#editor-upload').S3({bucket: '{$bucket}', key: '{$key}', id: '{$id}', policy: '{$policy}', signature: '{$signature}', apikey: '{$apikey}'})</script>";
+			$editor .= "<script>jQuery('#editor-upload').S3({bucket: '{$bucket}', ext: '{$ext}', key: '{$key}', id: '{$id}', policy: '{$policy}', signature: '{$signature}', apikey: '{$apikey}'})</script>";
 		}
 
 		$editor	.= $buttons;

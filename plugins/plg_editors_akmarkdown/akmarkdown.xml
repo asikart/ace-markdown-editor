@@ -157,6 +157,12 @@
                     label="PLG_EDITORS_AKMARKDOWN_S3SUBFOLDER"
                     default=""
                     />
+                <field
+                    name="s3_ext"
+                    type="text"
+                    label="PLG_EDITORS_AKMARKDOWN_S3EXT"
+                    default="png,gif,jpg,jpeg,zip,txt,rar"
+                    />
             </fieldset>
 		</fields>
 	</config>
