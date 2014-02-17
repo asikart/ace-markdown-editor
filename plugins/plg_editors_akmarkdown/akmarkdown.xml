@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0.7</version>
+	<version>1.0.6</version>
 	<description>PLG_EDITORS_AKMARKDOWN_XML_DESCRIPTION</description>
 
 
@@ -149,7 +149,7 @@
 					/>
 
 				<field
-					name="Upload_S3_SecretKey"
+					name="Upload_S3_Key"
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_S3KEY"
 					default=""
