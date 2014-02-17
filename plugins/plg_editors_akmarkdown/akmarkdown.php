@@ -164,12 +164,14 @@ RT;
 			$doc    = JFactory::getDocument();
 			$params = $this->params;
 			$root   = JURI::root();
+			$conimg = (int)($params->get('EditorButton_ConvertImg', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
+			$conlink = (int)($params->get('EditorButton_ConvertLink', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
 			$js     = <<<JS
 function jInsertEditorText(text, editor)
 {
 	var text = jQuery('<root>'+text+'</root>') ;
-	var convertImg = {$params->get('EditorButton_ConvertImg', 1)} ;
-	var convertLink = {$params->get('EditorButton_ConvertLink', 1)} ;
+	var convertImg = {$conimg} ;
+	var convertLink = {$conimg} ;
 	var root = '{$root}' ;
 
 	if( convertImg ) {
@@ -274,7 +276,36 @@ SC;
 
 		// Set Content
 		$buttons = $this->_displayButtons($id, $buttons, $asset, $author);
-		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\" style=\"clear:both;\">" . $content . "</div>" . $buttons;
+		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\" style=\"clear:both;\">".$content."</div>";
+
+		if($this->params->get('s3_enable'))
+		{
+			$editor .= sprintf('<div class="progress progress-info progress-striped active hide" id="s3-upload-bar-'.$id.'">
+				    <div class="bar" style="width: 100%%;">%s</div>
+				</div>
+				<div id="editor-upload-'.$id.'" class="btn btn-mini pull-right btn-inverse btn-upload">
+				<input type="file" name="s3-file" id="s3-file-'.$id.'" />%s (%s)</div>
+				<div class="clearfix"></div>',
+				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'), JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'), str_replace(',', ', ', $this->params->get('s3_ext')));
+			$key = ltrim(rtrim($this->params->get('s3_subfolder'), '/'), '/')."/".date('Y-m');
+			$policy = '{"expiration":"2020-12-01T12:00:00.000Z","conditions":[';
+			$policy .= '{"bucket":"'.$this->params->get('s3_bucket').'"},';
+			$policy .= '["starts-with","$key",""],';
+			$policy .= '{"acl":"public-read"},';
+			$policy .= '["starts-with","$Content-Type",""],';
+			$policy .= '["content-length-range",0,524288000]';
+			$policy .= ']}';
+
+			$policy = base64_encode($policy);
+			$signature = base64_encode(hash_hmac('sha1', $policy, $this->params->get('s3_secret_key'), true));
+			$apikey = $this->params->get('s3_key');
+			$bucket = $this->params->get('s3_bucket');
+			$ext = $this->params->get('s3_ext');
+
+			$editor .= "<script>jQuery('#editor-upload-{$id}').S3({bucket: '{$bucket}', ext: '{$ext}', key: '{$key}', id: '{$id}', policy: '{$policy}', signature: '{$signature}', apikey: '{$apikey}'})</script>";
+		}
+
+		$editor	.= $buttons;
 
 		return $editor;
 	}

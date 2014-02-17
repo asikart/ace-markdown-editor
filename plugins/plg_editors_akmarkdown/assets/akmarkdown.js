@@ -135,3 +135,101 @@ var AKMarkdownClass = new Class({
 		};
 	}
 });
+
+(function($) {
+	function upload(options, context) {
+
+		$('#s3-file-' + options.id).on('change', function() {
+			start();
+		});
+
+		var key = '';
+		var bar = $('#s3-upload-bar-' + options.id);
+		var button = $('#editor-upload-' + options.id);
+		var file = {};
+
+		function start() {
+			bar.show();
+			button.hide();
+			file = document.getElementById('s3-file-' + options.id).files[0];
+			var fd = new FormData();
+			var date = new Date();
+			var exts = options.ext.replace(/\s/g, '').split(',');
+			var ext = file.name.split('.').slice(-1)[0].toLowerCase();
+
+			if($.inArray(ext, exts) < 0) {
+				bar.hide();
+				button.show();
+				alert('Unallowed extension');
+				return;
+			}
+
+			key = options.key + '/' + Math.round(date.getTime() / 1000) + '_' + file.name
+
+			fd.append('key', key);
+			fd.append('AWSAccessKeyId', options.apikey);
+			fd.append('acl', 'public-read');
+			fd.append('policy', options.policy);
+			fd.append('signature', options.signature);
+			fd.append('Content-type', file.type);
+			fd.append('file', file);
+
+			var xhr = GetXmlHttpObject();
+
+			//xhr.upload.addEventListener("progress", uploadProgress, false);
+			xhr.addEventListener("load", uploadComplete, false);
+			xhr.addEventListener("error", uploadFailed, false);
+			xhr.addEventListener("abort", uploadCanceled, false);
+
+			xhr.open('POST', 'https://' + options.bucket + '.s3.amazonaws.com/', true); //MUST BE LAST LINE BEFORE YOU SEND
+
+			xhr.send(fd);
+		}
+
+		function uploadComplete(evt) {
+			bar.hide();
+			button.show();
+
+			var name = file.name.split('.').slice(-2)[0];
+			var ext = file.name.split('.').slice(-1)[0].toLowerCase();
+
+			if($.inArray(ext, ['png', 'jpg', 'gif', 'jpeg']) >= 0) {
+				jInsertEditorText('\n<img alt="' + name + '" src="https://' + options.bucket + '.s3.amazonaws.com/' + key + '" class="img-polaroid" />', options.id);
+			} else {
+				jInsertEditorText('<a href="https://' + options.bucket + '.s3.amazonaws.com/' + key + '">' + name + '</a>', options.id);
+			}
+		}
+
+		function uploadFailed(evt) {
+			bar.hide();
+			button.show();
+			alert("There was an error attempting to upload the file." + evt);
+		}
+
+		function uploadCanceled(evt) {
+			bar.hide();
+			button.show();
+			alert("The upload has been canceled by the user or the browser dropped the connection.");
+		}
+
+		function GetXmlHttpObject() {
+			var xmlHttp = null;
+			try {
+				xmlHttp = new XMLHttpRequest();
+			}
+			catch(e) {
+				try {
+					xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				catch(e) {
+					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+			}
+			return xmlHttp;
+		}
+	}
+
+	$.fn.S3 = function(params) {
+		return new upload(params, this);
+	}
+}(jQuery));
