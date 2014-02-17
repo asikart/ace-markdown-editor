@@ -107,7 +107,7 @@ CSS;
         $a   = 'index.php?option=com_plugins&view=plugins&filter_search=asikart%20markdown' ;
         echo JHtml::link($a, JHtml::image($img, 'LOGO')) ;
         echo '<br /><br />' ;
-        echo JText::_('PLG_SYSTEM_AKMARKDOWN_XML_DESCRIPTION') ;
+        echo JText::sprintf('PLG_SYSTEM_AKMARKDOWN_XML_DESCRIPTION', $a) ;
         echo '<br /><br />' ;
 		include_once $path.'/windwalker/admin/installscript.php' ;
 	}
