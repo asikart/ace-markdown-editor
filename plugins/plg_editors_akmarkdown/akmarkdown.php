@@ -328,7 +328,7 @@ SC;
 
 			$policy    = base64_encode($policy);
 			$signature = base64_encode(hash_hmac('sha1', $policy, $this->params->get('Upload_S3_SecretKey'), true));
-			$apikey    = $this->params->get('Upload_S3_SecretKey');
+			$apikey    = $this->params->get('Upload_S3_Key');
 			$bucket    = $this->params->get('Upload_S3_Bucket');
 			$ext       = $this->params->get('Upload_AllowExtension');
 
