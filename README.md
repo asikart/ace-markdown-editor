@@ -45,7 +45,7 @@ So after few days hard working, I integrate ACE with MarkItUp, I can easily edit
    
    Theses are 2 rules. First allow get picture to everyone and second upload picture only from your domain.  So you have to change *** to your domain. If you have few domains, simply create another `<CORSRule>` block.
 
-4. Edit Akmarkdown edito plugin parameters. Enable AWS and enter you AWS access information.
+4. Edit Akmarkdown editor plugin parameters. Enable AWS and enter you AWS access information.
    
    ![2014-02-07_21-24-39](https://f.cloud.github.com/assets/650741/2111051/46f9bd80-900c-11e3-9a2e-76edf90d3e18.png)
 
