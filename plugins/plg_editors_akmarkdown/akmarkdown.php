@@ -276,38 +276,66 @@ SC;
 
 		// Set Content
 		$buttons = $this->_displayButtons($id, $buttons, $asset, $author);
-		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\" style=\"clear:both;\">".$content."</div>";
+		$editor  = "<div id=\"{$id}-wrap\" class=\"akmarkdown-wrap {$id}\" style=\"clear:both;\">" . $content . "</div>";
 
-		if($this->params->get('s3_enable'))
+		// Upload system
+		$editor .= $this->prepareUploadButton($id);
+
+		// Other buttons
+		$editor	.= $buttons;
+
+		return $editor;
+	}
+
+	/**
+	 * prepareUploadButton
+	 *
+	 * @param int $id
+	 *
+	 * @return  string
+	 */
+	protected function prepareUploadButton($id)
+	{
+		$html = '';
+
+		// For S3 Uploader
+		if ($this->params->get('Upload_Handler') == 's3')
 		{
-			$editor .= sprintf('<div class="progress progress-info progress-striped active hide" id="s3-upload-bar-'.$id.'">
+			$uploadButton = '<div class="progress progress-info progress-striped active hide" id="s3-upload-bar-' . $id . '">
 				    <div class="bar" style="width: 100%%;">%s</div>
 				</div>
-				<div id="editor-upload-'.$id.'" class="btn btn-mini pull-right btn-inverse btn-upload">
-				<input type="file" name="s3-file" id="s3-file-'.$id.'" />%s (%s)</div>
-				<div class="clearfix"></div>',
-				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'), JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'), str_replace(',', ', ', $this->params->get('s3_ext')));
-			$key = ltrim(rtrim($this->params->get('s3_subfolder'), '/'), '/')."/".date('Y-m');
-			$policy = '{"expiration":"2020-12-01T12:00:00.000Z","conditions":[';
-			$policy .= '{"bucket":"'.$this->params->get('s3_bucket').'"},';
+				<div id="editor-upload-' . $id . '" class="%s">
+				<input type="file" name="s3-file" id="s3-file-' . $id . '" />%s (%s)</div>
+				<div class="clearfix"></div>';
+
+			$html .= sprintf(
+				$uploadButton,
+				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'),
+				$this->params->get('Upload_ButtonCss', 'btn pull-right btn-inverse btn-upload'),
+				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'),
+				str_replace(',', ', ', $this->params->get('Upload_AllowExtension', 'png,gif,jpg,jpeg,zip,txt,rar'))
+			);
+
+			$key = ltrim(rtrim($this->params->get('Upload_S3_Subfolder'), '/'), '/') . "/" . date('Y-m');
+
+			$policy  = '{"expiration":"2020-12-01T12:00:00.000Z","conditions":[';
+			$policy .= '{"bucket":"' . $this->params->get('Upload_S3_Bucket') . '"},';
 			$policy .= '["starts-with","$key",""],';
 			$policy .= '{"acl":"public-read"},';
 			$policy .= '["starts-with","$Content-Type",""],';
 			$policy .= '["content-length-range",0,524288000]';
 			$policy .= ']}';
 
-			$policy = base64_encode($policy);
-			$signature = base64_encode(hash_hmac('sha1', $policy, $this->params->get('s3_secret_key'), true));
-			$apikey = $this->params->get('s3_key');
-			$bucket = $this->params->get('s3_bucket');
-			$ext = $this->params->get('s3_ext');
+			$policy    = base64_encode($policy);
+			$signature = base64_encode(hash_hmac('sha1', $policy, $this->params->get('Upload_S3_SecretKey'), true));
+			$apikey    = $this->params->get('Upload_S3_SecretKey');
+			$bucket    = $this->params->get('Upload_S3_Bucket');
+			$ext       = $this->params->get('Upload_AllowExtension');
 
-			$editor .= "<script>jQuery('#editor-upload-{$id}').S3({bucket: '{$bucket}', ext: '{$ext}', key: '{$key}', id: '{$id}', policy: '{$policy}', signature: '{$signature}', apikey: '{$apikey}'})</script>";
+			$html .= "<script>jQuery('#editor-upload-{$id}').S3({bucket: '{$bucket}', ext: '{$ext}', key: '{$key}', id: '{$id}', policy: '{$policy}', signature: '{$signature}', apikey: '{$apikey}'})</script>";
 		}
 
-		$editor	.= $buttons;
-
-		return $editor;
+		return $html;
 	}
 
 	/**
