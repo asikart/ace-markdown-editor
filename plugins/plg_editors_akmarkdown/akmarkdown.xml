@@ -153,6 +153,7 @@
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_S3KEY"
 					default=""
+					size="50"
 					/>
 
 				<field
@@ -160,6 +161,7 @@
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_S3SERETKEY"
 					default=""
+					size="50"
 					/>
 				<field
 					name="Upload_S3_Bucket"
@@ -173,6 +175,7 @@
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_S3SUBFOLDER"
 					default=""
+					size="40"
 					/>
 
 				<field
@@ -180,13 +183,15 @@
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_ALLOW_EXTENSION"
 					default="png,gif,jpg,jpeg,zip,txt,rar"
+					size="50"
 					/>
 
 				<field
 					name="Upload_ButtonCss"
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_UPLOAD_BUTTON_CSS"
-					default="btn pull-right btn-inverse btn-upload"
+					default="btn pull-right fltrt btn-inverse btn-upload delicious light green-pastel"
+					size="50"
 					/>
 			</fieldset>
 		</fields>

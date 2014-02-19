@@ -296,6 +296,14 @@ SC;
 	 */
 	protected function prepareUploadButton($id)
 	{
+		if (JVERSION < 3)
+		{
+			// INCLUDE WINDWALKER FRAMEWORK
+			include_once dirname(__FILE__) . '/lib/init.php';
+			
+			AKHelper::_('include.addCSS', 'buttons/delicious-buttons/delicious-buttons.css', 'ww');
+		}
+		
 		$html = '';
 
 		// For S3 Uploader
@@ -311,7 +319,7 @@ SC;
 			$html .= sprintf(
 				$uploadButton,
 				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'),
-				$this->params->get('Upload_ButtonCss', 'btn pull-right btn-inverse btn-upload'),
+				$this->params->get('Upload_ButtonCss', 'btn pull-right fltrt btn-inverse btn-upload delicious light green-pastel'),
 				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'),
 				str_replace(',', ', ', $this->params->get('Upload_AllowExtension', 'png,gif,jpg,jpeg,zip,txt,rar'))
 			);
