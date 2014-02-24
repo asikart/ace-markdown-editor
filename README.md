@@ -1,4 +1,5 @@
-# Asikart Markdown Editor for Joomla! CMS
+# Asikart Markdown Editor for Joomla! CMS [![Analytics](https://ga-beacon.appspot.com/UA-XXXXX-X/your-repo/page-name)](https://github.com/igrigorik/ga-beacon)
+
 
 ![Asikart-Markdown-LOGO-300-white.png][1]
 
