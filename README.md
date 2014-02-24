@@ -126,6 +126,16 @@ class Foo
 
  [Download][5]
 
+## Donate Us
+
+![](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif)
+
+[$20](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=asika32764%40gmail%2ecom&lc=GB&item_name=Asikart%20Studios&amount=20%2e00&currency_code=USD&no_note=0&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest) / 
+[$30](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=asika32764%40gmail%2ecom&lc=GB&item_name=Asikart%20Studios&amount=30%2e00&currency_code=USD&no_note=0&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest) / 
+[$40](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=asika32764%40gmail%2ecom&lc=GB&item_name=Asikart%20Studios&amount=40%2e00&currency_code=USD&no_note=0&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest) / 
+[$50](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=asika32764%40gmail%2ecom&lc=GB&item_name=Asikart%20Studios&amount=50%2e00&currency_code=USD&no_note=0&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest) / 
+[Enter my amount](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=asika32764%40gmail%2ecom&lc=GB&item_name=Asikart%20Studios&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHostedGuest)
+
    [1]: http://ext.asikart.com/images/extensions/markdown/Asikart-Markdown-LOGO-300-white.png
    [2]: http://ext.asikart.com/images/global/extension/compat_25.png
    [3]: http://ext.asikart.com/images/global/extension/compat_30.png
