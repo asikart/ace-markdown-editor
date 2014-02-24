@@ -129,7 +129,7 @@ class Foo
 
 ## Donate Us
 
-[![Donate](https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif)](http://goo.gl/RklRQV)
+[![Donate](http://f.cl.ly/items/201r3g370r0r461l3x2b/btn_donate_LG.gif)](http://goo.gl/RklRQV)
 
 [$20](http://goo.gl/4FkQMG) / 
 [$30](http://goo.gl/0NYmUT) / 
