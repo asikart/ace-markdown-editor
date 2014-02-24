@@ -8,7 +8,6 @@
 This editor integrate "ACE syntax highlight editor" and "MarkItUp tags insert editor", easily edit plain text. In the front-end, using "PHP Markdown Extra" to render markdown syntax, which provide extended features from origin markdown.
 
 And the syntax highlighter plugin is "highlight.js", perfectly integrate with Markdown Extra.
-
  
 
 > Extension Info
@@ -18,6 +17,11 @@ And the syntax highlighter plugin is "highlight.js", perfectly integrate with Ma
 I have been looking for a Joomla! Markdown Editor with syntax highlighter, text indent and word wrap for a long time, but there are no one is that what I want.
 
 So after few days hard working, I integrate ACE with MarkItUp, I can easily edit plain-text document in Joomla!
+
+## [![Donate](http://f.cl.ly/items/201r3g370r0r461l3x2b/btn_donate_LG.gif)](http://ext.asikart.com/donate-us.html)
+
+Help us making our extensions more perfectly.
+
 
 ### Configure AWS S3 to enable uploads.
 
@@ -126,16 +130,6 @@ class Foo
 
 
  [Download][5]
-
-## Donate Us
-
-[![Donate](http://f.cl.ly/items/201r3g370r0r461l3x2b/btn_donate_LG.gif)](http://goo.gl/RklRQV)
-
-[$20](http://goo.gl/4FkQMG) / 
-[$30](http://goo.gl/0NYmUT) / 
-[$40](http://goo.gl/i11fiJ) / 
-[$50](http://goo.gl/pOZwLe) / 
-[Enter my amount](http://goo.gl/RklRQV)
 
    [1]: http://ext.asikart.com/images/extensions/markdown/Asikart-Markdown-LOGO-300-white.png
    [2]: http://ext.asikart.com/images/global/extension/compat_25.png
