@@ -48,22 +48,10 @@
 			<fieldset name="basic"
 				addfieldpath="plugins/editors/akmarkdown/fields">
 				<field
-					name="EditorButton_ConvertImg"
+					name="EditorButton_ConvertMarkdown"
 					type="radio"
-					label="PLG_EDITORS_AKMARKDOWN_CONVERT_IMG"
-					description="PLG_EDITORS_AKMARKDOWN_CONVERT_IMG_DESC"
-					default="1"
-					class="btn-group"
-					>
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-
-				<field
-					name="EditorButton_ConvertLink"
-					type="radio"
-					label="PLG_EDITORS_AKMARKDOWN_CONVERT_LINK"
-					description="PLG_EDITORS_AKMARKDOWN_CONVERT_LINK_DESC"
+					label="PLG_EDITORS_AKMARKDOWN_CONVERT_MD"
+					description="PLG_EDITORS_AKMARKDOWN_CONVERT_MD_DESC"
 					default="1"
 					class="btn-group"
 					>

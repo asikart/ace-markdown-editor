@@ -164,47 +164,23 @@ RT;
 			$doc    = JFactory::getDocument();
 			$params = $this->params;
 			$root   = JURI::root();
-			$conimg = (int)($params->get('EditorButton_ConvertImg', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
-			$conlink = (int)($params->get('EditorButton_ConvertLink', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
+			$convert = (int)($params->get('EditorButton_ConvertMarkdown', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
+ 			
+ 			if($convert)
+ 			{
+ 				JFactory::getDocument()->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/tomarkdown.js');
+ 			}
+
 			$js     = <<<JS
 function jInsertEditorText(text, editor)
 {
 	var text = jQuery('<root>'+text+'</root>') ;
-	var convertImg = {$conimg} ;
-	var convertLink = {$conimg} ;
 	var root = '{$root}' ;
 
-	if( convertImg ) {
-		var imgs = text.find('img');
-		imgs.each(function(i, e){
+	if( {$convert} ) {
+ 		text = toMarkdown(text);
+  	}
 
-			e = jQuery(e);
-			var m = '!['+e.attr('alt')+'](' + e.attr('src').replace(root, '') ;
-
-			if( e.attr('title') ){
-				m = m + ' "'+e.attr('title')+'"' ;
-			}
-
-			m = m + ')\\n\\n' ;
-
-			e.replaceWith(m) ;
-		});
-	}
-
-	if( convertLink ) {
-		var a = text.find('a');
-		a.each(function(i, e){
-
-			e = jQuery(e);
-			var m = '['+e.text()+']('+e.attr('href') ;
-
-			m = m + ')\\n\\n' ;
-
-			e.replaceWith(m) ;
-		});
-	}
-
-	text.find('p').contents().unwrap();
 	AKMarkdown.text = text;
 
 	AKMarkdown.ace[editor].insert(text.html()) ;
