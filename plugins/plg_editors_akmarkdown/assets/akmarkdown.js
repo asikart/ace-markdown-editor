@@ -164,7 +164,7 @@ var AKMarkdownClass = new Class({
 				return;
 			}
 
-			key = options.key + '/' + Math.round(date.getTime() / 1000) + '_' + file.name
+			key = options.key + '/' + Math.round(date.getTime() / 1000) + '_' + file.name.replace(/\s/g, '-');
 
 			fd.append('key', key);
 			fd.append('AWSAccessKeyId', options.apikey);
