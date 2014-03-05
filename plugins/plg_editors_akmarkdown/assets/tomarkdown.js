@@ -30,11 +30,13 @@ var toMarkdown = function(string) {
 				return '\n\n' + hPrefix + ' ' + innerHTML + '\n';
 			}
 		},
+		/*
 		{
 			patterns: 'hr',
 			type: 'void',
 			replacement: '\n\n* * *\n'
 		},
+		*/
 		{
 			patterns: 'a',
 			replacement: function(str, attrs, innerHTML) {

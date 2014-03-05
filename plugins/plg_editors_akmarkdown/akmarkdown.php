@@ -192,14 +192,12 @@ RT;
  			
  			if($convert)
  			{
- 				JFactory::getDocument()->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/tomarkdown.js');
+ 				$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/tomarkdown.js');
  			}
 
 			$js     = <<<JS
 function jInsertEditorText(text, editor)
 {
-	var text = jQuery('<root>'+text+'</root>');
-	var root = '{$root}';
 	var convert = {$convert};
 
 	if(convert) {
@@ -208,7 +206,7 @@ function jInsertEditorText(text, editor)
 
 	AKMarkdown.text = text;
 
-	AKMarkdown.ace[editor].insert(text.html()) ;
+	AKMarkdown.ace[editor].insert(text);
 	AKMarkdown.ace[editor].focus();
 }
 JS;
