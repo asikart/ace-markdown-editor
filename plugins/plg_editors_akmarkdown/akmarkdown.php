@@ -27,6 +27,27 @@ class plgEditorAkmarkdown extends JPlugin
 	public static $self;
 
 	/**
+	 * Property hash.
+	 *
+	 * @var  string
+	 */
+	protected $hash = '';
+
+	/**
+	 * Property doc.
+	 *
+	 * @var  JDocumentHtml
+	 */
+	protected $doc = null;
+
+	/**
+	 * Property version.
+	 *
+	 * @var  string
+	 */
+	protected $version = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param   object $subject The object to observe
@@ -37,7 +58,9 @@ class plgEditorAkmarkdown extends JPlugin
 		parent::__construct($subject, $config);
 
 		$this->loadLanguage();
-		$this->app = JFactory::getApplication();
+		$this->app  = JFactory::getApplication();
+		$this->hash = JDEBUG ? md5(uniqid()) : $this->getVersion();
+		$this->doc  = JFactory::getDocument();
 
 		self::$self = $this;
 	}
@@ -73,20 +96,20 @@ class plgEditorAkmarkdown extends JPlugin
 		// ===============================================================
 		if (JVERSION < 3)
 		{
-			$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.js');
-			$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.noconflict.js');
+			$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.js');
+			$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.noconflict.js');
 		}
 
-		$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js');
-		$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/set.js');
-		$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/ace/ace.js');
-		$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/akmarkdown.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/set.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/ace/ace.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/akmarkdown.js');
 
 		// Include CSS
 		// ===============================================================
 		//$doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/images/style.css' ) ;
-		$doc->addStylesheet(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/skins/' . $params->get('MarkItUp_Theme', 'simple') . '/style.css');
-		$doc->addStylesheet(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/style.css');
+		$this->addStylesheet(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/skins/' . $params->get('MarkItUp_Theme', 'simple') . '/style.css');
+		$this->addStylesheet(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/style.css');
 
 		$return = <<<RT
 <script type="text/javascript">
@@ -164,50 +187,37 @@ RT;
 			$doc    = JFactory::getDocument();
 			$params = $this->params;
 			$root   = JURI::root();
-			$conimg = (int)($params->get('EditorButton_ConvertImg', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
-			$conlink = (int)($params->get('EditorButton_ConvertLink', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
-			$js     = <<<JS
+
+			$convert = (int)($params->get('EditorButton_ConvertMarkdown', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
+ 			
+ 			if($convert)
+ 			{
+ 				$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/tomarkdown.js');
+ 			}
+
+			$js = <<<JS
 function jInsertEditorText(text, editor)
 {
-	var text = jQuery('<root>'+text+'</root>') ;
-	var convertImg = {$conimg} ;
-	var convertLink = {$conimg} ;
-	var root = '{$root}' ;
+	var convert = {$convert};
+	var root    = '{$root}';
 
-	if( convertImg ) {
-		var imgs = text.find('img');
-		imgs.each(function(i, e){
+	// Remove local root
+	root = root.replace(/\//g, '\\/').replace(/\:/g, '\\:').replace(/\./g, '\\.');
+	text = text.replace(new RegExp('src=\"' + root, 'g'), 'src="');
+	text = text.replace(new RegExp('href=\"' + root, 'g'), 'href="');
 
-			e = jQuery(e);
-			var m = '!['+e.attr('alt')+'](' + e.attr('src').replace(root, '') ;
+	if(convert)
+	{
+		// Remove HR converting because it will replace Joomla! core readmore separator.
+		var elements = toMarkdown.ELEMENTS;
+		delete elements.hr;
 
-			if( e.attr('title') ){
-				m = m + ' "'+e.attr('title')+'"' ;
-			}
+ 		text = toMarkdown.convert(text, elements);
+  	}
 
-			m = m + ')\\n\\n' ;
-
-			e.replaceWith(m) ;
-		});
-	}
-
-	if( convertLink ) {
-		var a = text.find('a');
-		a.each(function(i, e){
-
-			e = jQuery(e);
-			var m = '['+e.text()+']('+e.attr('href') ;
-
-			m = m + ')\\n\\n' ;
-
-			e.replaceWith(m) ;
-		});
-	}
-
-	text.find('p').contents().unwrap();
 	AKMarkdown.text = text;
 
-	AKMarkdown.ace[editor].insert(text.html()) ;
+	AKMarkdown.ace[editor].insert(text);
 	AKMarkdown.ace[editor].focus();
 }
 JS;
@@ -296,6 +306,14 @@ SC;
 	 */
 	protected function prepareUploadButton($id)
 	{
+		if (JVERSION < 3)
+		{
+			// INCLUDE WINDWALKER FRAMEWORK
+			include_once dirname(__FILE__) . '/lib/init.php';
+			
+			AKHelper::_('include.addCSS', 'buttons/delicious-buttons/delicious-buttons.css', 'ww');
+		}
+		
 		$html = '';
 
 		// For S3 Uploader
@@ -311,7 +329,7 @@ SC;
 			$html .= sprintf(
 				$uploadButton,
 				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADPROCESS'),
-				$this->params->get('Upload_ButtonCss', 'btn pull-right btn-inverse btn-upload'),
+				$this->params->get('Upload_ButtonCss', 'btn pull-right fltrt btn-inverse btn-upload delicious light green-pastel'),
 				JText::_('PLG_EDITORS_AKMARKDOWN_UPLOADTEXT'),
 				str_replace(',', ', ', $this->params->get('Upload_AllowExtension', 'png,gif,jpg,jpeg,zip,txt,rar'))
 			);
@@ -413,6 +431,63 @@ SC;
 
 	// AKFramework Functions
 	// ====================================================================================
+
+	/**
+	 * getVersion
+	 *
+	 * @return  string
+	 */
+	protected function getVersion()
+	{
+		if ($this->version)
+		{
+			return $this->version;
+		}
+
+		$xml = __DIR__ . '/akmarkdown.xml';
+
+		$xml = simplexml_load_file($xml);
+
+		return (string) $this->version = $xml->version;
+	}
+
+	/**
+	 * addStylesheet
+	 *
+	 * @param string $url
+	 *
+	 * @return  plgEditorAkmarkdown
+	 */
+	protected function addStylesheet($url)
+	{
+		if (JDEBUG)
+		{
+			$url = $url . '?' . $this->hash;
+		}
+
+		$this->doc->addStyleSheet($url);
+
+		return $this;
+	}
+
+	/**
+	 * addStylesheet
+	 *
+	 * @param string $url
+	 *
+	 * @return  plgEditorAkmarkdown
+	 */
+	protected function addScript($url)
+	{
+		if (JDEBUG)
+		{
+			$url = $url . '?' . $this->hash;
+		}
+
+		$this->doc->addScript($url);
+
+		return $this;
+	}
 
 	/**
 	 * function call

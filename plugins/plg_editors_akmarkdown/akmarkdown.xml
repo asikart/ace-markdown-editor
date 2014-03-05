@@ -10,7 +10,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0.6</version>
+	<version>1.0.7</version>
 	<description>PLG_EDITORS_AKMARKDOWN_XML_DESCRIPTION</description>
 
 
@@ -48,22 +48,10 @@
 			<fieldset name="basic"
 				addfieldpath="plugins/editors/akmarkdown/fields">
 				<field
-					name="EditorButton_ConvertImg"
+					name="EditorButton_ConvertMarkdown"
 					type="radio"
-					label="PLG_EDITORS_AKMARKDOWN_CONVERT_IMG"
-					description="PLG_EDITORS_AKMARKDOWN_CONVERT_IMG_DESC"
-					default="1"
-					class="btn-group"
-					>
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-
-				<field
-					name="EditorButton_ConvertLink"
-					type="radio"
-					label="PLG_EDITORS_AKMARKDOWN_CONVERT_LINK"
-					description="PLG_EDITORS_AKMARKDOWN_CONVERT_LINK_DESC"
+					label="PLG_EDITORS_AKMARKDOWN_CONVERT_MD"
+					description="PLG_EDITORS_AKMARKDOWN_CONVERT_MD_DESC"
 					default="1"
 					class="btn-group"
 					>
@@ -153,6 +141,7 @@
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_S3KEY"
 					default=""
+					size="50"
 					/>
 
 				<field
@@ -160,6 +149,7 @@
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_S3SERETKEY"
 					default=""
+					size="50"
 					/>
 				<field
 					name="Upload_S3_Bucket"
@@ -173,6 +163,7 @@
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_S3SUBFOLDER"
 					default=""
+					size="40"
 					/>
 
 				<field
@@ -180,13 +171,15 @@
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_ALLOW_EXTENSION"
 					default="png,gif,jpg,jpeg,zip,txt,rar"
+					size="50"
 					/>
 
 				<field
 					name="Upload_ButtonCss"
 					type="text"
 					label="PLG_EDITORS_AKMARKDOWN_UPLOAD_BUTTON_CSS"
-					default="btn pull-right btn-inverse btn-upload"
+					default="btn pull-right fltrt btn-inverse btn-upload delicious light green-pastel"
+					size="50"
 					/>
 			</fieldset>
 		</fields>
