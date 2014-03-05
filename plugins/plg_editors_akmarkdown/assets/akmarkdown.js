@@ -164,7 +164,7 @@ var AKMarkdownClass = new Class({
 				return;
 			}
 
-			key = options.key + '/' + Math.round(date.getTime() / 1000) + '_' + file.name.replace(/\s/g, '-');
+			key = options.key + '/' + Math.round(date.getTime() / 1000) + '_' + file.name
 
 			fd.append('key', key);
 			fd.append('AWSAccessKeyId', options.apikey);
@@ -190,9 +190,8 @@ var AKMarkdownClass = new Class({
 			bar.hide();
 			button.show();
 
+			var name = file.name.split('.').slice(-2)[0];
 			var ext = file.name.split('.').slice(-1)[0].toLowerCase();
-			var exp = new RegExp("\." + ext + "$", "g");
-			var name = file.name.replace(exp, '');
 
 			if($.inArray(ext, ['png', 'jpg', 'gif', 'jpeg']) >= 0) {
 				jInsertEditorText('\n<img alt="' + name + '" src="https://' + options.bucket + '.s3.amazonaws.com/' + key + '" class="img-polaroid" />', options.id);
