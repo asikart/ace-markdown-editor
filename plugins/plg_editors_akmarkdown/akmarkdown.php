@@ -195,13 +195,18 @@ RT;
  				$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/tomarkdown.js');
  			}
 
-			$js     = <<<JS
+			$js = <<<JS
 function jInsertEditorText(text, editor)
 {
 	var convert = {$convert};
 
-	if(convert) {
- 		text = toMarkdown(text);
+	if(convert)
+	{
+		// Remove HR converting because it will replace Joomla! core readmore separator.
+		var elements = toMarkdown.ELEMENTS;
+		delete elements.hr;
+
+ 		text = toMarkdown.convert(text, elements);
   	}
 
 	AKMarkdown.text = text;
