@@ -96,8 +96,8 @@ class plgEditorAkmarkdown extends JPlugin
 		// ===============================================================
 		if (JVERSION < 3)
 		{
-			$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.js');
-			$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.noconflict.js');
+			$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.js');
+			$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.noconflict.js');
 		}
 
 		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js');
