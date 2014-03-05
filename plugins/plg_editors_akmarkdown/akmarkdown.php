@@ -199,6 +199,12 @@ RT;
 function jInsertEditorText(text, editor)
 {
 	var convert = {$convert};
+	var root    = '{$root}';
+
+	// Remove local root
+	root = root.replace(/\//g, '\\/').replace(/\:/g, '\\:').replace(/\./g, '\\.');
+	text = text.replace(new RegExp('src=\"' + root, 'g'), 'src="');
+	text = text.replace(new RegExp('href=\"' + root, 'g'), 'href="');
 
 	if(convert)
 	{
