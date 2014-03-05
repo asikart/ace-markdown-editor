@@ -100,16 +100,16 @@ class plgEditorAkmarkdown extends JPlugin
 			$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/jquery.noconflict.js');
 		}
 
-		$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js');
-		$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/set.js');
-		$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/ace/ace.js');
-		$doc->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/akmarkdown.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/jquery.markitup.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/set.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/ace/ace.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/akmarkdown.js');
 
 		// Include CSS
 		// ===============================================================
 		//$doc->addStylesheet( JURI::root(true).'/plugins/editors/akmarkdown/assets/images/style.css' ) ;
-		$doc->addStylesheet(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/skins/' . $params->get('MarkItUp_Theme', 'simple') . '/style.css');
-		$doc->addStylesheet(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/style.css');
+		$this->addStylesheet(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/skins/' . $params->get('MarkItUp_Theme', 'simple') . '/style.css');
+		$this->addStylesheet(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/style.css');
 
 		$return = <<<RT
 <script type="text/javascript">
