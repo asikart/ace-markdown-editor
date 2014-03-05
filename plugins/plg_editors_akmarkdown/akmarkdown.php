@@ -27,6 +27,27 @@ class plgEditorAkmarkdown extends JPlugin
 	public static $self;
 
 	/**
+	 * Property hash.
+	 *
+	 * @var  string
+	 */
+	protected $hash = '';
+
+	/**
+	 * Property doc.
+	 *
+	 * @var  JDocumentHtml
+	 */
+	protected $doc = null;
+
+	/**
+	 * Property version.
+	 *
+	 * @var  string
+	 */
+	protected $version = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param   object $subject The object to observe
@@ -37,7 +58,9 @@ class plgEditorAkmarkdown extends JPlugin
 		parent::__construct($subject, $config);
 
 		$this->loadLanguage();
-		$this->app = JFactory::getApplication();
+		$this->app  = JFactory::getApplication();
+		$this->hash = JDEBUG ? md5(uniqid()) : $this->getVersion();
+		$this->doc  = JFactory::getDocument();
 
 		self::$self = $this;
 	}
@@ -164,6 +187,7 @@ RT;
 			$doc    = JFactory::getDocument();
 			$params = $this->params;
 			$root   = JURI::root();
+
 			$convert = (int)($params->get('EditorButton_ConvertMarkdown', 1) && $params->get('MarkItUp_ButtonSet') == 'markdown');
  			
  			if($convert)
@@ -174,10 +198,11 @@ RT;
 			$js     = <<<JS
 function jInsertEditorText(text, editor)
 {
-	var text = jQuery('<root>'+text+'</root>') ;
-	var root = '{$root}' ;
+	var text = jQuery('<root>'+text+'</root>');
+	var root = '{$root}';
+	var convert = {$convert};
 
-	if( {$convert} ) {
+	if(convert) {
  		text = toMarkdown(text);
   	}
 
@@ -397,6 +422,63 @@ SC;
 
 	// AKFramework Functions
 	// ====================================================================================
+
+	/**
+	 * getVersion
+	 *
+	 * @return  string
+	 */
+	protected function getVersion()
+	{
+		if ($this->version)
+		{
+			return $this->version;
+		}
+
+		$xml = __DIR__ . '/akmarkdown.xml';
+
+		$xml = simplexml_load_file($xml);
+
+		return (string) $this->version = $xml->version;
+	}
+
+	/**
+	 * addStylesheet
+	 *
+	 * @param string $url
+	 *
+	 * @return  plgEditorAkmarkdown
+	 */
+	protected function addStylesheet($url)
+	{
+		if (JDEBUG)
+		{
+			$url = $url . '?' . $this->hash;
+		}
+
+		$this->doc->addStyleSheet($url);
+
+		return $this;
+	}
+
+	/**
+	 * addStylesheet
+	 *
+	 * @param string $url
+	 *
+	 * @return  plgEditorAkmarkdown
+	 */
+	protected function addScript($url)
+	{
+		if (JDEBUG)
+		{
+			$url = $url . '?' . $this->hash;
+		}
+
+		$this->doc->addScript($url);
+
+		return $this;
+	}
 
 	/**
 	 * function call
