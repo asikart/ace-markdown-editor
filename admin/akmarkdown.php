@@ -18,7 +18,7 @@ jimport('joomla.plugin.plugin');
  * @subpackage     System.akmarkdown
  * @since          3.0
  */
-class plgSystemAkmarkdown extends JPlugin
+class PlgSystemAkmarkdown extends JPlugin
 {
 	/**
 	 * Property self.
@@ -258,6 +258,8 @@ class plgSystemAkmarkdown extends JPlugin
 			{
 				$text = \Michelf\Markdown::defaultTransform($text);
 			}
+
+			$text = preg_replace('/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', '<a href="\1">\1</a>', $text);
 
 			if (JArrayHelper::getValue($option, 'highlight_enable', 1))
 			{

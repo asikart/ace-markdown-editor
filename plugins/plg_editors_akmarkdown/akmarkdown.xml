@@ -6,11 +6,11 @@
 	<name>plg_editors_akmarkdown</name>
 	<author>Asika</author>
 	<creationDate>2013-05-07</creationDate>
-	<copyright>Copyright (C) 2012 Asikart.com</copyright>
+	<copyright>Copyright (C) 2014 Asikart.com</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>asika@asikart.com</authorEmail>
 	<authorUrl>http://asikart.com</authorUrl>
-	<version>1.0.7</version>
+	<version>1.0.8</version>
 	<description>PLG_EDITORS_AKMARKDOWN_XML_DESCRIPTION</description>
 
 

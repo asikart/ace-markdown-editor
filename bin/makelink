@@ -1,0 +1,42 @@
+#!/bin/sh php
+<?php
+
+if (! isset($argv[1]))
+{
+    fwrite(STDOUT, 'Please give me joomla path.');
+
+    return;
+}
+
+$windows = defined('PHP_WINDOWS_VERSION_MAJOR');
+
+$jpath = $argv[1];
+$root  = realpath(__DIR__ . '/..');
+
+// Dirs config
+$dirs = array(
+	'plugins\\system\\akmarkdown'  => 'admin',
+	'plugins\\editors\\akmarkdown' => 'plugins/plg_editors_akmarkdown'
+);
+
+// Do bak and link
+foreach ($dirs as $dir => $target)
+{
+	$dir    = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $dir);
+	$target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $target);
+
+	if ($windows)
+	{
+		echo "Make link {$jpath}\\{$dir} to {$root}\\{$target}\n";
+
+		exec("powershell.exe mv {$jpath}\\{$dir} {$jpath}\\{$dir}.bak");
+		exec("mklink /D {$jpath}\\{$dir} {$root}\\{$target}");
+	}
+	else
+	{
+		echo "Make link {$jpath}/{$dir} to {$root}/{$target}\n";
+
+		exec("mv {$jpath}/{$dir} {$jpath}/{$dir}.bak");
+		exec("sudo ln -s {$jpath}/{$dir} {$root}/{$target}");
+	}
+}
