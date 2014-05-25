@@ -91,6 +91,7 @@ class plgEditorAkmarkdown extends JPlugin
 		$user   = JFactory::getUser();
 		$params = $this->params;
 		$root   = JURI::root();
+		JHtml::_('behavior.framework', true);
 
 		// Include JS
 		// ===============================================================
