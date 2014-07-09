@@ -9,7 +9,7 @@
 // Dirs config
 // -------------------------------------------------------------------------
 $dirs = array(
-    'plugins\\system\\akmarkdown'  => 'admin',
+    'plugins\\system\\akmarkdown'  => 'main',
     'plugins\\editors\\akmarkdown' => 'plugins/plg_editors_akmarkdown'
 );
 
