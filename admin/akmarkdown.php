@@ -37,10 +37,8 @@ class PlgSystemAkmarkdown extends JPlugin
 	 */
 	public function __construct(&$subject, $config)
 	{
-		// INCLUDE WINDWALKER FRAMEWORK
-		include_once dirname(__FILE__) . '/lib/init.php';
-
 		parent::__construct($subject, $config);
+
 		$this->loadLanguage();
 		$this->app = JFactory::getApplication();
 
@@ -73,8 +71,7 @@ class PlgSystemAkmarkdown extends JPlugin
 
 		if ($akmarkdown)
 		{
-			$post = $input->post;
-			$text = $_POST['data'];
+			$text = $input->post->getRaw('data');
 
 			$text = $this->render($text);
 
@@ -134,8 +131,6 @@ class PlgSystemAkmarkdown extends JPlugin
 	 */
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
-		$app = JFactory::getApplication();
-		
 		$article->text = '<div class="akmarkdown-content" >' . $this->render($article->text) . '</div>';
 
 		if ($path = $this->includeEvent(__FUNCTION__))
@@ -238,37 +233,30 @@ class PlgSystemAkmarkdown extends JPlugin
 	 */
 	public function render($text)
 	{
-		if (AKMARKDOWN_ENABLED)
+		include_once __DIR__ . "/lib/autoload.php";
+
+		$extra = $this->params->get('Markdown_Extra', 1);
+
+		$option['highlight']        = $this->params->get('Highlight_Theme', 'default');
+		$option['highlight_enable'] = $this->params->get('Highlight_Enabled', 1);
+
+		// Render markdown
+		$text = str_replace("\t", '    ', $text);
+
+		if ($extra)
 		{
-			include_once __DIR__ . "/lib/autoload.php";
-
-			$extra = $this->params->get('Markdown_Extra', 1);
-
-			$option['highlight']        = $this->params->get('Highlight_Theme', 'default');
-			$option['highlight_enable'] = $this->params->get('Highlight_Enabled', 1);
-
-			// Render markdown
-			$text = str_replace("\t", '    ', $text);
-
-			if ($extra)
-			{
-				$text = \Michelf\MarkdownExtra::defaultTransform($text);
-			}
-			else
-			{
-				$text = \Michelf\Markdown::defaultTransform($text);
-			}
-
-			$text = preg_replace('/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', '<a href="\1">\1</a>', $text);
-
-			if (JArrayHelper::getValue($option, 'highlight_enable', 1))
-			{
-				AKHelper::_('html.highlight', JArrayHelper::getValue($option, 'highlight', 'default'));
-			}
+			$text = \Michelf\MarkdownExtra::defaultTransform($text);
 		}
 		else
 		{
-			$text = nl2br($text);
+			$text = \Michelf\Markdown::defaultTransform($text);
+		}
+
+		$text = preg_replace('/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', '<a href="\1">\1</a>', $text);
+
+		if (JArrayHelper::getValue($option, 'highlight_enable', 1))
+		{
+			AKHelper::_('html.highlight', JArrayHelper::getValue($option, 'highlight', 'default'));
 		}
 
 		return $text;
