@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 
 /**
- * Script file of Akmarkdown Module
+ * Script file of Akmarkdown Plugin
  */
 class plgSystemAkmarkdownInstallerScript
 {
@@ -21,7 +21,12 @@ class plgSystemAkmarkdownInstallerScript
 	 */
 	function install($parent)
 	{
+		if (JVERSION < 3.2)
+		{
+			$parent->getParent()->abort('You need Joomla 3.2 of higher.');
 
+			return;
+		}
 	}
 
 	/**
@@ -41,6 +46,12 @@ class plgSystemAkmarkdownInstallerScript
 	 */
 	function update($parent)
 	{
+		if (JVERSION < 3.2)
+		{
+			$parent->getParent()->abort('You need Joomla 3.2 of higher.');
+
+			return;
+		}
 	}
 
 	/**
@@ -52,7 +63,7 @@ class plgSystemAkmarkdownInstallerScript
 	{
 		if (JVERSION < 3.2)
 		{
-			$parent->abort('You need Joomla 3.2 of higher.');
+			$parent->getParent()->abort('You need Joomla 3.2 of higher.');
 
 			return;
 		}
@@ -73,6 +84,13 @@ class plgSystemAkmarkdownInstallerScript
 	 */
 	function postflight($type, $parent)
 	{
+		if (JVERSION < 3.2)
+		{
+			$parent->getParent()->abort('You need Joomla 3.2 of higher.');
+
+			return;
+		}
+
 		$db = JFactory::getDbo();
 
 		// Load Lnguage
