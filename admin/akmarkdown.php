@@ -28,6 +28,20 @@ class PlgSystemAkmarkdown extends JPlugin
 	public static $self;
 
 	/**
+	 * Property hash.
+	 *
+	 * @var  string
+	 */
+	protected $hash = '';
+
+	/**
+	 * Property version.
+	 *
+	 * @var string
+	 */
+	protected $version = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param   object  &$subject  The object to observe
@@ -41,6 +55,7 @@ class PlgSystemAkmarkdown extends JPlugin
 
 		$this->loadLanguage();
 		$this->app = JFactory::getApplication();
+		$this->hash = JDEBUG ? md5(uniqid()) : $this->getVersion();
 
 		self::$self = $this;
 	}
@@ -132,11 +147,6 @@ class PlgSystemAkmarkdown extends JPlugin
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
 		$article->text = '<div class="akmarkdown-content" >' . $this->render($article->text) . '</div>';
-
-		if ($path = $this->includeEvent(__FUNCTION__))
-		{
-			@include $this->includeEvent(__FUNCTION__);
-		}
 	}
 
 	/**
@@ -213,8 +223,8 @@ class PlgSystemAkmarkdown extends JPlugin
 			$option = $this->getJSObject($option);
 
 			JHtml::_('behavior.framework', true);
-			$doc->addStylesheet(JURI::root(true) . '/plugins/system/akmarkdown/assets/css/content.css');
-			$doc->addScript(JURI::root(true) . '/plugins/system/akmarkdown/assets/js/content.js');
+			$doc->addStyleSheetVersion(JURI::root(true) . '/plugins/system/akmarkdown/assets/css/content.css', $this->hash);
+			$doc->addScriptVersion(JURI::root(true) . '/plugins/system/akmarkdown/assets/js/content.js', $this->hash);
 			$doc->addScriptDeclaration('var AKMarkdownOption = ' . $option . '; AKMarkdownPretiffy( AKMarkdownOption ); ');
 
 			$loaded = true;
@@ -256,10 +266,37 @@ class PlgSystemAkmarkdown extends JPlugin
 
 		if (JArrayHelper::getValue($option, 'highlight_enable', 1))
 		{
-			AKHelper::_('html.highlight', JArrayHelper::getValue($option, 'highlight', 'default'));
+			$this->loadHighlightJs(JArrayHelper::getValue($option, 'highlight', 'default'));
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Highlight Markdown <pre><code class="lang">.
+	 *
+	 * Use highlight.js: http://softwaremaniacs.org/soft/highlight/en/
+	 *
+	 * @param   string  $theme  Code style name.
+	 *
+	 * @return  void
+	 */
+	protected function loadHighlightJs($theme = 'default')
+	{
+		$css = 'assets/js/highlight/styles/' . $theme . '.css';
+
+		jimport('joomla.filesystem.file');
+
+		if (!JFile::exists(__DIR__ . '/' . $css))
+		{
+			$css = 'assets/js/highlight/styles/default.css';
+		}
+
+		$doc = JFactory::getDocument();
+		$doc->addStylesheetVersion(JUri::root(true) . '/plugins/system/akmarkdown/' . $css, $this->hash);
+		$doc->addScriptVersion(JUri::root(true) . '/plugins/system/akmarkdown/assets/js/highlight/highlight.pack.js', $this->hash);
+
+		$doc->addScriptDeclaration("\n    ;hljs.initHighlightingOnLoad();");
 	}
 
 	/**
@@ -317,85 +354,21 @@ class PlgSystemAkmarkdown extends JPlugin
 	// ====================================================================================
 
 	/**
-	 * call
+	 * getVersion
 	 *
-	 * @param   string $uri
-	 *
-	 * @return  mixed
+	 * @return  string
 	 */
-	public function call($uri)
+	protected function getVersion()
 	{
-		// Split paths
-		$path = explode('.', $uri);
-		$func = array_pop($path);
-		$func = explode('::', $func);
-
-		// set class name of function name.
-		if (isset($func[1]))
+		if ($this->version)
 		{
-			$class_name = $func[0];
-			$func_name  = $func[1];
-			$file_name  = $class_name;
-		}
-		else
-		{
-			$func_name = $func[0];
-			$file_name = $func_name;
+			return $this->version;
 		}
 
-		$func_path    = implode('/', $path) . '/' . $file_name;
-		$include_path = JPATH_ROOT . '/' . $this->params->get('include_path', 'easyset');
+		$xml = __DIR__ . '/akmarkdown.xml';
 
-		// include file.
-		if (!function_exists($func_name) && !class_exists($class_name)) :
-			$file = trim($include_path, '/') . '/' . $func_path . '.php';
+		$xml = simplexml_load_file($xml);
 
-			if (!file_exists($file))
-			{
-				$file = dirname(__FILE__) . '/lib/' . $func_path . '.php';
-			}
-
-			if (file_exists($file))
-			{
-				include_once($file);
-			}
-		endif;
-
-		// Handle args
-		$args = func_get_args();
-		array_shift($args);
-
-		// Call Function
-		if (isset($class_name) && method_exists($class_name, $func_name))
-		{
-			return call_user_func_array(array($class_name, $func_name), $args);
-		}
-		elseif (function_exists($func_name))
-		{
-			return call_user_func_array($func_name, $args);
-		}
-
-	}
-
-	public function includeEvent($func)
-	{
-		$include_path = JPATH_ROOT . '/' . $this->params->get('include_path', 'easyset');
-		$event        = trim($include_path, '/') . '/' . 'events/' . $func . '.php';
-		if (file_exists($event))
-		{
-			return $event;
-		}
-	}
-
-	public function resultBool($result = array())
-	{
-		foreach ($result as $result):
-			if (!$result)
-			{
-				return false;
-			}
-		endforeach;
-
-		return true;
+		return (string) $this->version = $xml->version;
 	}
 }
