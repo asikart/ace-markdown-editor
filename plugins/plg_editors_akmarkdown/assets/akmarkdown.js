@@ -129,7 +129,7 @@ var AKMarkdownClass = new Class({
 			Object.each(self.ace, function (e, id)
 			{
 				document.getElementById(id).value = e.getValue();
-			})
+			});
 
 			return submitbuttonTmp(task, form);
 		};

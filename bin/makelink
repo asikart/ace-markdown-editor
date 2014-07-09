@@ -1,25 +1,43 @@
 #!/bin/sh php
 <?php
+/**
+ * Asikart Joomla! Extensions extension link script.
+ * 
+ * @copyright (c) 2014 Asikart.com. All rights reserved.
+ */
 
+// Dirs config
+// -------------------------------------------------------------------------
+$dirs = array(
+    'plugins\\system\\akmarkdown'  => 'main',
+    'plugins\\editors\\akmarkdown' => 'plugins/plg_editors_akmarkdown'
+);
+
+// Main Logic
+// -------------------------------------------------------------------------
+
+// Check Arguments
 if (! isset($argv[1]))
 {
-    fwrite(STDOUT, 'Please give me joomla path.');
+    fwrite(STDOUT, "Please give me Joomla path.\n");
 
     return;
 }
 
-$windows = defined('PHP_WINDOWS_VERSION_MAJOR');
+// Check Joomla dir
+if (! is_dir($argv[1] . '/libraries/joomla'))
+{
+    fwrite(STDOUT, sprintf("% is not a Joomla dir.\n", $argv[1]));
 
+    return;
+}
+
+// Prepare some variables
+$windows = defined('PHP_WINDOWS_VERSION_MAJOR');
 $jpath = $argv[1];
 $root  = realpath(__DIR__ . '/..');
 
-// Dirs config
-$dirs = array(
-	'plugins\\system\\akmarkdown'  => 'admin',
-	'plugins\\editors\\akmarkdown' => 'plugins/plg_editors_akmarkdown'
-);
-
-// Do bak and link
+// Do bakup and create link
 foreach ($dirs as $dir => $target)
 {
 	$dir    = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $dir);
@@ -27,16 +45,27 @@ foreach ($dirs as $dir => $target)
 
 	if ($windows)
 	{
-		echo "Make link {$jpath}\\{$dir} to {$root}\\{$target}\n";
+		if (is_dir("{$jpath}\\{$dir}"))
+		{
+			exec("powershell.exe mv {$jpath}\\{$dir} {$jpath}\\{$dir}.bak");
+		}
 
-		exec("powershell.exe mv {$jpath}\\{$dir} {$jpath}\\{$dir}.bak");
 		exec("mklink /D {$jpath}\\{$dir} {$root}\\{$target}");
+
+		fwrite(STDOUT, "Make link {$jpath}\\{$dir} to {$root}\\{$target}\n");
 	}
 	else
 	{
-		echo "Make link {$jpath}/{$dir} to {$root}/{$target}\n";
+		if (is_dir("{$jpath}/{$dir}"))
+		{
+			exec("mv {$jpath}/{$dir} {$jpath}/{$dir}.bak");
+		}
 
-		exec("mv {$jpath}/{$dir} {$jpath}/{$dir}.bak");
-		exec("sudo ln -s {$jpath}/{$dir} {$root}/{$target}");
+		exec("sudo ln -s {$root}/{$target} {$jpath}/{$dir}");
+
+		fwrite(STDOUT, "Make link {$root}/{$target} to {$jpath}/{$dir}\n");
 	}
 }
+
+// Exit for success.
+return 0;

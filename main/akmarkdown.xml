@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3" type="plugin" group="system" method="upgrade">
+	<name>plg_system_akmarkdown</name>
+	<author>Asika</author>
+	<creationDate>2013-05-07</creationDate>
+	<copyright>Copyright (C) 2014 Asikart.com</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>asika@asikart.com</authorEmail>
+	<authorUrl>http://asikart.com</authorUrl>
+	<version>1.1.0</version>
+	<description></description>
+	
+	
+	<scriptfile>install.php</scriptfile>
+	
+	<!-- plugin system now has no sql file
+	<install>
+    	<sql>
+        	<file driver="mysql" charset="utf8">sql/install.sql</file>
+  		</sql>
+    </install>
+	
+	
+	<uninstall>
+    	<sql>
+        	<file driver="mysql" charset="utf8">sql/uninstall.sql</file>
+  		</sql>
+    </uninstall>
+	-->
+	
+	
+	<files>
+		<filename plugin="akmarkdown">akmarkdown.php</filename>
+		<filename>index.html</filename>
+		<filename>install.php</filename>
+		<filename>composer.json</filename>
+		<filename>composer.lock</filename>
+        <folder>assets</folder>
+        <folder>fields</folder>
+        <folder>images</folder>
+		<folder>language</folder>
+		<folder>lib</folder>
+	</files>
+
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic" addfieldpath="plugins/system/akmarkdown/fields">
+                <field name="Markdown_Extra"
+                    type="radio"
+                    label="PLG_SYSTEM_AKMARKDOWN_MARKDOWN_EXTRA"
+                    description="PLG_SYSTEM_AKMARKDOWN_MARKDOWN_EXTRA_DESC"
+                    default="1"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                
+                <field
+                    type="spacer"
+                    hr="true"
+                />
+                
+                <field name="Article_Prettify"
+                    type="list"
+                    label="PLG_SYSTEM_AKMARKDOWN_ARTICLE_PRETTIFY"
+                    description="PLG_SYSTEM_AKMARKDOWN_ARTICLE_PRETTIFY_DESC"
+                    default="2"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option value="0">JDISABLED</option>
+                    <option value="1">PLG_SYSTEM_AKMARKDOWN_ARTICLE_PRETTIFY_ONLY_ARTICLE</option>
+                    <option value="2">PLG_SYSTEM_AKMARKDOWN_ARTICLE_PRETTIFY_ARTICLE_N_BLOG</option>
+                    <option value="3">PLG_SYSTEM_AKMARKDOWN_ARTICLE_PRETTIFY_ALL</option>
+                    
+                </field>
+                
+                <field name="Article_ForceNewWindow"
+                    type="radio"
+                    label="PLG_SYSTEM_AKMARKDOWN_FORCE_NEW_WINDOW"
+                    description="PLG_SYSTEM_AKMARKDOWN_FORCE_NEW_WINDOW_DESC"
+                    default="0"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                
+                <field name="Article_NavList"
+                    type="radio"
+                    label="PLG_SYSTEM_AKMARKDOWN_NAV_LIST"
+                    description="PLG_SYSTEM_AKMARKDOWN_NAV_LIST_DESC"
+                    default="0"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                
+                <field name="Article_ForceImageAlign"
+                    type="radio"
+                    label="PLG_SYSTEM_AKMARKDOWN_FORCE_IMAGE_ALIGN"
+                    description="PLG_SYSTEM_AKMARKDOWN_FORCE_IMAGE_ALIGN_DESC"
+                    default="center"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option>JDEFAULT</option>
+                    <option value="left">PLG_SYSTEM_AKMARKDOWN_FORCE_IMAGE_ALIGN_LEFT</option>
+                    <option value="center">PLG_SYSTEM_AKMARKDOWN_FORCE_IMAGE_ALIGN_CENTER</option>
+                    <option value="right">PLG_SYSTEM_AKMARKDOWN_FORCE_IMAGE_ALIGN_RIGHT</option>
+                </field>
+                
+                <field name="Article_ForceImageMaxWidth"
+                    type="text"
+                    label="PLG_SYSTEM_AKMARKDOWN_FORCE_IMAGE_MAX_WIDTH"
+                    description="PLG_SYSTEM_AKMARKDOWN_FORCE_IMAGE_MAX_WIDTH_DESC"
+                    class="input-small"
+                    size="7"
+                    labelclass="control-label"
+                    filter="int"
+                />
+                
+                <field name="Article_ImageClass"
+                    type="text"
+                    label="PLG_SYSTEM_AKMARKDOWN_IMAGE_CLASS"
+                    description="PLG_SYSTEM_AKMARKDOWN_IMAGE_CLASS_DESC"
+                    class="input-xxlarge"
+                    size="45"
+                    labelclass="control-label"
+                    default="akmarkdown-img img-polaroid"
+                />
+                
+                <field name="Article_NavList_Class"
+                    type="text"
+                    label="PLG_SYSTEM_AKMARKDOWN_NAV_LIST_CLASS"
+                    description="PLG_SYSTEM_AKMARKDOWN_NAV_LIST_CLASS_DESC"
+                    class="input-xxlarge"
+                    size="45"
+                    labelclass="control-label"
+                    default="akmarkdown-nav-box well well-small"
+                />
+                
+                <field name="Article_TableClass"
+                    type="text"
+                    label="PLG_SYSTEM_AKMARKDOWN_TABLE_CLASS"
+                    description="PLG_SYSTEM_AKMARKDOWN_TABLE_CLASS_DESC"
+                    class="input-xxlarge"
+                    size="45"
+                    labelclass="control-label"
+                    default="akmarkdown-table table-bordered table-striped table-hover center"
+                />
+                
+                <field
+                    type="spacer"
+                    hr="true"
+                />
+                
+                <field name="Highlight_Enabled"
+                    type="radio"
+                    label="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_ENABLED"
+                    description="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_ENABLED_DESC"
+                    default="1"
+                    class="btn-group"
+                    labelclass="control-label"
+                >
+                    <option value="1">JENABLED</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+                    
+				<field
+                    name="Highlight_Theme"
+                    type="highlighttheme"
+                    label="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_THEME"
+					description="PLG_SYSTEM_AKMARKDOWN_HIGHLIGHT_THEME_DESC"
+                    default="default"
+				>
+                    <option value="default">JDEFAULT</option>
+                </field>
+                
+                <field
+                    type="gotoeditor"
+                />
+                
+                
+			</fieldset>
+
+		</fields>
+	</config>
+	
+    <plugins>
+        <plugin>plg_editors_akmarkdown</plugin>
+    </plugins>
+	
+    <updateservers>
+        <server type="extension" priority="1" name="Asikart Markdown Plugins">http://update.asikart.com/plugin/plg_akmarkdown.xml</server>
+    </updateservers>
+	
+</extension>

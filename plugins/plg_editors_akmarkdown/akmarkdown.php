@@ -91,6 +91,7 @@ class plgEditorAkmarkdown extends JPlugin
 		$user   = JFactory::getUser();
 		$params = $this->params;
 		$root   = JURI::root();
+		JHtml::_('behavior.framework', true);
 
 		// Include JS
 		// ===============================================================
@@ -306,14 +307,6 @@ SC;
 	 */
 	protected function prepareUploadButton($id)
 	{
-		if (JVERSION < 3)
-		{
-			// INCLUDE WINDWALKER FRAMEWORK
-			include_once dirname(__FILE__) . '/lib/init.php';
-			
-			AKHelper::_('include.addCSS', 'buttons/delicious-buttons/delicious-buttons.css', 'ww');
-		}
-		
 		$html = '';
 
 		// For S3 Uploader
@@ -416,11 +409,6 @@ SC;
 				}
 			}
 
-			if (JVERSION >= 3)
-			{
-				//$return .= "</div>\n";
-			}
-
 			$return .= "</div>\n";
 			$return .= "</div>\n";
 			$return .= "<div class=\"clearfix clr\"></div>\n";
@@ -460,12 +448,7 @@ SC;
 	 */
 	protected function addStylesheet($url)
 	{
-		if (JDEBUG)
-		{
-			$url = $url . '?' . $this->hash;
-		}
-
-		$this->doc->addStyleSheet($url);
+		$this->doc->addStyleSheetVersion($url, $this->hash);
 
 		return $this;
 	}
@@ -479,99 +462,8 @@ SC;
 	 */
 	protected function addScript($url)
 	{
-		if (JDEBUG)
-		{
-			$url = $url . '?' . $this->hash;
-		}
-
-		$this->doc->addScript($url);
+		$this->doc->addScriptVersion($url, $this->hash);
 
 		return $this;
-	}
-
-	/**
-	 * function call
-	 *
-	 * A proxy to call class and functions
-	 * Example: $this->call('folder1.folder2.function', $args) ; OR $this->call('folder1.folder2.Class::function', $args)
-	 *
-	 * @param  string $uri The class or function file path.
-	 *
-	 * @return mixed
-	 */
-	public function call($uri)
-	{
-		// Split paths
-		$path = explode('.', $uri);
-		$func = array_pop($path);
-		$func = explode('::', $func);
-
-		// set class name of function name.
-		if (isset($func[1]))
-		{
-			$class_name = $func[0];
-			$func_name  = $func[1];
-			$file_name  = $class_name;
-		}
-		else
-		{
-			$func_name = $func[0];
-			$file_name = $func_name;
-		}
-
-		$func_path    = implode('/', $path) . '/' . $file_name;
-		$include_path = JPATH_ROOT . '/' . $this->params->get('include_path', 'easyset');
-
-		// Include file.
-		if (!function_exists($func_name) && !class_exists($class_name)):
-			$file = trim($include_path, '/') . '/' . $func_path . '.php';
-
-			if (!file_exists($file))
-			{
-				$file = dirname(__FILE__) . '/lib/' . $func_path . '.php';
-			}
-
-			if (file_exists($file))
-			{
-				include_once($file);
-			}
-		endif;
-
-		// Handle args
-		$args = func_get_args();
-		array_shift($args);
-
-		// Call Function
-		if (isset($class_name) && method_exists($class_name, $func_name))
-		{
-			return call_user_func_array(array($class_name, $func_name), $args);
-		}
-		elseif (function_exists($func_name))
-		{
-			return call_user_func_array($func_name, $args);
-		}
-
-	}
-
-	public function includeEvent($func)
-	{
-		$include_path = JPATH_ROOT . '/' . $this->params->get('include_path', 'easyset');
-		$event        = trim($include_path, '/') . '/' . 'events/' . $func . '.php';
-		if (file_exists($event))
-		{
-			return $event;
-		}
-	}
-
-	public function resultBool($result = array())
-	{
-		foreach ($result as $result):
-			if (!$result)
-			{
-				return false;
-			}
-		endforeach;
-
-		return true;
 	}
 }

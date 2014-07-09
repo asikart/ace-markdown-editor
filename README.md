@@ -23,7 +23,7 @@ So after few days hard working, I integrate ACE with MarkItUp, I can easily edit
 Help us making our extensions more perfectly.
 
 
-### Configure AWS S3 to enable uploads.
+## Configure AWS S3 to enable uploads.
 
 1. Go to your AWS console and open S3 service. 
 
@@ -31,22 +31,22 @@ Help us making our extensions more perfectly.
 
 3. In permision part click Edit CORS Configuration and insert there something like this.
 
-   ```
-   <CORSConfiguration>
-       <CORSRule>
-           <AllowedOrigin>*</AllowedOrigin>
-           <AllowedMethod>GET</AllowedMethod>
-           <MaxAgeSeconds>3000</MaxAgeSeconds>
-       </CORSRule>
-       <CORSRule>
-           <AllowedOrigin>http://***.com</AllowedOrigin>
-           <AllowedMethod>POST</AllowedMethod>
-           <AllowedMethod>PUT</AllowedMethod>
-           <MaxAgeSeconds>3000</MaxAgeSeconds>
-           <AllowedHeader>*</AllowedHeader>
-       </CORSRule>
-   </CORSConfiguration>
-   ````
+``` xml
+<CORSConfiguration>
+   <CORSRule>
+       <AllowedOrigin>*</AllowedOrigin>
+       <AllowedMethod>GET</AllowedMethod>
+       <MaxAgeSeconds>3000</MaxAgeSeconds>
+   </CORSRule>
+   <CORSRule>
+       <AllowedOrigin>http://***.com</AllowedOrigin>
+       <AllowedMethod>POST</AllowedMethod>
+       <AllowedMethod>PUT</AllowedMethod>
+       <MaxAgeSeconds>3000</MaxAgeSeconds>
+       <AllowedHeader>*</AllowedHeader>
+   </CORSRule>
+</CORSConfiguration>
+````
    
    Theses are 2 rules. First allow get picture to everyone and second upload picture only from your domain.  So you have to change *** to your domain. If you have few domains, simply create another `<CORSRule>` block.
 
@@ -54,37 +54,8 @@ Help us making our extensions more perfectly.
    
    ![2014-02-07_21-24-39](https://f.cloud.github.com/assets/650741/2111051/46f9bd80-900c-11e3-9a2e-76edf90d3e18.png)
 
-### NEW FEATURES IN 1.0.4
 
-Support GitHub flavored markdown code block. Using ``` to wrap your code.
-
-<pre>
-``` php
-class Foo
-{
-    public function bar()
-    {
-        echo 'yoo';
-    }
-}
-```
-</pre>
-
-The result:
-
-``` php
-class Foo
-{
-    public function bar()
-    {
-        echo 'yoo';
-    }
-}
-```
-
- 
-
-### FEATURES
+## FEATURES
 
   * ACE & MarkItUp editor
   * Once upload and install 2 plugins.
@@ -96,7 +67,24 @@ class Foo
   * Automatic convert insert link & image code from Joomla! core editor-xtd buttons as markdown code.
   * You can just using Asikart Markdown as a HTML editor.
   * Because Markdown can't set style on images & links, we add the "ARTICLE PRETTIFY" functions to auto set image alignment, max width, add img & table classes and force link open new window.
+  * Support GitHub flavored Markdown
 
+## Contribution
+
+If you want to modify ACE X Markdown, you can follow these step to create project.
+
+1. Install Joomla and this editor
+
+2. Clone this repo to some folder, e.g: `/var/myrepo/ace-markdown-editor`
+
+3. Run this command:
+
+``` bash
+$ cd /var/myrepo/ace-markdown-editor
+$ ./bin/makelink /your/joomla/root/path
+```
+
+4. Now this script will auto create symbol link from your joomla to git project, just use your IDE open joomla dir and edit ACE X Markdown, all modify will sync to git project.
  
 
 ### REFERENCE
@@ -108,8 +96,6 @@ class Foo
 <li><a href="http://markitup.jaysalvat.com/home/" target="_blank">MarkItUp</a></li>
 <li><a href="http://ace.ajax.org/" target="_blank">ACE</a></li>
 </ul>
-
- 
 
 ## Note Worthy on JED
 
