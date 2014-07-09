@@ -42,6 +42,13 @@ class PlgSystemAkmarkdown extends JPlugin
 	protected $version = null;
 
 	/**
+	 * Property headBottom.
+	 *
+	 * @var string
+	 */
+	protected $headBottom = null;
+
+	/**
 	 * Constructor
 	 *
 	 * @param   object  &$subject  The object to observe
@@ -299,7 +306,8 @@ class PlgSystemAkmarkdown extends JPlugin
 		}
 
 		$doc = JFactory::getDocument();
-		$doc->addStylesheetVersion(JUri::root(true) . '/plugins/system/akmarkdown/' . $css, $this->hash);
+
+		$this->addStylesheetInHeadBottom(JUri::root(true) . '/plugins/system/akmarkdown/' . $css, $this->hash);
 		$doc->addScriptVersion(JUri::root(true) . '/plugins/system/akmarkdown/assets/js/highlight/highlight.pack.js', $this->hash);
 
 		$doc->addScriptDeclaration("\n    ;hljs.initHighlightingOnLoad();");
@@ -354,6 +362,42 @@ class PlgSystemAkmarkdown extends JPlugin
 		$object .= '}';
 
 		return $object;
+	}
+
+	/**
+	 * addStylesheetInHeadBottom
+	 *
+	 * @param string $url
+	 * @param string $hash
+	 *
+	 * @return  void
+	 */
+	protected function addStylesheetInHeadBottom($url, $hash)
+	{
+		$this->headBottom = $url . '?' . $hash;
+	}
+
+	/**
+	 * onAfterRender
+	 *
+	 * @return  void
+	 */
+	public function onAfterRender()
+	{
+		if (! $this->headBottom)
+		{
+			return;
+		}
+
+		$body = $this->app->getBody();
+
+		$body = explode('</head>', $body);
+
+		$body[0] .= '  <link rel="stylesheet" href="' . $this->headBottom . '" type="text/css" />' . "\n";
+
+		$body = implode('</head>', $body);
+
+		$this->app->setBody($body);
 	}
 
 	// AKFramework Functions
