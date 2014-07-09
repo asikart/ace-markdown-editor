@@ -11,9 +11,6 @@ defined('JPATH_PLATFORM') or die;
 
 JFormHelper::loadFieldClass('list');
 
-// INCLUDE WINDWALKER FRAMEWORK
-include_once dirname(__FILE__) . '/../lib/init.php';
-
 /**
  * Form Field class for the Joomla Platform.
  * Supports an HTML select list of categories
@@ -78,12 +75,7 @@ class JFormFieldAcetheme extends JFormFieldList
 	 */
 	public function getInput()
 	{
-		if (JVERSION < 3)
-		{
-			AKHelper::_('include.addCSS', 'buttons/delicious-buttons/delicious-buttons.css', 'ww');
-		}
-
-		$a = '  <a style="float: left; margin-left: 10px;" class="akmarkdown-help-button btn btn-small delicious light green-pastel" href="https://github.com/ajaxorg/ace/tree/master/lib/ace/theme" target="_blank">' . JText::_('JHELP') . '</a>';
+		$a = '  <a style="float: left; margin-left: 10px;" class="akmarkdown-help-button btn btn-small" href="https://github.com/ajaxorg/ace/tree/master/lib/ace/theme" target="_blank">' . JText::_('JHELP') . '</a>';
 
 		return '<div class="akmarkdown-help-wrap pull-left fltlft">' . parent::getInput() . '</div>' . $a;
 	}
