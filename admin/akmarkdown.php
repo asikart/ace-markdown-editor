@@ -262,7 +262,13 @@ class PlgSystemAkmarkdown extends JPlugin
 			$text = \Michelf\Markdown::defaultTransform($text);
 		}
 
-		$text = preg_replace('/((http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?)/', '<a href="\1">\1</a>', $text);
+		/*
+		 * Convert URL to link.
+		 *
+		 * Code from: http://stackoverflow.com/questions/12538358#answer-12590772
+		 */
+		$text = preg_replace('$(https?://[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', ' <a href="$1" target="_blank">$1</a> ', $text." ");
+		// $text = preg_replace('$(www\.[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', '<a target="_blank" href="http://$1"  target="_blank">$1</a> ', $text." ");
 
 		if (JArrayHelper::getValue($option, 'highlight_enable', 1))
 		{
