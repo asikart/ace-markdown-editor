@@ -126,13 +126,13 @@ CSS;
 		echo $css;
 
 		$img = JURI::root() . 'plugins/system/akmarkdown/images/akmarkdown-logo.png';
-		$a   = 'index.php?option=com_plugins&view=plugins&filter_search=asikart%20markdown';
+		$a   = 'index.php?option=com_plugins&view=plugins&filter_search=ace%20x%20markdown';
 		echo JHtml::link($a, JHtml::image($img, 'LOGO'));
 		echo '<br /><br />';
 		echo JText::sprintf('PLG_SYSTEM_AKMARKDOWN_XML_DESCRIPTION', $a);
 		echo '<br /><br />';
 
-		$installScript = dirname($path) . '/windwalker/src/System/installscript.php';
+		$installScript = __DIR__ . '/src/Installer/installscript.php';
 
 		if (!is_file($installScript))
 		{
