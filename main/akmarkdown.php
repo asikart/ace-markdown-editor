@@ -274,7 +274,7 @@ class PlgSystemAkmarkdown extends JPlugin
 		 *
 		 * Code from: http://stackoverflow.com/questions/12538358#answer-12590772
 		 */
-		$text = preg_replace('$(https?://[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', ' <a href="$1" target="_blank">$1</a> ', $text." ");
+		$text = preg_replace('$(https?://[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', ' <a href="$1">$1</a> ', $text." ");
 		// $text = preg_replace('$(www\.[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', '<a target="_blank" href="http://$1"  target="_blank">$1</a> ', $text." ");
 
 		if (JArrayHelper::getValue($option, 'highlight_enable', 1))
