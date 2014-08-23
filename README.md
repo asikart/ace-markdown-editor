@@ -1,5 +1,6 @@
 # Asikart Markdown Editor for Joomla! CMS (AMD) [![Analytics](https://ga-beacon.appspot.com/UA-48372917-1/ace-markdown-editor/readme)](https://github.com/igrigorik/ga-beacon)
 
+> If you are finding a jQuery ACE Markdown editor, please see [FongShen Editor](https://github.com/asika32764/fongshen-editor)
 
 ![Asikart-Markdown-LOGO-300-white.png][1]
 
