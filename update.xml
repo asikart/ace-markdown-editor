@@ -1,1 +1,17 @@
 
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+	<!-- Joomla!3.4 -->
+	<update>
+		<name>ACE X Markdown Editor</name>
+		<version>1.1.2</version>
+		<infourl title="ACE X Markdown Editor">http://ext.asikart.com</infourl>
+		<downloads>
+			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ace-markdown-editor/archive/master.zip</downloadurl>
+		</downloads>
+		<targetplatform name="joomla" version="3.4" />
+		<element>akmarkdown</element>
+		<folder>system</folder>
+		<type>plugin</type>
+	</update>
+</updates>
