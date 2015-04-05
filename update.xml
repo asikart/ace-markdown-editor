@@ -2,7 +2,7 @@
 <updates>
 	<!-- Joomla!3.4 -->
 	<update>
-		<name>ACE X Markdown Editor</name>
+		<name>Asikart Markdown Plugins</name>
 		<version>1.1.2</version>
 		<infourl title="ACE X Markdown Editor">http://ext.asikart.com</infourl>
 		<downloads>
@@ -16,7 +16,7 @@
 	
 	<!-- Joomla!3.3 -->
 	<update>
-		<name>ACE X Markdown Editor</name>
+		<name>Asikart Markdown Plugins</name>
 		<version>1.1.2</version>
 		<infourl title="ACE X Markdown Editor">http://ext.asikart.com</infourl>
 		<downloads>
