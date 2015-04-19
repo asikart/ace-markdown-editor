@@ -2,7 +2,13 @@
     "name": "asikart/ace-markdown-editor",
     "description": "Ace Markdown editor",
     "require": {
-        "michelf/php-markdown": "~1.4"
+        "michelf/php-markdown": "1.*@stable",
+        "tpyo/amazon-s3-php-class": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
     },
     "license": "GPL",
     "authors": [

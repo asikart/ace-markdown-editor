@@ -6,4 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'S3' => $vendorDir . '/tpyo/amazon-s3-php-class/S3.php',
+    'S3Exception' => $vendorDir . '/tpyo/amazon-s3-php-class/S3.php',
+    'S3Request' => $vendorDir . '/tpyo/amazon-s3-php-class/S3.php',
 );
