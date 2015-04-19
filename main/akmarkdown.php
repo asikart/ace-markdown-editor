@@ -111,7 +111,24 @@ class PlgSystemAkmarkdown extends JPlugin
 			// Replace some text
 			$text = str_replace('<a', '<a target="_blank"', $text);
 
+			echo <<<STYLE
+<style>
+img { max-width: 550px; }
+</style>
+STYLE;
+
 			echo $text;
+
+			jexit();
+		}
+
+		$upload = $input->get('akmarkdown_upload');
+
+		if ($upload)
+		{
+			include_once __DIR__ . '/lib/autoload.php';
+
+			Akmarkdown\Uploader\ImageUploader::upload($input);
 
 			jexit();
 		}

@@ -105,6 +105,8 @@ class plgEditorAkmarkdown extends JPlugin
 		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/markitup/sets/' . $params->get('MarkItUp_ButtonSet', 'markdown') . '/set.js');
 		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/ace/ace.js');
 		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/akmarkdown.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/inline-attachment/inline-attach.js');
+		$this->addScript(JURI::root(true) . '/plugins/editors/akmarkdown/assets/inline-attachment/ace.inline-attach.js');
 
 		// Include CSS
 		// ===============================================================
@@ -116,13 +118,13 @@ class plgEditorAkmarkdown extends JPlugin
 <script type="text/javascript">
 
 var AKMarkdownOption = {
-    aceTheme : '{$params->get('AceEditor_Theme', 'twilight')}' ,
-    root : '{$root}' ,
-    wrap : {$params->get('Editor_WordWrap', 1)} ,
-    wrapLimit : {$params->get('Editor_SoftWrapNum', 'null')}
+    aceTheme: '{$params->get('AceEditor_Theme', 'twilight')}',
+    root: '{$root}',
+    wrap: {$params->get('Editor_WordWrap', 1)},
+    wrapLimit: {$params->get('Editor_SoftWrapNum', 'null')}
 };
 
-var AKMarkdown  = new AKMarkdownClass(AKMarkdownOption) ;
+var AKMarkdown = new AKMarkdownClass(AKMarkdownOption);
 
 // on Joomla! Save
 window.addEvent('domready', function(){

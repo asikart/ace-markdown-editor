@@ -111,9 +111,55 @@ var AKMarkdownClass = new Class({
 		textInput.set('name', name);
 
 		// Init MarkItUp Editor
-		jQuery('#' + id + '-wrap').markItUp(this.MIUEditorSetting[id]);
+		var markItUpEditor = jQuery('#' + id + '-wrap').markItUp(this.MIUEditorSetting[id]);
+
+		// Uploader
+		this.inlineAttach(editor, markItUpEditor);
 
 		this.i++;
+	},
+
+	inlineAttach: function(editor, markItUpEditor)
+	{
+		var attachOptions = {
+			uploadUrl: 'index.php?akmarkdown_upload=1',
+			uploadFieldName: 'file',
+			downloadFieldName: 'file',
+			allowedTypes: [
+				'image/jpeg',
+				'image/png',
+				'image/jpg',
+				'image/gif'
+			],
+			progressText: '![Uploading file...]()',
+			urlText: "![file]({filename})",
+			errorText: "Error uploading file",
+			extraParams: {},
+			extraHeaders: {},
+
+			onReceivedFile: function(file) {},
+
+			onUploadedFile: function(response) {
+				setTimeout(function()
+				{
+					// markItUpEditor.refreshPreview();
+				}, 200);
+			},
+
+			customErrorHandler: function() { return true; },
+
+			customUploadHandler: function(file) { return true; },
+
+			customReponseParser: function(xhr) {
+				return false;
+			},
+
+			uploadMethod: 'POST',
+
+			dataProcessor: function(data) { return data; }
+		};
+
+		window.inlineAttach.attachToAce(editor, attachOptions);
 	},
 
 	/**
