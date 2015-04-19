@@ -40,6 +40,7 @@
         <folder>images</folder>
 		<folder>language</folder>
 		<folder>lib</folder>
+		<folder>src</folder>
 	</files>
 
 	<config>
