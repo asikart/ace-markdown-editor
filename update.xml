@@ -3,12 +3,13 @@
 	<!-- Joomla!3.4 -->
 	<update>
 		<name>Asikart Markdown Plugins</name>
-		<version>1.1.2</version>
+		<version>1.1.3</version>
 		<infourl title="ACE X Markdown Editor">http://ext.asikart.com</infourl>
 		<downloads>
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ace-markdown-editor/archive/master.zip</downloadurl>
 		</downloads>
 		<targetplatform name="joomla" version="3.4" />
+		<client>site</client>
 		<element>akmarkdown</element>
 		<folder>system</folder>
 		<type>plugin</type>
@@ -17,12 +18,13 @@
 	<!-- Joomla!3.3 -->
 	<update>
 		<name>Asikart Markdown Plugins</name>
-		<version>1.1.2</version>
+		<version>1.1.3</version>
 		<infourl title="ACE X Markdown Editor">http://ext.asikart.com</infourl>
 		<downloads>
 			<downloadurl type="upgrade" format="zip">https://github.com/asikart/ace-markdown-editor/archive/master.zip</downloadurl>
 		</downloads>
 		<targetplatform name="joomla" version="3.3" />
+		<client>site</client>
 		<element>akmarkdown</element>
 		<folder>system</folder>
 		<type>plugin</type>
