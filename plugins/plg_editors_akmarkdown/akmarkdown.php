@@ -398,16 +398,7 @@ SC;
 					$onclick = ($button->get('onclick')) ? 'onclick="' . $button->get('onclick') . '"' : null;
 					$title   = ($button->get('title')) ? $button->get('title') : $button->get('text');
 
-					if (JVERSION >= 3)
-					{
-						$return .= "<a " . $modal . " title=\"" . $title . "\" " . $href . " " . $onclick . " rel=\"" . $button->get('options') . "\"><i class=\"icon-" . $button->get('name') . "\"></i> " . $button->get('text') . "</a>\n";
-					}
-					else
-					{
-						$return .= '<div class="button2-left"><div class="' . $button->get('name')
-							. '"><a' . $modal . ' title="' . $title . '"' . $href . $onclick . ' rel="' . $button->get('options')
-							. '">' . $button->get('text') . "</a></div></div>\n";
-					}
+					$return .= "<a " . $modal . " title=\"" . $title . "\" " . $href . " " . $onclick . " rel=\"" . $button->get('options') . "\"><i class=\"icon-" . $button->get('name') . "\"></i> " . $button->get('text') . "</a>\n";
 				}
 			}
 

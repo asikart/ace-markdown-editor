@@ -83,7 +83,7 @@ var AKMarkdownClass = new Class({
 
 		this.MIUEditorSetting[id].nameSpace = id;
 
-		this.MIUEditorSetting[id].previewParserPath = this.options.root + 'index.php?akmarkdown=preview&sets=markdown';
+		this.MIUEditorSetting[id].previewParserPath = this.options.root + 'index.php?option=com_ajax&plugin=AkmarkdownPreview&group=system&format=raw&sets=markdown';
 
 		// Init ACE Editor
 		var editor    = this.ace[id] = ace.edit($$('#' + id + '-wrap')[0]);
@@ -119,10 +119,16 @@ var AKMarkdownClass = new Class({
 		this.i++;
 	},
 
+	/**
+	 * Add Drag & Drop uploading images.
+	 *
+	 * @param editor
+	 * @param markItUpEditor
+	 */
 	inlineAttach: function(editor, markItUpEditor)
 	{
 		var attachOptions = {
-			uploadUrl: 'index.php?akmarkdown_upload=1',
+			uploadUrl: 'index.php?option=com_ajax&plugin=AkmarkdownUpload&group=system&format=json',
 			uploadFieldName: 'file',
 			downloadFieldName: 'file',
 			allowedTypes: [
@@ -132,7 +138,7 @@ var AKMarkdownClass = new Class({
 				'image/gif'
 			],
 			progressText: '![Uploading file...]()',
-			urlText: "![file]({filename})",
+			urlText: "![image]({filename})",
 			errorText: "Error uploading file",
 			extraParams: {},
 			extraHeaders: {},

@@ -7,6 +7,8 @@
  */
 
 // No direct access
+use Akmarkdown\Web\Response;
+
 defined('_JEXEC') or die;
 
 jimport('joomla.plugin.plugin');
@@ -87,51 +89,75 @@ class PlgSystemAkmarkdown extends JPlugin
 	 */
 	public function onAfterInitialise()
 	{
+	}
+
+	/**
+	 * This event raised from com_ajax.
+	 *
+	 * @return  mixed|string
+	 *
+	 * @throws Exception
+	 */
+	public function onAjaxAkmarkdownPreview()
+	{
 		$input = JFactory::getApplication()->input;
 
-		$akmarkdown = $input->getVar('akmarkdown');
+		$text = $input->post->getRaw('data');
 
-		if ($akmarkdown)
-		{
-			$text = $input->post->getRaw('data');
+		$text = $this->render($text);
 
-			$text = $this->render($text);
+		// SEF
+		$base = JURI::base(true) . '/';
 
-			// SEF
-			$base = JURI::base(true) . '/';
+		$regex = '#href="index.php\?([^"]*)#m';
+		$text  = preg_replace_callback($regex, array('plgSystemAkmarkdown', 'route'), $text);
 
-			$regex = '#href="index.php\?([^"]*)#m';
-			$text  = preg_replace_callback($regex, array('plgSystemAkmarkdown', 'route'), $text);
+		// To check for all unknown protocals (a protocol must contain at least one alpahnumeric fillowed by :
+		$protocols = '[a-zA-Z0-9]+:';
+		$regex     = '#(src|href|poster)="(?!/|' . $protocols . '|\#|\')([^"]*)"#m';
+		$text      = preg_replace($regex, "$1=\"$base\$2\"", $text);
 
-			// To check for all unknown protocals (a protocol must contain at least one alpahnumeric fillowed by :
-			$protocols = '[a-zA-Z0-9]+:';
-			$regex     = '#(src|href|poster)="(?!/|' . $protocols . '|\#|\')([^"]*)"#m';
-			$text      = preg_replace($regex, "$1=\"$base\$2\"", $text);
+		// Replace some text
+		$text = str_replace('<a', '<a target="_blank"', $text);
 
-			// Replace some text
-			$text = str_replace('<a', '<a target="_blank"', $text);
-
-			echo <<<STYLE
+		$text .= <<<STYLE
 <style>
 img { max-width: 550px; }
 </style>
 STYLE;
 
-			echo $text;
+		return $text;
+	}
 
-			jexit();
-		}
+	/**
+	 * This event raised from com_ajax.
+	 *
+	 * @return  void
+	 *
+	 * @throws  Exception
+	 */
+	public function onAjaxAkmarkdownUpload()
+	{
+		include_once __DIR__ . '/lib/autoload.php';
 
-		$upload = $input->get('akmarkdown_upload');
+		$input = JFactory::getApplication()->input->files;
 
-		if ($upload)
+		try
 		{
-			include_once __DIR__ . '/lib/autoload.php';
-
-			Akmarkdown\Uploader\ImageUploader::upload($input);
-
-			jexit();
+			$result = Akmarkdown\Uploader\ImageUploader::upload($input);
 		}
+		catch (\Exception $e)
+		{
+			$result = array('error', $e->getMessage());
+		}
+
+		$response = new Response;
+		$response->setBody(json_encode($result));
+		$response->setMimeType('text/json');
+
+		$response->respond();
+
+		exit();
 	}
 
 	/**
