@@ -169,16 +169,23 @@
 
         /**
          * When a file has been received by a drop or paste event
-         * @param {Blob} file
+         * @param {Blob}    file
+         * @param {Element} e
+         * @param {Boolean} nl
          */
-        this.onReceivedFile = function(file, e) {
+        this.onReceivedFile = function(file, e, nl) {
             var result = settings.onReceivedFile.call(this, file);
             if (result !== false) {
                 lastValue = settings.progressText;
 
 	            // Hack by Asika
                 // editor.setValue(appendInItsOwnLine(editor.getValue(), lastValue));
-	            editor.insert(lastValue + "\n\n");
+                if (nl)
+                {
+                    lastValue += "\n\n";
+                }
+
+	            editor.insert(lastValue);
             }
         };
 
@@ -209,7 +216,6 @@
                 }
             }
 
-
             return result;
         };
 
@@ -225,7 +231,13 @@
                 var file = e.dataTransfer.files[i];
                 if (me.isAllowedFile(file)) {
                     result = true;
-                    this.onReceivedFile(file, e);
+
+                    this.onReceivedFile(
+                        file,
+                        e,
+                        ((i + 1) < e.dataTransfer.files.length) // Hack by Asika
+                    );
+
                     if (this.customUploadHandler(file)) {
                         this.uploadFile(file);
                     }

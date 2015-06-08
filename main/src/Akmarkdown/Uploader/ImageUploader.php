@@ -125,6 +125,6 @@ class ImageUploader
 
 		$ext = pathinfo($name, PATHINFO_EXTENSION);
 
-		return sprintf('%s/%s/%s/%s/%s/%s.%s', $subfolder, $user->username, $year, $month, $day, uniqid(), $ext);
+		return sprintf('%s/%s/%s/%s/%s/%s.%s', $subfolder, $user->username, $year, $month, $day, uniqid(\JFactory::getConfig()->get('secret')), $ext);
 	}
 }
