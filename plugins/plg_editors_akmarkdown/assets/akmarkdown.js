@@ -89,6 +89,8 @@ var AKMarkdownClass = new Class({
 		var editor    = this.ace[id] = ace.edit($$('#' + id + '-wrap')[0]);
 		var textInput = editor.textInput.getElement();
 
+		editor.setOption('fontSize', '13px');
+
 		editor.setTheme("ace/theme/" + this.options.aceTheme);
 
 		editor.getSession().setMode("ace/mode/markdown");

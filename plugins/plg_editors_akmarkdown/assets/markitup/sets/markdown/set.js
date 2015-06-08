@@ -25,7 +25,7 @@ var MIUEditorSettingBasic = {
         {name:'Bold', key:"B", openWith:'**', closeWith:'**'},
         {name:'Italic', key:"I", openWith:'_', closeWith:'_'},
         {separator:'---------------' },
-        {name:'Bulleted List', openWith:'* ' , multiline: true},
+        {name:'Bulleted List', openWith:'- ' , multiline: true},
         {name:'Numeric List', openWith: function(markItUp) {
             return markItUp.line+'. ';
         }, multiline: true},

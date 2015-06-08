@@ -8,6 +8,7 @@
 
 // No direct access
 use Akmarkdown\Web\Response;
+use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die;
 
@@ -49,6 +50,13 @@ class PlgSystemAkmarkdown extends JPlugin
 	 * @var string
 	 */
 	protected $headBottom = null;
+
+	/**
+	 * Property highlightJSLoaded.
+	 *
+	 * @var  bool
+	 */
+	protected $highlightJSLoaded = false;
 
 	/**
 	 * Constructor
@@ -102,6 +110,7 @@ class PlgSystemAkmarkdown extends JPlugin
 	{
 		$input = JFactory::getApplication()->input;
 
+		$text = $input->post->getRaw('data');
 		$text = $input->post->getRaw('data');
 
 		$text = $this->render($text);
@@ -317,12 +326,16 @@ STYLE;
 		 *
 		 * Code from: http://stackoverflow.com/questions/12538358#answer-12590772
 		 */
-		$text = preg_replace('$(https?://[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', ' <a href="$1">$1</a> ', $text." ");
+		// $text = preg_replace('$(https?://[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', ' <a href="$1">$1</a> ', $text." ");
 		// $text = preg_replace('$(www\.[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', '<a target="_blank" href="http://$1"  target="_blank">$1</a> ', $text." ");
 
-		if (JArrayHelper::getValue($option, 'highlight_enable', 1))
+		$text = \Akmarkdown\Text\Autolink::convert($text, 100);
+
+		if (ArrayHelper::getValue($option, 'highlight_enable', 1) && !$this->highlightJSLoaded)
 		{
-			$this->loadHighlightJs(JArrayHelper::getValue($option, 'highlight', 'default'));
+			$this->loadHighlightJs(ArrayHelper::getValue($option, 'highlight', 'default'));
+
+			$this->highlightJSLoaded = true;
 		}
 
 		return $text;
@@ -353,7 +366,7 @@ STYLE;
 		$this->addStylesheetInHeadBottom(JUri::root(true) . '/plugins/system/akmarkdown/' . $css, $this->hash);
 		$doc->addScriptVersion(JUri::root(true) . '/plugins/system/akmarkdown/assets/js/highlight/highlight.pack.js', $this->hash);
 
-		$doc->addScriptDeclaration("\n    ;hljs.initHighlightingOnLoad();");
+		$doc->addScriptDeclaration("    ;hljs.initHighlightingOnLoad();\n");
 	}
 
 	/**
