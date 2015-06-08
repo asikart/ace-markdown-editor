@@ -19,6 +19,7 @@ var AKMarkdownPretiffy = function (option)
 			return;
 		}
 
+		// Images
 		ps.each(function (p1)
 		{
 			p1.each(function (p)
@@ -102,7 +103,7 @@ var AKMarkdownPretiffy = function (option)
 						li[i] = new Element('li');
 
 						// Set Link
-						var a = new Element('a', {href: '#' + e.get('text').trim(), text: e.get('text')});
+						var a = new Element('a', {href: '#' + encodeURI(e.get('text').trim()), text: e.get('text')});
 						a.inject(li[i], 'bottom');
 
 						li[i].inject(ul, 'bottom');
@@ -119,7 +120,7 @@ var AKMarkdownPretiffy = function (option)
 						var subli = new Element('li');
 
 						// Set Link
-						var a = new Element('a', {href: '#' + e.get('text').trim(), text: e.get('text')});
+						var a = new Element('a', {href: '#' + encodeURI(e.get('text').trim()), text: e.get('text')});
 						a.inject(subli, 'bottom');
 
 						subli.inject(subul[i], 'bottom');
@@ -150,7 +151,7 @@ var AKMarkdownPretiffy = function (option)
 					div.inject(e, 'before');
 
 					// Set Heading anchor
-					var an = new Element('div', {'id': e.get('text').trim(), class: 'akmarkdown-page-anchor'});
+					var an = new Element('div', {'id': encodeURI(e.get('text').trim()), class: 'akmarkdown-page-anchor'});
 					an.inject(e, 'before');
 				});
 
@@ -188,4 +189,4 @@ var AKMarkdownPretiffy = function (option)
 		 dls.addClass('zebra') ;
 		 */
 	});
-}
+};
