@@ -3,6 +3,7 @@
     "description": "Ace Markdown editor",
     "require": {
         "michelf/php-markdown": "1.*@stable",
+        "asika/autolink": "1.*@stable",
         "tpyo/amazon-s3-php-class": "*"
     },
     "autoload": {

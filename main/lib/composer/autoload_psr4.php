@@ -6,5 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Windwalker\\Dom\\' => array($vendorDir . '/windwalker/dom'),
+    'Asika\\Autolink\\' => array($vendorDir . '/asika/autolink/src'),
     '' => array($baseDir . '/src'),
 );

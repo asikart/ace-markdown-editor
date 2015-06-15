@@ -1,0 +1,10 @@
+# System
+.*
+!.gitignore
+
+# Composer
+/vendor/*
+composer.lock
+
+# Test
+phpunit.xml

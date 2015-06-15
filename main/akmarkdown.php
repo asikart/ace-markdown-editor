@@ -321,15 +321,11 @@ STYLE;
 			$text = \Michelf\Markdown::defaultTransform($text);
 		}
 
-		/*
-		 * Convert URL to link.
-		 *
-		 * Code from: http://stackoverflow.com/questions/12538358#answer-12590772
-		 */
-		// $text = preg_replace('$(https?://[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', ' <a href="$1">$1</a> ', $text." ");
-		// $text = preg_replace('$(www\.[a-z0-9_./?=&#-]+)(?![^<>]*>)$i', '<a target="_blank" href="http://$1"  target="_blank">$1</a> ', $text." ");
+		// Pre-process adding whitespace before </p> to avoid wrong URL
+		$text = str_replace('</p', ' </p', $text);
 
-		$text = \Akmarkdown\Text\Autolink::convert($text, 100);
+		$autolink = new \Asika\Autolink\Autolink;
+		$text = $autolink->convert($text, array('target' => '_blank'));
 
 		if (ArrayHelper::getValue($option, 'highlight_enable', 1) && !$this->highlightJSLoaded)
 		{
