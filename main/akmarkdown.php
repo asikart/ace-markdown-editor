@@ -110,8 +110,7 @@ class PlgSystemAkmarkdown extends JPlugin
 	{
 		$input = JFactory::getApplication()->input;
 
-		$text = $input->post->getRaw('data');
-		$text = $input->post->getRaw('data');
+		$text = $input->post->get('data', '', 'raw');
 
 		$text = $this->render($text);
 
