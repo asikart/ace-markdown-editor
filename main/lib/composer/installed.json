@@ -17,7 +17,7 @@
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2015-03-01 12:03:08",
+        "time": "2015-03-01T12:03:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -70,7 +70,7 @@
         "require": {
             "php": ">=5.2.0"
         },
-        "time": "2015-04-27 06:12:39",
+        "time": "2015-04-27T06:12:39+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -112,7 +112,7 @@
         "require-dev": {
             "windwalker/test": "~2.0"
         },
-        "time": "2015-04-04 03:43:58",
+        "time": "2015-04-04T03:43:58+00:00",
         "type": "windwalker-package",
         "extra": {
             "branch-alias": {
@@ -139,26 +139,26 @@
     },
     {
         "name": "asika/autolink",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.0.4",
+        "version_normalized": "1.0.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/asika32764/php-autolink.git",
-            "reference": "afefb5293e132384b5e44ad517ed4923b9cc0ab5"
+            "reference": "6db94f6d64242eb0263b710b78c3dbe677da1b9e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/asika32764/php-autolink/zipball/afefb5293e132384b5e44ad517ed4923b9cc0ab5",
-            "reference": "afefb5293e132384b5e44ad517ed4923b9cc0ab5",
+            "url": "https://api.github.com/repos/asika32764/php-autolink/zipball/6db94f6d64242eb0263b710b78c3dbe677da1b9e",
+            "reference": "6db94f6d64242eb0263b710b78c3dbe677da1b9e",
             "shasum": ""
         },
         "require": {
-            "windwalker/dom": "~2.0@stable"
+            "windwalker/dom": "~2.0|~3.0"
         },
         "require-dev": {
-            "windwalker/test": "~2.0@stable"
+            "windwalker/test": "~2.0|~3.0"
         },
-        "time": "2015-06-13 16:26:11",
+        "time": "2017-10-10T13:47:17+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

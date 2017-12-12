@@ -5,10 +5,10 @@
     "homepage": "https://github.com/asika32764/php-autolink",
     "license": "GPL-3.0+",
     "require": {
-        "windwalker/dom": "~2.0@stable"
+        "windwalker/dom": "~2.0|~3.0"
     },
     "require-dev": {
-        "windwalker/test": "~2.0@stable"
+        "windwalker/test": "~2.0|~3.0"
     },
     "autoload": {
         "psr-4": {

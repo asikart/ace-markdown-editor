@@ -99,6 +99,21 @@ This is SSL URL:
 <a href="https://www.google.com.tw" class="center">https://www.google.com.tw</a>
 ```
 
+## Convert Email
+
+Email url has no scheme, we use anoter method to convert them, and it will add `mailto:` at begin of `href`.
+
+``` php
+$text = $aurolink->convertEmail($text);
+```
+
+Output
+
+``` html
+<a href="mailto:foo@example.com">foo@example.com</a>
+
+```
+
 ## Options
 
 ### `text_limit`
@@ -126,12 +141,12 @@ $auitolink->textLimit(function($url)
 });
 ```
 
-Or use `\Asika\Autolink\Linker::shorten()` Pretty handler:
+Or use `\Asika\Autolink\LinkHelper::shorten()` Pretty handler:
 
 ``` php
 $auitolink->textLimit(function($url)
 {
-    return \Asika\Autolink\Linker::shorten($url, 15, 6);
+    return \Asika\Autolink\LinkHelper::shorten($url, 15, 6);
 });
 ```
 
@@ -175,7 +190,7 @@ Output
 
 ## Scheme
 
-You can add new scheme to convert URL begin with it, foe example: `vnc://example.com`
+You can add new scheme to convert URL begin with it, for example: `vnc://example.com`
 
 ``` php
 $autolink->addScheme('skype')
@@ -193,10 +208,10 @@ $autolink->setLinkBuilder(function($url, $attribs)
 {
     $attribs['src'] = htmlspecialchars($url);
 
-    return (string) \Windwalker\Html\HtmlElement('img', null, $attribs);
+    return (string) new \Windwalker\Html\HtmlElement('img', null, $attribs);
 });
 ```
 
-See: [Windwalker Html Package](https://github.com/ventoviro/windwalker-html)
+See: [Windwalker Dom Package](https://github.com/ventoviro/windwalker-dom)
 
 
