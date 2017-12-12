@@ -2,70 +2,96 @@
 <?php
 /**
  * Asikart Joomla! Extensions extension link script.
- * 
+ *
  * @copyright (c) 2014 Asikart.com. All rights reserved.
  */
 
-// Dirs config
-// -------------------------------------------------------------------------
-$dirs = array(
-    'plugins\\system\\akmarkdown'  => 'main',
-    'plugins\\editors\\akmarkdown' => 'plugins/plg_editors_akmarkdown'
-);
+include_once __DIR__ . '/library/console.php';
 
-// Main Logic
-// -------------------------------------------------------------------------
-
-// Check Arguments
-if (! isset($argv[1]))
+/**
+ * The Makelink class.
+ *
+ * @since  1.0
+ */
+class Makelink extends \Asika\SimpleConsole\Console
 {
-    fwrite(STDOUT, "Please give me Joomla path.\n");
+    protected $help = <<<HELP
+[Usage] php makelink <joomla_dir>
 
-    return;
-}
+    h | help    Show help info.
+    f | force   Force replace exists dir.
+HELP;
 
-// Check Joomla dir
-if (! is_dir($argv[1] . '/libraries/joomla'))
-{
-    fwrite(STDOUT, sprintf("% is not a Joomla dir.\n", $argv[1]));
 
-    return;
-}
-
-// Prepare some variables
-$windows = defined('PHP_WINDOWS_VERSION_MAJOR');
-$jpath = $argv[1];
-$root  = realpath(__DIR__ . '/..');
-
-// Do bakup and create link
-foreach ($dirs as $dir => $target)
-{
-	$dir    = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $dir);
-	$target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $target);
-
-	if ($windows)
+    protected function doExecute()
 	{
-		if (is_dir("{$jpath}\\{$dir}"))
+		$joomlaDir = $this->getArgument(0);
+
+		// Check Arguments
+		if (!$joomlaDir)
 		{
-			exec("powershell.exe mv {$jpath}\\{$dir} {$jpath}\\{$dir}.bak");
+			throw new \Asika\SimpleConsole\CommandArgsException('Please give me Joomla path.');
 		}
 
-		exec("mklink /D {$jpath}\\{$dir} {$root}\\{$target}");
-
-		fwrite(STDOUT, "Make link {$jpath}\\{$dir} to {$root}\\{$target}\n");
-	}
-	else
-	{
-		if (is_dir("{$jpath}/{$dir}"))
+		// Check Joomla dir
+		if (!is_dir($joomlaDir . '/libraries/joomla'))
 		{
-			exec("mv {$jpath}/{$dir} {$jpath}/{$dir}.bak");
+			throw new \RuntimeException(sprintf('%s is not a Joomla dir.', $joomlaDir));
 		}
 
-		exec("sudo ln -s {$root}/{$target} {$jpath}/{$dir}");
+		// Prepare some variables
+		$windows = defined('PHP_WINDOWS_VERSION_MAJOR');
+		$root = dirname(__DIR__);
 
-		fwrite(STDOUT, "Make link {$root}/{$target} to {$jpath}/{$dir}\n");
+		$dirs = include __DIR__ . '/dirs.php';
+
+		// Do bakup and create link
+		foreach ($dirs as $dir => $target)
+		{
+			$dir    = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $dir);
+			$target = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $target);
+
+			if ($windows)
+			{
+				if (is_dir("{$joomlaDir}\\{$dir}"))
+				{
+					if ($this->getOption(array('f', 'force')))
+					{
+						$this->exec("rmdir {$joomlaDir}\\{$dir}");
+					}
+					else
+					{
+						$this->exec("powershell.exe mv {$joomlaDir}\\{$dir} {$joomlaDir}\\{$dir}.bak");
+					}
+				}
+
+				$this->exec("mklink /D {$joomlaDir}\\{$dir} {$root}\\{$target}");
+
+				$this->out("Make link {$joomlaDir}\\{$dir} to {$root}\\{$target}");
+			}
+			else
+			{
+				if (is_dir("{$joomlaDir}/{$dir}"))
+				{
+					if ($this->getOption(array('f', 'force')))
+					{
+						exec("rm -rf {$joomlaDir}/{$dir}");
+					}
+					else
+					{
+						exec("mv {$joomlaDir}/{$dir} {$joomlaDir}/{$dir}.bak");
+					}
+				}
+
+				$this->exec("ln -s {$root}/{$target} {$joomlaDir}/{$dir}");
+
+				$this->out("Make link {$root}/{$target} to {$joomlaDir}/{$dir}");
+			}
+		}
+
+		return true;
 	}
 }
 
-// Exit for success.
-return 0;
+$app = new Makelink;
+$app->execute();
